@@ -3,7 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
-Route::view('/', 'welcome');
+Route::view('/', 'welcome')->name('home');;
 Route::view('contacto', 'contact');
 Route::view('blog', 'blog');
 Route::view('nosotros', 'about');
