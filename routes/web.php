@@ -1,11 +1,14 @@
 <?php
 
 use App\Http\Controllers\Posts\PostController;
+use App\Http\Controllers\Posts\UserProfileController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
 //Route::view('/', 'welcome')->name('home');;
 Route::get('/', [PostController::class, 'index'])->name('home');
+Route::get('/{username}',[UserProfileController::class, 'profile'])->name('profile');
+
 
 
 Route::get('/dashboard', function () {

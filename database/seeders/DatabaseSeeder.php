@@ -22,10 +22,10 @@ class DatabaseSeeder extends Seeder
             'password' => bcrypt('12345678'),
         ]);
 
-        $users = User::factory(2)->create();
+        $users = User::factory(3)->create();
         $users->each(function ($user) {
             $user->posts()->saveMany(
-                Post::factory(4)->make()
+                Post::factory(1)->make()
             );
         });
     }
