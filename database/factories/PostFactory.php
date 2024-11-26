@@ -17,7 +17,7 @@ class PostFactory extends Factory
     public function definition(): array
     {
         return [
-            'body' => fake()->name(),
+            'body' => fake()->paragraph(),
             'image' => fake()->image(public_path('images'), 140, 140, null, false),
         ];
     }
