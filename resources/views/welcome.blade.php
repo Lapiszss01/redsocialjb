@@ -1,11 +1,9 @@
 <x-app-layout meta-title="Inicio" meta-description="Descripción de la página de Inicio">
     <div class="mx-auto mt-4 max-w-6xl">
-        <h1 class="my-4 text-center font-serif text-4xl font-extrabold text-sky-600 md:text-5xl">
-            Posts
-        </h1>
+
 
         <div
-            class="mx-auto mt-8 grid max-w-6xl gap-4 md:grid-cols-2 lg:grid-cols-3"
+            class="px-4 mt-8 grid max-w-6xl gap-4 md:grid-cols-2 lg:grid-cols-1 "
         >
             @foreach($posts as $post)
                 <article
