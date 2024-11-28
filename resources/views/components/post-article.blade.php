@@ -14,6 +14,7 @@
             </p>
         </h2>
         @if($post->image != 0)
-            <img src="{{ asset('images/' . $post->image) }}" alt="Imagen">@endif
+            <img src="{{ asset('images/' . $post->image) }}" alt="Imagen">
+        @endif
     </div>
 </article>

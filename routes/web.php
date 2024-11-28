@@ -5,10 +5,13 @@ use App\Http\Controllers\Posts\UserProfileController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
+require __DIR__.'/auth.php';
+
 //Route::view('/', 'welcome')->name('home');;
 Route::get('/', [PostController::class, 'index'])->name('home');
 Route::get('/{username}',[UserProfileController::class, 'profile'])->name('profile');
 
+Route::post('/post.store',[PostController::class, 'store'])->name('post.store');
 
 
 Route::get('/dashboard', function () {
@@ -21,4 +24,6 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-require __DIR__.'/auth.php';
+
+
+

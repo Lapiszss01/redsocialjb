@@ -9,10 +9,11 @@ use Illuminate\Http\Request;
 
 class UserProfileController extends Controller
 {
-    public function profile(User $user)
+    public function profile($username)
     {
-        $posts = Post::all();
-        return view('welcome', compact('posts'));
+        $user = User::where('username', $username)->firstOrFail();
+        //dd($user->name);
+        return view('user-profile', compact('user'));
     }
 
 }
