@@ -18,5 +18,10 @@
         @if($post->image != 0)
             <img src="{{ asset('images/' . $post->image) }}" alt="Imagen">
         @endif
+
+        <x-button-like-post :post="$post"/>
+
+
+
     </div>
 </article>

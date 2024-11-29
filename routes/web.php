@@ -10,6 +10,7 @@ require __DIR__.'/auth.php';
 //Route::view('/', 'welcome')->name('home');;
 Route::get('/', [PostController::class, 'index'])->name('home');
 Route::get('/{username}',[UserProfileController::class, 'profile'])->name('profile');
+Route::post('/{post}/like', [PostController::class, 'like'])->name('post.like');
 
 Route::post('/post.store',[PostController::class, 'store'])->name('post.store');
 

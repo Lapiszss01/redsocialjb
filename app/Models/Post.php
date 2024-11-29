@@ -11,6 +11,19 @@ class Post extends Model
     use HasFactory;
     protected $fillable = [ 'user_id', 'body', 'image'];
 
+    public function like($user = null)
+    {
+        //dd($user);
+        $this->likes()->updateOrCreate(
+            [
+                'user_id' => $user ? $user->id : auth()->user()->id,
+            ],
+            [
+                'liked' => true,
+            ]
+        );
+    }
+
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);

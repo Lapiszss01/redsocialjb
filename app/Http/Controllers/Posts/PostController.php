@@ -23,4 +23,9 @@ class PostController extends Controller
 
     }
 
+    public function like(Post $post)
+    {
+        $post->like(auth()->user());
+    }
+
 }
