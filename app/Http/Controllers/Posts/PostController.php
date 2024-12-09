@@ -14,6 +14,12 @@ class PostController extends Controller
         return view('welcome', compact('posts'));
     }
 
+    public function show(Post $post)
+    {
+        dd("Hola");
+        return view('post-show', compact('post'));
+    }
+
     public function store(StorePostRequest $request)
     {
         $post = auth()->user()->posts()->make($request->validated());

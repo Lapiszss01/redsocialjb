@@ -1,5 +1,15 @@
+
 <article
     class="flex flex-col overflow-hidden rounded bg-white shadow dark:bg-slate-900"
+    onclick="function redirectToRoute(event, route) {
+        const target = event.target;
+
+        // Verifica si el click no fue en un enlace o botón
+        if (!target.closest('a') && !target.closest('button')) {
+            window.location.href = route;
+        }
+    }
+    redirectToRoute(event, '{{ route('post.show',$post)}}')"
 >
     <div class="flex-1 space-y-3 p-5">
 
@@ -19,7 +29,12 @@
             <img src="{{ asset('images/' . $post->image) }}" alt="Imagen">
         @endif
 
-        <x-button-like-post :post="$post"/>
+        <div  class="text-xl leading-tight text-slate-800 dark:text-slate-200 flex justify-between">
+            <button class="text-xl text-gray-500 flex">Responder</button>
+            <x-button-like-post :post="$post"/>
+        </div>
+
+
 
 
 
