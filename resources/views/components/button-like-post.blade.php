@@ -4,7 +4,7 @@
         @csrf
         <div class="flex items-center mr-2">
             <button type="submit" class="text-xs text-gray-500 flex items-center">
-                {{$post->likes ? : 0}}
+                {{$post->likes->where('liked', true)->count() ?: 0}}
             </button>
         </div>
     </form>

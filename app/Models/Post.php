@@ -13,15 +13,41 @@ class Post extends Model
 
     public function like($user = null)
     {
-        //dd($user);
-        $this->likes()->updateOrCreate(
-            [
-                'user_id' => $user ? $user->id : auth()->user()->id,
-            ],
-            [
-                'liked' => true,
-            ]
-        );
+        //$bool = $this->isLiked($user);
+        //dd($this->isLiked($user));
+
+        if(!$this->isLiked($user)){
+            $this->likes()->updateOrCreate(
+                [
+                    'user_id' => $user ? $user->id : auth()->user()->id,
+                ],
+                [
+                    'liked' => true,
+                ]
+            );
+        }else{
+            $this->likes()->updateOrCreate(
+                [
+                    'user_id' => $user ? $user->id : auth()->user()->id,
+                ],
+                [
+                    'liked' => false,
+                ]
+            );
+        }
+
+    }
+
+    public function isLiked($user = null)
+    {
+        //dd($user->likes->where('post_id', $this->id));
+
+
+        $liked = false;
+        if($user->likes ->where('post_id', $this->id)->where('liked', true)->count() > 0){
+            $liked = true;
+        }
+        return $liked;
     }
 
     public function user(): BelongsTo
