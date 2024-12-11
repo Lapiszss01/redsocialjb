@@ -10,7 +10,7 @@ class PostController extends Controller
 {
     public function index()
     {
-        $posts = Post::all();
+        $posts = Post::orderBy('created_at', 'desc')->get();
         return view('welcome', compact('posts'));
     }
 
@@ -23,6 +23,7 @@ class PostController extends Controller
     public function store(StorePostRequest $request)
     {
         $post = auth()->user()->posts()->make($request->validated());
+        $post->parent_id = 0;
         $post->save();
 
         return to_route('home');
