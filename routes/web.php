@@ -8,8 +8,13 @@ use Illuminate\Support\Facades\Route;
 require __DIR__.'/auth.php';
 
 Route::get('/', [PostController::class, 'index'])->name('home');
+
 Route::get('/{username}',[UserProfileController::class, 'profile'])->name('profile');
+
 Route::get('/{post}/show',[PostController::class, 'show'])->name('post.show');
+Route::post('/{post}/show.store',[PostController::class, 'storeResponse'])->name('post.show.store');
+
+
 Route::post('/{post}/like', [PostController::class, 'like'])->name('post.like');
 Route::post('/post.store',[PostController::class, 'store'])->name('post.store');
 

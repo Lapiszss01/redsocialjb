@@ -4,11 +4,11 @@
             class="px-4 mt-8 grid max-w-4xl gap-4 md:grid-cols-1 lg:grid-cols-1"
         >
             @auth
-            @include('components.form-create-post')
+                @include('posts-components.form-create-post')
             @endauth
 
             @foreach($posts as $post)
-                @include('components.post-article')
+                @include('posts-components.post-article')
             @endforeach
         </div>
     </div>

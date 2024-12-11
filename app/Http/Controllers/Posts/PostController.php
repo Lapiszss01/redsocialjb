@@ -26,8 +26,17 @@ class PostController extends Controller
         $post->parent_id = 0;
         $post->save();
 
-        return to_route('home');
+        return view('posts.show', compact('post'));
+    }
 
+    public function storeResponse(StorePostRequest $request,Post $post)
+    {
+        //dd($post->id);
+        $newPost = auth()->user()->posts()->make($request->validated());
+        $newPost->parent_id = $post->id;
+        $newPost->save();
+
+        return to_route('home');
     }
 
     public function like(Post $post)
