@@ -16,8 +16,8 @@ class PostController extends Controller
 
     public function show(Post $post)
     {
-        dd("Hola");
-        return view('post-show', compact('post'));
+        //dd("Hola");
+        return view('posts.show', compact('post'));
     }
 
     public function store(StorePostRequest $request)
