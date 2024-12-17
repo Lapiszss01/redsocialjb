@@ -10,14 +10,16 @@ class PostController extends Controller
 {
     public function index()
     {
-        $posts = Post::orderBy('created_at', 'desc')->get();
+        //$posts = Post::orderBy('created_at', 'desc')->get();
+        $posts = Post::where('parent_id', 0)->orderBy('created_at', 'desc')->get();
+
         return view('welcome', compact('posts'));
     }
 
     public function show(Post $post)
     {
-        //dd("Hola");
-        return view('posts.show', compact('post'));
+        $posts = Post::where('parent_id',$post->id)->orderBy('created_at', 'desc')->get();
+        return view('posts.show', compact('post','posts'));
     }
 
     public function store(StorePostRequest $request)
