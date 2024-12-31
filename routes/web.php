@@ -12,11 +12,8 @@ Route::get('/', [PostController::class, 'index'])->name('home');
 Route::get('/{username}',[UserProfileController::class, 'profile'])->name('profile');
 
 Route::get('/{post}/show',[PostController::class, 'show'])->name('post.show');
-Route::post('/{post}/show.store',[PostController::class, 'storeResponse'])->name('post.show.store');
 
 
-Route::post('/{post}/like', [PostController::class, 'like'])->name('post.like');
-Route::post('/post.store',[PostController::class, 'store'])->name('post.store');
 
 
 Route::get('/dashboard', function () {
@@ -27,6 +24,11 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+
+    Route::post('/{post}/show.store',[PostController::class, 'storeResponse'])->name('post.show.store');
+    Route::post('/{post}/like', [PostController::class, 'like'])->name('post.like');
+    Route::post('/post.store',[PostController::class, 'store'])->name('post.store');
+
 });
 
 

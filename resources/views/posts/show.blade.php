@@ -4,10 +4,10 @@
         @include('posts-components.form-create-response-post', ['post' => $post])
     </div>
 
-    <div class="mx-auto mt-4 max-w-6xl bg-gray-400">
-        @foreach($posts as $childPost)
-            @include('posts-components.post-article',['post' => $childPost])
-        @endforeach
+    <div class="mx-auto grid gap-4 mt-4 max-w-6xl">
+        @if ($post->children)
+            @include('posts-components.post-child-article', ['posts' => $post->children, 'level' => 0])
+        @endif
     </div>
 
 </x-app-layout>
