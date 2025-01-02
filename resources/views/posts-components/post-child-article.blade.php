@@ -30,14 +30,15 @@
             @endif
 
             <div  class="text-xl leading-tight text-slate-800 dark:text-slate-200 flex justify-between">
-                <button class="text-xl text-gray-500 flex">Responder</button>
+                <a class="text-xl text-gray-500 flex" href="{{ route('post.show', $post) }}">Responder</a>
                 <x-button-like-post :post="$post"/>
             </div>
 
 
 
         @if ($post->children->isNotEmpty())
-            @include('posts.partials.post', ['posts' => $post->children, 'level' => ($level ?? 0) + 1])
+            @include('posts-components.post-child-article', ['posts' => $post->children, 'level' => ($level ?? 0) + 1])
         @endif
     </div>
+    </article>
 @endforeach
