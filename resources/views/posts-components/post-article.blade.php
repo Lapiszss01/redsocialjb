@@ -24,13 +24,15 @@
 
             {{$post->created_at}}
             @auth
-                <form action="{{ route('post.destroy', $post) }}" method="POST" style="display: inline;">
-                    @csrf
-                    @method('DELETE')
-                    <button type="submit" class="hover:underline text-red-500">
-                        <i class="fas fa-trash"></i>
-                    </button>
-                </form>
+                @if(auth()->id() === $post->user->id)
+                    <form action="{{ route('post.destroy', $post) }}" method="POST" style="display: inline;">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="hover:underline text-red-500">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </form>
+                @endif
             @endauth
             </div>
         </h2>
