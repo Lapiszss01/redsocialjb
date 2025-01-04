@@ -22,6 +22,13 @@ class PostController extends Controller
         return view('posts.show', compact('post','posts'));
     }
 
+    public function destroy(Post $post)
+    {
+        //dd($post);
+        $post->delete();
+        return to_route('home');
+    }
+
     public function store(StorePostRequest $request)
     {
         $post = auth()->user()->posts()->make($request->validated());

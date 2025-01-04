@@ -1,4 +1,4 @@
-
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
 <article
     class="flex flex-col overflow-hidden rounded bg-white shadow dark:bg-slate-900"
     onclick="function redirectToRoute(event, route) {
@@ -14,12 +14,25 @@
     <div class="flex-1 space-y-3 p-5">
 
         <h2
-            class="text-xl leading-tight text-slate-800 dark:text-slate-200 flex justify-between"
+            class="text-xl leading-tight text-slate-800 dark:text-slate-200 flex justify-between items-center"
         >
             <a class="hover:underline" href="{{route("profile",$post->user->username)}}">
                 {{ $post->user->name }}
             </a>
+
+            <div class="flex gap-4 ml-auto">
+
             {{$post->created_at}}
+            @auth
+                <form action="{{ route('post.destroy', $post) }}" method="POST" style="display: inline;">
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit" class="hover:underline text-red-500">
+                        <i class="fas fa-trash"></i>
+                    </button>
+                </form>
+            @endauth
+            </div>
         </h2>
             <p>
                 {{ $post->body }}
@@ -30,7 +43,6 @@
         @endif
 
         <div  class="text-xl leading-tight text-slate-800 dark:text-slate-200 flex justify-between">
-
             <a class="text-xl text-gray-500 flex" href="{{ route('post.show', $post) }}">Responder</a>
             <x-button-like-post :post="$post"/>
         </div>
