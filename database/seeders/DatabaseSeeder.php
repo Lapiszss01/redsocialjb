@@ -22,11 +22,13 @@ class DatabaseSeeder extends Seeder
             'password' => bcrypt('12345678'),
         ]);
 
-        /*$users = User::factory(3)->create();
+        $users = User::factory(3)->create();
         $users->each(function ($user) {
-            $user->posts()->saveMany(
-                Post::factory(3)->make()
-            );
-        });*/
+            $posts = Post::factory(2)->create(['user_id' => $user->id]);
+            $posts->each(function ($post) {
+                Post::factory(2)->create(['parent_id' => $post->id, 'user_id' => $post->user_id]);
+            });
+        });
+
     }
 }
