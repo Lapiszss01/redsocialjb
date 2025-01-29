@@ -28,7 +28,7 @@
     }
     redirectToRoute(event, '{{ route('post.show',$post)}}')">
     <div class="bg-white flex flex-col justify-between p-6">
-        <div class="text-xl leading-tight text-slate-800 dark:text-slate-200 flex justify-between">
+        <div class="text-xl leading-tight text-slate-800 dark:text-slate-200 flex  justify-between">
         <p href="#" class="text-sm pb-3">
             By <a  href="{{route("profile",$post->user->username)}}" class="font-semibold hover:text-gray-800"> {{ $post->user->name }}</a>, Published on {{$post->created_at}}
         </p>
