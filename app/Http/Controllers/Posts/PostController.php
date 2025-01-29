@@ -11,7 +11,7 @@ class PostController extends Controller
     public function index()
     {
         //$posts = Post::orderBy('created_at', 'desc')->get();
-        $posts = Post::where('parent_id', 0)->orderBy('created_at', 'desc')->get();
+        $posts = Post::where('parent_id', null)->orderBy('created_at', 'desc')->get();
 
         return view('welcome', compact('posts'));
     }
@@ -32,7 +32,7 @@ class PostController extends Controller
     public function store(StorePostRequest $request)
     {
         $post = auth()->user()->posts()->make($request->validated());
-        $post->parent_id = 0;
+        $post->parent_id = null;
         $post->save();
 
         return view('posts.show', compact('post'));
