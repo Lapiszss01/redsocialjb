@@ -7,8 +7,6 @@
                 @include('posts-components.form-create-post')
             @endauth
 
-
-
             @foreach($posts as $post)
                 @include('posts-components.post-article')
             @endforeach
