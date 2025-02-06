@@ -1,8 +1,8 @@
+
 ## Posts
 - Poner cantidad numérica de posts hijos que tenga un post al lado 
 del botón Responder
 - Poder subir una o más fotos al post
-- Aviso de seguro que quieres borrar un post
 
 ## Profile
 - Cambiar por completo la vista profile para agregar más personalización

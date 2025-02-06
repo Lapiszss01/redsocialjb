@@ -16,7 +16,7 @@ return new class extends Migration
             $table->foreignId('parent_id')->nullable()->references('id')->on('posts')->onDelete('cascade');
             $table->foreignId('user_id');
             $table->string('body');
-            $table->text('image')->nullable();
+            $table->string('image_url')->nullable();
             $table->timestamps();
         });
     }
