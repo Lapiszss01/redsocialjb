@@ -17,6 +17,7 @@
         });
     }
 </script>
+
 <article class="flex flex-col shadow my-4"
          onclick="function redirectToRoute(event, route) {
         const target = event.target;

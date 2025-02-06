@@ -29,7 +29,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/{post}/like', [PostController::class, 'like'])->name('post.like');
     Route::post('/post.store',[PostController::class, 'store'])->name('post.store');
     Route::delete('/{post}/destroy', [PostController::class, 'destroy'])->name('post.destroy');
-
+    Route::post('/posts/upload', [PostController::class, 'upload'])->name('posts.upload');
 
 });
 
