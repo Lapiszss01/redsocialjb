@@ -8,16 +8,25 @@
             maxFilesize: 2, // 2MB
             acceptedFiles: "image/*",
             addRemoveLinks: true,
+            maxFiles: 1, // Solo permite una imagen
             dictDefaultMessage: "Arrastra o haz clic para subir una imagen",
             headers: {
                 "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').getAttribute("content"),
             },
-            success: function (file, response) {
-                document.getElementById("image_url").value = response.path; // Guarda la URL en un input hidden
-            },
-            removedfile: function (file) {
-                document.getElementById("image_url").value = ""; // Limpia el input si se borra la imagen
-                file.previewElement.remove();
+            init: function () {
+                this.on("addedfile", function (file) {
+                    if (this.files.length > 1) {
+                        this.removeFile(this.files[0]); // Elimina la imagen anterior antes de agregar la nueva
+                    }
+                });
+
+                this.on("success", function (file, response) {
+                    document.getElementById("image_url").value = response.path; // Guarda la URL en un input hidden
+                });
+
+                this.on("removedfile", function (file) {
+                    document.getElementById("image_url").value = ""; // Limpia el input si se borra la imagen
+                });
             }
         });
     });

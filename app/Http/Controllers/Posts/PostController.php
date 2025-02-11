@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Posts;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StorePostRequest;
 use App\Models\Post;
+use Illuminate\Http\Request;
 
 class PostController extends Controller
 {
@@ -32,10 +33,22 @@ class PostController extends Controller
     public function store(StorePostRequest $request)
     {
         $post = auth()->user()->posts()->make($request->validated());
+
         $post->parent_id = null;
         $post->save();
 
         return view('posts.show', compact('post'));
+    }
+
+    public function upload(Request $request)
+    {
+            if ($request->hasFile('file')) {
+                $file = $request->file('file');
+                $path = $file->store('uploads', 'public');
+
+                return response()->json(['path' => asset("storage/$path")]);
+            }
+            return response()->json(['error' => 'No file uploaded'], 400);
     }
 
     public function storeResponse(StorePostRequest $request,Post $post)

@@ -19,7 +19,7 @@ class PostFactory extends Factory
         return [
             'body' => fake()->paragraph(),
             'parent_id' => null,
-            //'image' => fake()->image(public_path('images'), 140, 140, null, false),
+            'image_url' => null,
         ];
     }
 }

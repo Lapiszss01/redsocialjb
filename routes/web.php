@@ -10,7 +10,6 @@ require __DIR__.'/auth.php';
 Route::get('/', [PostController::class, 'index'])->name('home');
 
 Route::get('/{username}',[UserProfileController::class, 'profile'])->name('profile');
-
 Route::get('/{post}/show',[PostController::class, 'show'])->name('post.show');
 
 
@@ -30,6 +29,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/post.store',[PostController::class, 'store'])->name('post.store');
     Route::delete('/{post}/destroy', [PostController::class, 'destroy'])->name('post.destroy');
     Route::post('/posts/upload', [PostController::class, 'upload'])->name('posts.upload');
+
 
 });
 
