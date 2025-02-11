@@ -23,20 +23,22 @@
     });
 </script>
 
-<form method="POST" action="{{ route('post.store') }}" id="postForm">
-    @csrf
-    <article class="flex flex-col overflow-hidden rounded bg-white shadow dark:bg-slate-900">
-        <!-- Dropzone -->
-        <div class="dropzone border-2 border-dashed p-4" id="dropzone">
-        </div>
+<div class="rounded-lg border-2 border-gray-300">
+    <article class="flex flex-col overflow-hidden rounded bg-white shadow">
+        <form method="POST" action="{{ route('post.store') }}" id="postForm" class="mb-0 py-0" >
+            @csrf
+            <!-- Campo de texto -->
+            <x-textarea-post-input id="body" name="body"></x-textarea-post-input>
 
-        <!-- Campo oculto para la imagen -->
-        <input type="hidden" name="image_url" id="image_url">
+            <!-- Dropzone -->
+            <div class="dropzone relative flex items-center justify-center overflow-hidden max-w-full max-h-60 border-0" id="dropzone">
+                <input type="hidden" name="image_url" id="image_url">
+            </div>
 
-        <!-- Campo de texto -->
-        <x-textarea-post-input id="body" name="body"></x-textarea-post-input>
-
-        <!-- Botón de Enviar -->
-        <button type="submit" class="p-2">Postear</button>
+            <!-- Botón de Enviar -->
+            <div>
+                <button type="submit" class="py-2 w-full border-gray-300 border-b-0 border-t-2 border-l-0 border-r-0">Postear</button>
+            </div>
+        </form>
     </article>
-</form>
+</div>
