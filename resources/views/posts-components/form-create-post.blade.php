@@ -9,7 +9,7 @@
             acceptedFiles: "image/*",
             addRemoveLinks: true,
             maxFiles: 1, // Solo permite una imagen
-            dictDefaultMessage: "Arrastra o haz clic para subir una imagen",
+            dictDefaultMessage: @json(__('Dropzone Message')),
             headers: {
                 "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').getAttribute("content"),
             },
@@ -46,7 +46,8 @@
 
             <!-- Botón de Enviar -->
             <div>
-                <button type="submit" class="py-2 w-full border-gray-300 border-b-0 border-t-2 border-l-0 border-r-0">Postear</button>
+                <button type="submit" class="py-2 w-full border-gray-300 border-b-0 border-t-2 border-l-0 border-r-0">
+                    {{__("Post")}}</button>
             </div>
         </form>
     </article>

@@ -31,7 +31,8 @@
     <div class="bg-white flex flex-col justify-between p-6">
         <div class="text-xl leading-tight text-slate-800 dark:text-slate-200 flex  justify-between">
         <p href="#" class="text-sm pb-3">
-            By <a  href="{{route("profile",$post->user->username)}}" class="font-semibold hover:text-gray-800"> {{ $post->user->name }}</a>, publicado el {{$post->created_at}}
+            <a  href="{{route("profile",$post->user->username)}}" class="font-semibold hover:text-gray-800"> {{ $post->user->name }}</a>,
+            {{__('Published at')}} {{$post->created_at}}
         </p>
             @auth
                 @if(auth()->id() === $post->user->id)
@@ -47,7 +48,7 @@
         </div>
         <a href="#" class="pb-6">{{{$post->body}}}</a>
         <div  class="text-xl leading-tight text-slate-800 dark:text-slate-200 flex justify-between mt-3">
-            <a href="{{ route('post.show', $post) }}" class="text-gray-800 hover:text-black">Responder <i class="fas fa-arrow-right"></i></a>
+            <a href="{{ route('post.show', $post) }}" class="text-gray-800 hover:text-black">{{__('Reply')}} <i class="fas fa-arrow-right"></i></a>
             <x-button-like-post :post="$post"/>
         </div>
 

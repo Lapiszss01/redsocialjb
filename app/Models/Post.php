@@ -72,7 +72,7 @@ class Post extends Model
 
     public function scopeRecent(Builder $query): Builder
     {
-        return $query->orderByDesc('created_at');
+        return $query->whereNull('parent_id')->orderByDesc('created_at');
     }
 
     public function scopeByUser(Builder $query, int $userId): Builder
