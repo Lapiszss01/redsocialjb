@@ -13,8 +13,8 @@ class PostController extends Controller
     public function index()
     {
         //$posts = Post::orderBy('created_at', 'desc')->get();
-        $posts = Post::where('parent_id', null)->orderBy('created_at', 'desc')->get();
-
+        //$posts = Post::where('parent_id', null)->orderBy('created_at', 'desc')->get();
+        $posts = Post::recent()->get();
         return view('welcome', compact('posts'));
     }
 

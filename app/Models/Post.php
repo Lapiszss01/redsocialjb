@@ -70,6 +70,11 @@ class Post extends Model
         return $this->hasMany(Post::class, 'parent_id');
     }
 
+    public function scopeRecent(Builder $query): Builder
+    {
+        return $query->orderByDesc('created_at');
+    }
+
     public function scopeByUser(Builder $query, int $userId): Builder
     {
         return $query->where('user_id', $userId);
