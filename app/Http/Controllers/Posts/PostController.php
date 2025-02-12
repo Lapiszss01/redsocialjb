@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Posts;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StorePostRequest;
+use App\Jobs\SendPostDeletedEmail;
 use App\Models\Post;
 use Illuminate\Http\Request;
 
@@ -25,8 +26,11 @@ class PostController extends Controller
 
     public function destroy(Post $post)
     {
-        //dd($post);
         $post->delete();
+
+        //Job para enviar email
+        SendPostDeletedEmail::dispatch($post->user(), $post->body)->onQueue('emails');
+
         return to_route('home');
     }
 
