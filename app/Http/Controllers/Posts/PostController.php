@@ -27,10 +27,11 @@ class PostController extends Controller
     public function destroy(Post $post)
     {
 
-        $post->delete();
 
+        $post->delete();
+        //dd($post->user->email);
         //Job para enviar email
-        SendPostDeletedEmail::dispatch($post->user(), $post->body)->onQueue('emails');
+        SendPostDeletedEmail::dispatch($post->user, $post->body)->onQueue('emails');
 
         return to_route('home');
     }

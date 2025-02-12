@@ -31,7 +31,7 @@ class PostDeleted extends Mailable
     public function build()
     {
         return $this->subject('Tu post ha sido eliminado')
-            ->view('emails.post_deleted')
+            ->view('emails.post-deleted')
             ->with([
                 'name' => $this->user->name,
                 'postBody' => $this->postBody,
@@ -41,7 +41,7 @@ class PostDeleted extends Mailable
     public function content(): Content
     {
         return new Content(
-            markdown: 'emails.deleted-post',
+            markdown: 'emails.post-deleted',
         );
     }
 

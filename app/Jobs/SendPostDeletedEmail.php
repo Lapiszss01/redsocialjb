@@ -21,7 +21,7 @@ class SendPostDeletedEmail implements ShouldQueue
     public function __construct(User $user, $postBody)
     {
         $this->user = $user;
-        $this->$postBody = $postBody;
+        $this->postBody = $postBody;
     }
 
     /**
@@ -29,6 +29,6 @@ class SendPostDeletedEmail implements ShouldQueue
      */
     public function handle(): void
     {
-        Mail::to($this->user->email)->send(new PostDeleted($this->user, $this->$postBody));
+        Mail::to($this->user->email)->send(new PostDeleted($this->user, $this->postBody));
     }
 }
