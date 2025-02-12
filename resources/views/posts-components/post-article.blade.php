@@ -38,8 +38,8 @@
                     <form id="delete-form-{{ $post->id }}" action="{{ route('post.destroy', $post) }}" method="POST" style="display: inline;">
                         @csrf
                         @method('DELETE')
-                        <button type="button" class="hover:underline text-red-500" onclick="confirmDelete(event, {{ $post->id }})">
-                            <i class="fas fa-trash"></i>
+                        <button type="button" class="hover:underline text-red-500" onclick="confirmDelete({{ $post->id }})">
+                        <i class="fas fa-trash"></i>
                         </button>
                     </form>
                 @endif
