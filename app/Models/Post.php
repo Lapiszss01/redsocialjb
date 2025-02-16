@@ -41,14 +41,11 @@ class Post extends Model
 
     public function isLiked($user = null)
     {
-        //dd($user->likes->where('post_id', $this->id));
-
-
-        $liked = false;
-        if($user->likes ->where('post_id', $this->id)->where('liked', true)->count() > 0){
-            $liked = true;
+        if (!$user) {
+            return false;
         }
-        return $liked;
+
+        return $user->likes->where('post_id', $this->id)->where('liked', true)->count() > 0;
     }
 
     public function user(): BelongsTo

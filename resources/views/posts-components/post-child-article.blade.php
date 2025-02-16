@@ -22,8 +22,8 @@
             @endif
 
             <div  class="text-xl leading-tight text-slate-800 dark:text-slate-200 flex justify-between">
-                <a class="text-xl text-gray-500 flex" href="{{ route('post.show', $post) }}">Responder</a>
-                <x-button-like-post :post="$post"/>
+                <a class="text-xl text-gray-500 flex" href="{{ route('post.show', $post) }}">{{__("Reply")}}</a>
+                <livewire:like-button :post="$post" />
             </div>
 
 

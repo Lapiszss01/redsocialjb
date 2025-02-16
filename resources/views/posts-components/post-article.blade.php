@@ -22,36 +22,36 @@
          onclick="function redirectToRoute(event, route) {
         const target = event.target;
 
-        // Verifica si el click no fue en un enlace o botón
         if (!target.closest('a') && !target.closest('button')) {
             window.location.href = route;
         }
     }
-    redirectToRoute(event, '{{ route('post.show',$post)}}')">
+    redirectToRoute(event, '{{ route('post.show', $post) }}')">
     <div class="bg-white flex flex-col justify-between p-6">
-        <div class="text-xl leading-tight text-slate-800 dark:text-slate-200 flex  justify-between">
-        <p href="#" class="text-sm pb-3">
-            <a  href="{{route("profile",$post->user->username)}}" class="font-semibold hover:text-gray-800"> {{ $post->user->name }}</a>,
-            {{__('Published at')}} {{$post->created_at}}
-        </p>
+        <div class="text-xl leading-tight text-slate-800 dark:text-slate-200 flex justify-between">
+            <p class="text-sm pb-3">
+                <a href="{{ route('profile', $post->user->username) }}" class="font-semibold hover:text-gray-800">
+                    {{ $post->user->name }}
+                </a>, {{ __('Published at') }} {{ $post->created_at }}
+            </p>
             @auth
                 @if(auth()->id() === $post->user->id)
                     <form id="delete-form-{{ $post->id }}" action="{{ route('post.destroy', $post) }}" method="POST" style="display: inline;">
                         @csrf
                         @method('DELETE')
                         <button type="button" class="hover:underline text-red-500" onclick="confirmDelete({{ $post->id }})">
-                        <i class="fas fa-trash"></i>
+                            <i class="fas fa-trash"></i>
                         </button>
                     </form>
                 @endif
             @endauth
         </div>
-        <a href="#" class="pb-6">{{{$post->body}}}</a>
-        <div  class="text-xl leading-tight text-slate-800 dark:text-slate-200 flex justify-between mt-3">
-            <a href="{{ route('post.show', $post) }}" class="text-gray-800 hover:text-black">{{__('Reply')}} <i class="fas fa-arrow-right"></i></a>
-            <x-button-like-post :post="$post"/>
-        </div>
+        <a href="#" class="pb-6">{{ $post->body }}</a>
+        <div class="text-xl leading-tight text-slate-800 dark:text-slate-200 flex justify-between mt-3">
+            <a href="{{ route('post.show', $post) }}" class="text-gray-800 hover:text-black">{{ __('Reply') }} <i class="fas fa-arrow-right"></i></a>
 
+            <livewire:like-button :post="$post" />
+        </div>
     </div>
 </article>
 
