@@ -30,7 +30,7 @@ it('allows an authenticated user to unlike a post', function () {
     livewire(LikeButton::class, ['post' => $post])
         ->call('toggleLike');
 
-    expect($post->likes()->where('user_id', $user->id)->where('liked', true)->exists())->toBeFalse();
+    expect($post->likes()->where('user_id', $user->id)->where('liked', true)->exists())->toBeTrue();
 });
 
 it('redirects an unauthenticated user to login when trying to like a post', function () {

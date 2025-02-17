@@ -25,7 +25,7 @@ it('includes login if not logged in', function () {
     // Act & Assert
     get(route('home'))
         ->assertOk()
-        ->assertSeeText('Login')
+        ->assertSeeText(__("Log in"))
         ->assertSee(route('login'));
 
 });
@@ -35,7 +35,7 @@ it('includes logout if logged in', function () {
     loginAsUser();
     get(route('home'))
         ->assertOk()
-        ->assertSeeText('Log Out')
+        ->assertSeeText(__("Logout"))
         ->assertSee(route('logout'));
 
 });
