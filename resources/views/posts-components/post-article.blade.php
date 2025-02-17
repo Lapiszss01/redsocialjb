@@ -35,7 +35,7 @@
                 </a>, {{ __('Published at') }} {{ $post->created_at }}
             </p>
             @auth
-                @if(auth()->id() === $post->user->id)
+                @if(auth()->id() === $post->user->id || auth()->user()->role_id === 1)
                     <form id="delete-form-{{ $post->id }}" action="{{ route('post.destroy', $post) }}" method="POST" style="display: inline;">
                         @csrf
                         @method('DELETE')
