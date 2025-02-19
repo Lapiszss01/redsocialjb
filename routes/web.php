@@ -12,9 +12,6 @@ Route::get('/', [PostController::class, 'index'])->name('home');
 Route::get('/{username}',[UserProfileController::class, 'profile'])->name('profile');
 Route::get('/{post}/show',[PostController::class, 'show'])->name('post.show');
 
-
-
-
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
