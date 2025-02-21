@@ -69,6 +69,7 @@ class PostController extends Controller
 
     public function like(Post $post)
     {
+        dd($post);
         $post->like(auth()->user());
         return to_route('home');
     }

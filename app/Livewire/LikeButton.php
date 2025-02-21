@@ -2,6 +2,7 @@
 
 namespace App\Livewire;
 
+use App\Events\PostLiked;
 use App\Models\Post;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
@@ -24,6 +25,7 @@ class LikeButton extends Component
 
     public function toggleLike()
     {
+
         if (!Auth::check()) {
             return redirect()->route('login'); // Redirige al login si no está autenticado
         }
@@ -41,6 +43,8 @@ class LikeButton extends Component
             );
             $this->isLiked = true;
             $this->likeCount++;
+            event(new PostLiked($this->post, $user));
+
         }
     }
 
