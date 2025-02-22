@@ -94,6 +94,7 @@ return [
     | are secure. You should do this prior to deploying the application.
     |
     */
+    'PDF' => Barryvdh\DomPDF\Facade::class,
 
     'cipher' => 'AES-256-CBC',
 

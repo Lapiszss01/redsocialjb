@@ -13,6 +13,10 @@
                 {{$user->biography}}
             </p>
             <br>
+            <a href="{{ route('user.posts.pdf', ['id' => $user->id]) }}" class="btn btn-primary bg-white rounded p-2 my-4">
+                Descargar Posts en PDF
+            </a>
+            <br>
             <div
                     class="px-4 mt-8 grid max-w-4xl gap-4 md:grid-cols-1 lg:grid-cols-1"
             >

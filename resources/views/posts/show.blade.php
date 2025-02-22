@@ -1,7 +1,7 @@
 <x-app-layout :meta-title="$post->title" :meta-description="$post->body">
     <div class="mx-auto mt-4 max-w-6xl">
         @include('posts-components.post-article')
-        @include('posts-components.form-create-response-post', ['post' => $post])
+        @include('posts-components.form-create-response-post', ['pdf.post' => $post])
     </div>
 
     <div class="mx-auto grid gap-4 mt-4 max-w-6xl">

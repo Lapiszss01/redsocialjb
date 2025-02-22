@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\PDFController;
 use App\Http\Controllers\Posts\PostController;
 use App\Http\Controllers\Posts\UserProfileController;
 use App\Http\Controllers\ProfileController;
@@ -11,6 +12,8 @@ Route::get('/', [PostController::class, 'index'])->name('home');
 
 Route::get('/{username}',[UserProfileController::class, 'profile'])->name('profile');
 Route::get('/{post}/show',[PostController::class, 'show'])->name('post.show');
+
+Route::get('/user/{id}/posts/pdf', [PDFController::class, 'generateUserPostsPDF'])->name('user.posts.pdf');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
