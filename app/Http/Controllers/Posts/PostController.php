@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Posts;
 
+
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StorePostRequest;
 use App\Jobs\SendPostDeletedEmail;
@@ -10,10 +11,9 @@ use Illuminate\Http\Request;
 
 class PostController extends Controller
 {
+
     public function index()
     {
-        //$posts = Post::orderBy('created_at', 'desc')->get();
-        //$posts = Post::where('parent_id', null)->orderBy('created_at', 'desc')->get();
         $posts = Post::recent()->get();
         return view('welcome', compact('posts'));
     }
@@ -26,11 +26,7 @@ class PostController extends Controller
 
     public function destroy(Post $post)
     {
-
-
         $post->delete();
-        //dd($post->user->email);
-        //Job para enviar email
         SendPostDeletedEmail::dispatch($post->user, $post->body)->onQueue('emails');
 
         return to_route('home');
