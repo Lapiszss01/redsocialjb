@@ -3,8 +3,11 @@
 use App\Livewire\LikeButton;
 use App\Models\Post;
 use App\Models\User;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use function Pest\Laravel\actingAs;
 use function Pest\Livewire\livewire;
+
+uses(RefreshDatabase::class);
 
 it('allows an authenticated user to like a post', function () {
     $user = User::factory()->create();

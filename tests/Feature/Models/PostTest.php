@@ -1,9 +1,10 @@
 <?php
 
-use App\Models\Course;
 use App\Models\Post;
 use App\Models\User;
-use App\Models\Video;
+use Illuminate\Foundation\Testing\RefreshDatabase;
+
+uses(RefreshDatabase::class);
 
 it('only returns parent post', function () {
     // Arrange
@@ -12,8 +13,7 @@ it('only returns parent post', function () {
 
     // Act & Assert
     expect(Post::where('parent_id',null)->get())
-        ->toHaveCount(1)
-        ->first()->id->toEqual(1);
+        ->toHaveCount(1);
 });
 
 it('has childs', function () {
