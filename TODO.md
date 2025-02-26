@@ -1,14 +1,38 @@
 
+# Repaso para junio
+
+## Generales
+
+### Aspecto
+- Cambiar colores
+- Logos
+- Aspecto general de la parte del login de breeze(no es breeze)
+
+### Organizacion de archivos
+- Revisar componentes y clases para que esté en su lugar correcto
+
+## Layout
+- Incluir un menu superior donde poder ver distintas categorias de posts o posts más gustados, Revisar para complementar el layout
+- Revisar como cambiar entre layout guest y layout app
+
 ## Posts
 - Poner cantidad numérica de posts hijos que tenga un post al lado 
 del botón Responder
-- Poder subir una o más fotos al post
+- Unificar componentes de post padre e hijo ya que es igual
+- Simplificar la vista de los posts, ver si se puede cambiar los js de lugar para que no ocupe mucho espacio
+- Cambiar redirecciones de rutas para que no te envie al show al publicar un post/responder
 
 ## Profile
 - Cambiar por completo la vista profile para agregar más personalización
-- Cambiar diseño de la lista de posts para que sea similar a la del
-index(los margins principalmente) 
+- Agregar crud de usuarios para poder modificar tu perfil
+- Cambiar index para que solo se vean los padre
 
 ## Usuarios
+- Mayor integracion de los usuarios administradores
 - Funcionalidad de poder seguir a otros usuarios para incluir una 
 vista de todos los posts y otra con sólo los posts de la gente que sigues
+
+## Requerimientos proyecto minimos:
+- a
+## Requerimientos proyecto recomendados:
+- a
