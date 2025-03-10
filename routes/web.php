@@ -24,9 +24,10 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
-    Route::post('/{post}/show.store',[PostController::class, 'storeResponse'])->name('post.show.store');
-    Route::post('/{post}/like', [PostController::class, 'like'])->name('post.like');
     Route::post('/post.store',[PostController::class, 'store'])->name('post.store');
+    Route::post('/{post}/show.store',[PostController::class, 'storeResponse'])->name('post.show.store');
+
+    Route::post('/{post}/like', [PostController::class, 'like'])->name('post.like');
     Route::delete('/{post}/destroy', [PostController::class, 'destroy'])->name('post.destroy');
     Route::post('/posts/upload', [PostController::class, 'upload'])->name('posts.upload');
 

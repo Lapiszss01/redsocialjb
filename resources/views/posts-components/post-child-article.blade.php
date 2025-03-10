@@ -1,7 +1,6 @@
 @foreach ($posts as $post)
     <article
         class="flex flex-col overflow-hidden rounded bg-white shadow dark:bg-slate-900"
-
     >
         <div class="bg-white flex flex-col justify-between p-6">
             <div class="text-xl leading-tight text-slate-800 dark:text-slate-200 flex justify-between">
@@ -23,6 +22,11 @@
                 @endauth
             </div>
             <a href="#" class="pb-6">{{ $post->body }}</a>
+
+            @if($post->image_url != "")
+                <img src="{{ $post->image_url }}" alt="Imagen del post" class="p-1 w-full max-w-lg h-auto object-cover rounded-lg mx-auto">
+            @endif
+
             <div class="text-xl leading-tight text-slate-800 dark:text-slate-200 flex justify-between mt-3">
                 <a href="{{ route('post.show', $post) }}" class="text-gray-800 hover:text-black">{{ __('Reply') }} <i class="fas fa-arrow-right"></i></a>
 

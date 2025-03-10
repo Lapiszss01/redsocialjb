@@ -32,12 +32,20 @@ class PostController extends Controller
         return to_route('home');
     }
 
-    public function store(StorePostRequest $request)
+    public function store(StorePostRequest $request, Post $post)
     {
         $post = auth()->user()->posts()->make($request->validated());
-
         $post->parent_id = null;
         $post->save();
+
+        return view('posts.show', compact('post'));
+    }
+
+    public function storeResponse(StorePostRequest $request,Post $post)
+    {
+        $newPost = auth()->user()->posts()->make($request->validated());
+        $newPost->parent_id = $post->id;
+        $newPost->save();
 
         return view('posts.show', compact('post'));
     }
@@ -53,15 +61,7 @@ class PostController extends Controller
             return response()->json(['error' => 'No file uploaded'], 400);
     }
 
-    public function storeResponse(StorePostRequest $request,Post $post)
-    {
-        //dd($post->id);
-        $newPost = auth()->user()->posts()->make($request->validated());
-        $newPost->parent_id = $post->id;
-        $newPost->save();
 
-        return to_route('home');
-    }
 
     public function like(Post $post)
     {

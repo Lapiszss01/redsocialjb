@@ -1,6 +1,6 @@
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
 
-<article class="flex flex-col shadow my-4"
+<article class="flex flex-col shadow my-4 mb-0"
          onclick="redirectToRoute(event, '{{ route('post.show', $post) }}')">
 
     <div class="bg-white flex flex-col justify-between p-6">
@@ -32,7 +32,6 @@
 
         <div class="text-xl leading-tight text-slate-800 dark:text-slate-200 flex justify-between mt-3">
             <a href="{{ route('post.show', $post) }}" class="text-gray-800 hover:text-black">{{ __('Reply') }} <i class="fas fa-arrow-right"></i></a>
-
             <livewire:like-button :post="$post" />
         </div>
     </div>
