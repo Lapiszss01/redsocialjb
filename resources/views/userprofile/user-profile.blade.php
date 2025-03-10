@@ -1,5 +1,5 @@
 <x-app-layout meta-title="Inicio" meta-description="Descripción de la página de Inicio">
-    <div class="mx-auto mt-4 max-w-6xl ">
+    <div class="mx-auto mt-4 max-w-6xl bg-white p-4 rounded">
         <div>
 
             <div class="text-3xl">
@@ -18,7 +18,7 @@
             </a>
             <br>
             <div
-                    class="px-4 mt-8 grid max-w-4xl gap-4 md:grid-cols-1 lg:grid-cols-1"
+                    class="mx-auto px-4 mt-8 grid max-w-4xl gap-4 md:grid-cols-1 lg:grid-cols-1"
             >
                 @foreach($posts as $post)
                     @include('posts-components.post-article')
