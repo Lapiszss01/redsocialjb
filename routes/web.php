@@ -9,10 +9,8 @@ use Illuminate\Support\Facades\Route;
 require __DIR__.'/auth.php';
 
 Route::get('/', [PostController::class, 'index'])->name('home');
-
 Route::get('/{username}',[UserProfileController::class, 'profile'])->name('profile');
 Route::get('/{post}/show',[PostController::class, 'show'])->name('post.show');
-
 Route::get('/user/{id}/posts/pdf', [PDFController::class, 'generateUserPostsPDF'])->name('user.posts.pdf');
 
 Route::get('/dashboard', function () {
@@ -20,13 +18,16 @@ Route::get('/dashboard', function () {
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
+
+    Route::get('/{user}/edit', [UserProfileController::class, 'edit'])->name('userprofile.edit');
+    Route::patch('/{user}/update', [UserProfileController::class, 'update'])->name('userprofile.update');
+
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
     Route::post('/post.store',[PostController::class, 'store'])->name('post.store');
     Route::post('/{post}/show.store',[PostController::class, 'storeResponse'])->name('post.show.store');
-
     Route::post('/{post}/like', [PostController::class, 'like'])->name('post.like');
     Route::delete('/{post}/destroy', [PostController::class, 'destroy'])->name('post.destroy');
     Route::post('/posts/upload', [PostController::class, 'upload'])->name('posts.upload');

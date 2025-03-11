@@ -10,7 +10,7 @@
                    </span>
                 </div>
                 <x-dropdown align="right" width="48">
-                    @include('userprofile-components.slot-user-profile')
+                    @include('userprofile.partials.slot-user-profile')
                 </x-dropdown>
             </div>
             <br>
