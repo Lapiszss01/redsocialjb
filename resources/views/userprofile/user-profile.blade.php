@@ -2,23 +2,23 @@
     <div class="mx-auto mt-4 max-w-6xl bg-white p-4 rounded">
         <div>
 
-            <div class="text-3xl">
-                {{$user->name}}
-                <span class="text-2xl text-gray-700">
-                   - {{$user->username}}
-               </span>
+            <div class="text-3xl leading-tight text-slate-800 dark:text-slate-200 flex justify-between">
+                <div>
+                    {{$user->name}}
+                    <span class="text-2xl text-gray-700">
+                       - {{$user->username}}
+                   </span>
+                </div>
+                <x-dropdown align="right" width="48">
+                    @include('userprofile-components.slot-user-profile')
+                </x-dropdown>
             </div>
             <br>
             <p>
                 {{$user->biography}}
             </p>
-            <br>
-            <a href="{{ route('user.posts.pdf', ['id' => $user->id]) }}" class="btn btn-primary bg-white rounded p-2 my-4">
-                Descargar Posts en PDF
-            </a>
-            <br>
             <div
-                    class="mx-auto px-4 mt-8 grid max-w-4xl gap-4 md:grid-cols-1 lg:grid-cols-1"
+                class="mx-auto px-4 mt-8 grid max-w-4xl gap-4 md:grid-cols-1 lg:grid-cols-1"
             >
                 @foreach($posts as $post)
                     @include('posts-components.post-article')

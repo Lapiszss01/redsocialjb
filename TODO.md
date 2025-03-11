@@ -18,9 +18,6 @@
 ## Posts
 - Poner cantidad numérica de posts hijos que tenga un post al lado 
 del botón Responder
-- Unificar componentes de post padre e hijo ya que es igual
-- Simplificar la vista de los posts, ver si se puede cambiar los js de lugar para que no ocupe mucho espacio
-- Cambiar redirecciones de rutas para que no te envie al show al publicar un post/responder
 
 ## Profile
 - Cambiar por completo la vista profile para agregar más personalización
