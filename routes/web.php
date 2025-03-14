@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\AdminUserController;
 use App\Http\Controllers\PDFController;
 use App\Http\Controllers\Posts\PostController;
 use App\Http\Controllers\Posts\UserProfileController;
@@ -34,6 +35,11 @@ Route::middleware('auth')->group(function () {
 
 
 });
+
+Route::middleware(['auth', 'admin'])->get('/admin/users', [AdminUserController::class, 'index'])->name('admin.users');
+
+
+
 
 
 

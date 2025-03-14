@@ -21,8 +21,6 @@ del botón Responder
 
 ## Profile
 - Cambiar por completo la vista profile para agregar más personalización
-- Agregar crud de usuarios para poder modificar tu perfil
-- Cambiar index para que solo se vean los padre
 
 ## Usuarios
 - Mayor integracion de los usuarios administradores
