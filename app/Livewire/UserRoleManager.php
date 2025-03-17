@@ -62,13 +62,9 @@ class UserRoleManager extends Component
 
     public function confirmDelete($userId)
     {
-        $this->deleteUser($userId);
-    }
-
-    public function deleteUser($userId)
-    {
         $user = User::find($userId);
         if ($user) {
+            $user->posts()->delete();
             $user->delete();
             session()->flash('message', 'Usuario eliminado correctamente.');
             $this->users = User::all();
