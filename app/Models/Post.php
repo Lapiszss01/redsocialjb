@@ -10,13 +10,11 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class Post extends Model
 {
     use HasFactory;
+
     protected $fillable = [ 'user_id', 'body', 'image_url','parent_id'];
 
     public function like($user = null)
     {
-        //$bool = $this->isLiked($user);
-        //dd($this->isLiked($user));
-
         if(!$this->isLiked($user)){
             $this->likes()->updateOrCreate(
                 [
