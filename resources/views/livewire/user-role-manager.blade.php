@@ -1,5 +1,9 @@
 <div>
 
+    <div class="my-2 py-2">
+        @livewire('delete-inactive-users-component')
+    </div>
+
 
     <table class="min-w-full bg-white border border-gray-300">
         <thead>
