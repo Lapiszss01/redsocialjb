@@ -22,7 +22,7 @@ class PostList extends Component
 
     public function refreshPosts()
     {
-        $this->posts = Post::latest()->get();
+        $this->posts = Post::where('parent_id',null)->orderBy('created_at', 'desc')->get();
     }
 
     public function render()

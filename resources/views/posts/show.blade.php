@@ -1,7 +1,7 @@
 <x-app-layout :meta-title="$post->title" :meta-description="$post->body">
     <div class="mx-auto mt-4 max-w-6xl">
         @include('posts-components.post-article')
-        @include('posts-components.form-create-post', ['post' => $post ?? null])
+        <livewire:posts.post-form :parentpost="$post"/>
     </div>
 
     <div class="mx-auto grid gap-4 mt-4 max-w-6xl">

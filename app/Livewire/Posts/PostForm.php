@@ -12,6 +12,8 @@ class PostForm extends Component
 
     public $body;
     public $image;
+    public $parentpost;
+    public $parent_id;
     public $post_id;
 
     protected $rules = [
@@ -26,9 +28,17 @@ class PostForm extends Component
 
         $imagePath = $this->image ? $this->image->store('uploads', 'public') : null;
 
+        if($this->parentpost){
+            $this->parent_id = $this->parentpost->id;
+        }
+
         Post::updateOrCreate(
             ['id' => $this->post_id],
-            ['body' => $this->body, 'image_url' => $imagePath, 'user_id' => auth()->id()]
+            ['body' => $this->body,
+                'image_url' => $imagePath,
+                'user_id' => auth()->id(),
+                'parent_id' => $this->parent_id]
+
         );
 
         $this->reset(['body', 'image', 'post_id']);
