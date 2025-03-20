@@ -50,6 +50,6 @@ class LikeButton extends Component
 
     public function render()
     {
-        return view('livewire.like-button');
+        return view('livewire.posts.like-button');
     }
 }

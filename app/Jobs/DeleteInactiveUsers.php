@@ -12,7 +12,7 @@ use Illuminate\Queue\SerializesModels;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Log;
 
-class DeleteInactiveUsers implements ShouldQueue
+class DeleteInactiveUsers
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
