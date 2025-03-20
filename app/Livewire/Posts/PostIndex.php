@@ -3,21 +3,25 @@
 namespace App\Livewire\Posts;
 
 use App\Models\Post;
-use Illuminate\Support\Facades\Log;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 
-class PostList extends Component
+class PostIndex extends Component
 {
     use WithFileUploads;
 
     public $posts;
+    public $childPosts;
 
     protected $listeners = ['postUpdated' => 'refreshPosts'];
 
     public function mount()
     {
-        $this->refreshPosts();
+        if($this->childPosts){
+            $this->posts = $this->childPosts;
+        }else{
+            $this->refreshPosts();
+        }
     }
 
     public function refreshPosts()
@@ -27,6 +31,11 @@ class PostList extends Component
 
     public function render()
     {
-        return view('livewire.posts.post-list');
+        if($this->childPosts){
+            return view('livewire.posts.post-child-list');
+        }else{
+            return view('livewire.posts.post-list');
+        }
+
     }
 }

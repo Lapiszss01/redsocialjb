@@ -1,4 +1,4 @@
-<article class="flex flex-col shadow my-4 mb-0" wire:click="redirectToPost">
+<article class="flex flex-col shadow my-4 mb-0">
     <div class="bg-white flex flex-col justify-between p-6">
         <div class="text-xl leading-tight text-slate-800 dark:text-slate-200 flex justify-between">
             <p class="text-sm pb-3">
