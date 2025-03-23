@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Posts;
 
+use App\Events\PostDeletedByAdmin;
 use App\Events\PostLiked;
 use App\Models\Post;
 use Illuminate\Support\Facades\Auth;
@@ -48,11 +49,12 @@ class PostItem extends Component
 
     public function delete()
     {
-        if (Auth::check() && (Auth::id() === $this->post->user_id || Auth::user()->role_id === 1)) {
-            $this->post->delete();
-            session()->flash('message', 'Post eliminado correctamente.');
-            return redirect()->route('home');
+        if (auth()->user()->role_id == 1) {
+            event(new PostDeletedByAdmin($this->post));
+            //$this->post->delete();
+            session()->flash('message', 'Post eliminado y usuario notificado.');
         }
+        $this->dispatch('postUpdated');
     }
 
     public function render()

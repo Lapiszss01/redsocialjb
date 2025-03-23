@@ -16,5 +16,7 @@ class PostDeletedByAdmin
     public function __construct(Post $post)
     {
         $this->post = $post;
+        Log::info("SOCORRO2");
+
     }
 }

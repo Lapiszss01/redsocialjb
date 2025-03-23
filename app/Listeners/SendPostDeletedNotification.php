@@ -8,10 +8,11 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 
-class SendPostDeletedNotification implements ShouldQueue
+class SendPostDeletedNotification
 {
     public function handle(PostDeletedByAdmin $event)
     {
+        Log::info("SOCORRO");
         $post = $event->post;
         $user = $post->user;
 
