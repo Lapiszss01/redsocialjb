@@ -2,13 +2,16 @@
 
 namespace App\Livewire;
 
+use App\Jobs\DeleteInactiveUsers;
 use App\Models\Role;
 use App\Models\User;
+use Illuminate\Support\Facades\Artisan;
 use Livewire\Component;
 
 class UserRoleManager extends Component
 {
     public $users;
+    public $message = '';
     public $roles;
     public $userRole = [];
     public $editingUser = false;
@@ -71,8 +74,20 @@ class UserRoleManager extends Component
         }
     }
 
+    public function deleteInactiveUsers()
+    {
+        dispatch(new DeleteInactiveUsers());
+        $this->message = "Job ejecutado correctamente.";
+    }
+
+    public function deleteInactivePosts()
+    {
+        Artisan::call('posts:delete-inactive', ['days' => 30]);
+        $this->message = "Borrados posts inactivos.";
+    }
+
     public function render()
     {
-        return view('livewire.user-role-manager');
+        return view('livewire.userprofile.user-role-manager');
     }
 }

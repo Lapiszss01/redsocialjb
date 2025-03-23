@@ -1,8 +1,16 @@
 <div>
 
     <div class="my-2 py-2">
-        @livewire('delete-inactive-users-component')
+        <button wire:click="deleteInactiveUsers" class="btn btn-danger bg-red-500 text-white px-2 py-1 rounded">Eliminar usuarios inactivos</button>
+
+        <button wire:click="deleteInactivePosts" class="btn btn-danger bg-red-500 text-white px-2 py-1 rounded">Eliminar posts inactivos</button>
+
+        @if($message)
+            <p style="color: green;">{{ $message }}</p>
+        @endif
     </div>
+
+
 
 
     <table class="min-w-full bg-white border border-gray-300">
