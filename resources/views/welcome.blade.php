@@ -1,3 +1,5 @@
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+
 <x-app-layout meta-title="Inicio" meta-description="Descripción de la página de Inicio">
     <div
         class=" mt-8 grid gap-4 md:grid-cols-1 lg:grid-cols-1"
