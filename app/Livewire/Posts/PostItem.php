@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Posts;
 
+use App\Events\PostLiked;
 use App\Models\Post;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
@@ -9,15 +10,40 @@ use Livewire\Component;
 class PostItem extends Component
 {
     public Post $post;
+    public $isLiked;
+    public $likeCount;
 
     public function mount(Post $post)
     {
         $this->post = $post;
+
+        $user = Auth::user();
+        $this->isLiked = $user ? $this->post->isLiked($user) : false;
+        $this->likeCount = $this->post->likes()->where('liked', true)->count();
     }
 
-    public function redirectToPost()
+    public function toggleLike()
     {
-        return redirect()->route('post.show', $this->post);
+        if (!Auth::check()) {
+            return redirect()->route('login'); // Redirige al login si no está autenticado
+        }
+
+        $user = Auth::user();
+
+        if ($this->isLiked) {
+            $this->post->likes()->where('user_id', $user->id)->update(['liked' => false]);
+            $this->isLiked = false;
+            $this->likeCount--;
+        } else {
+            $this->post->likes()->updateOrCreate(
+                ['user_id' => $user->id],
+                ['liked' => true]
+            );
+            $this->isLiked = true;
+            $this->likeCount++;
+            event(new PostLiked($this->post, $user));
+
+        }
     }
 
     public function delete()
