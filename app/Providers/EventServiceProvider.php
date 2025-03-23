@@ -6,13 +6,12 @@ use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvi
 use Illuminate\Support\Facades\Event;
 use App\Events\PostLiked;
 use App\Listeners\SendLikeNotification;
+use Illuminate\Support\Facades\Log;
 
 class EventServiceProvider extends ServiceProvider
 {
     protected $listen = [
-        PostLiked::class => [
-            SendLikeNotification::class,
-        ],
+
     ];
 
     public function boot()

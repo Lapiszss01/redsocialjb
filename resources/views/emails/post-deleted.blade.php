@@ -4,10 +4,8 @@
     <title>Post Eliminado</title>
 </head>
 <body>
-<p>Hola {{ $name }},</p>
-<p>Tu post titulado "<strong>{{ $postBody }}</strong>" ha sido eliminado.</p>
-<p>Si tienes dudas, contáctanos.</p>
-<p>Saludos,</p>
-<p>El equipo de Blog</p>
+<h1>Tu post ha sido eliminado</h1>
+<p>Hola, lamentamos informarte que tu post "{{ $post->title }}" ha sido eliminado por un administrador.</p>
+<p>Si tienes alguna duda, contáctanos.</p>
 </body>
 </html>

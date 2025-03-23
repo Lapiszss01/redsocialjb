@@ -3,11 +3,13 @@
 namespace App\Http\Controllers\Posts;
 
 
+use App\Events\PostDeletedByAdmin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StorePostRequest;
 use App\Jobs\SendPostDeletedEmail;
 use App\Models\Post;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class PostController extends Controller
 {
@@ -26,10 +28,13 @@ class PostController extends Controller
 
     public function destroy(Post $post)
     {
-        $post->delete();
-        SendPostDeletedEmail::dispatch($post->user, $post->body)->onQueue('emails');
+        if (auth()->user()->role_id == 1) {
+            event(new PostDeletedByAdmin($post));
+            $post->delete();
+            session()->flash('message', 'Post eliminado y usuario notificado.');
+        }
 
-        return to_route('home');
+        return redirect()->route('posts.index');
     }
 
     public function store(StorePostRequest $request, Post $post)
@@ -60,14 +65,4 @@ class PostController extends Controller
             }
             return response()->json(['error' => 'No file uploaded'], 400);
     }
-
-
-
-    public function like(Post $post)
-    {
-        dd($post);
-        $post->like(auth()->user());
-        return to_route('home');
-    }
-
 }
