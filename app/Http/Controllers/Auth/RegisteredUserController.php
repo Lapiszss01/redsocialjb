@@ -29,11 +29,16 @@ class RegisteredUserController extends Controller
      */
     public function store(Request $request): RedirectResponse
     {
+
+
+
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
             'username' => 'required|string|unique:users|max:255',
+            'terms' => ['required','accepted'],
+            'pdfTerms' => ['nullable'],
         ]);
 
         $user = User::create([
@@ -42,7 +47,11 @@ class RegisteredUserController extends Controller
             'email' => $request->email,
             'password' => Hash::make($request->password),
             'role_id' => 1,
+            'terms_accepted_at' => $request->has('terms') ? now() : null,
+            'pdf_terms_accepted_at' => $request->has('pdfTerms') ? now() : null,
         ]);
+
+
 
         event(new Registered($user));
 

@@ -21,7 +21,7 @@
                 class="mx-auto px-4 mt-8 grid max-w-4xl gap-4 md:grid-cols-1 lg:grid-cols-1"
             >
                 @foreach($posts as $post)
-                    @include('posts-components.post-article')
+                    <livewire:posts.post-item :post="$post" :key="$post->id" />
                 @endforeach
             </div>
 

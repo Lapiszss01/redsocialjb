@@ -26,6 +26,9 @@ class User extends Authenticatable
         'password',
         'biography',
         'role_id',
+        'terms_accepted_at',
+        'pdf_terms_accepted_at'
+
     ];
 
     /**
