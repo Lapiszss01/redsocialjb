@@ -13,6 +13,7 @@ class PostItem extends Component
     public Post $post;
     public $isLiked;
     public $likeCount;
+    public $childPosts;
 
     public function mount(Post $post)
     {
@@ -47,6 +48,11 @@ class PostItem extends Component
         }
     }
 
+    public function redirectToPost()
+    {
+        return redirect()->route('post.show', $this->post);
+    }
+
     public function delete()
     {
         if (auth()->user()->role_id == 1) {
@@ -59,6 +65,9 @@ class PostItem extends Component
 
     public function render()
     {
+        if($this->childPosts) {
+            return view('livewire.posts.post-child-item');
+        }
         return view('livewire.posts.post-item');
     }
 }

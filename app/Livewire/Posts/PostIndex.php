@@ -11,31 +11,27 @@ class PostIndex extends Component
     use WithFileUploads;
 
     public $posts;
+    public $post_id;
     public $childPosts;
 
     protected $listeners = ['postUpdated' => 'refreshPosts'];
 
     public function mount()
     {
-        if($this->childPosts){
-            $this->posts = $this->childPosts;
-        }else{
-            $this->refreshPosts();
-        }
+        $this->refreshPosts();
     }
 
     public function refreshPosts()
     {
-        $this->posts = Post::where('parent_id',null)->orderBy('created_at', 'desc')->get();
+        if($this->childPosts){
+            $this->posts = Post::where('parent_id', $this->post_id)->orderBy('created_at', 'desc')->get();
+        }else {
+            $this->posts = Post::where('parent_id', null)->orderBy('created_at', 'desc')->get();
+        }
     }
 
     public function render()
     {
-        if($this->childPosts){
-            return view('livewire.posts.post-child-list');
-        }else{
-            return view('livewire.posts.post-list');
-        }
-
+        return view('livewire.posts.post-list');
     }
 }

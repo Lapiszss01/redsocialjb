@@ -4,9 +4,9 @@
         <livewire:posts.post-form :parentpost="$post"/>
     </div>
 
-    <div class="mx-auto grid gap-4 mt-4 max-w-6xl">
+    <div class="mx-auto mt-4 max-w-6xl">
         @if ($post->children)
-            <livewire:posts.post-index :childPosts="$post->children"/>
+            <livewire:posts.post-index :childPosts="$post->children" :post_id="$post->id"/>
         @endif
     </div>
 

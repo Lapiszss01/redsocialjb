@@ -1,3 +1,5 @@
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+
 <x-app-layout meta-title="Inicio" meta-description="Descripción de la página de Inicio">
     <div class="mx-auto mt-4 max-w-6xl bg-white p-4 rounded">
         <div>
