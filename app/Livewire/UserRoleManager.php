@@ -6,6 +6,7 @@ use App\Jobs\DeleteInactiveUsers;
 use App\Models\Role;
 use App\Models\User;
 use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Facades\Hash;
 use Livewire\Component;
 
 class UserRoleManager extends Component
@@ -15,9 +16,12 @@ class UserRoleManager extends Component
     public $roles;
     public $userRole = [];
     public $editingUser = false;
+    public $creatingUser = false;
     public $userId;
     public $name;
     public $email;
+    public $username;
+    public $password;
 
     public function mount()
     {
@@ -36,6 +40,28 @@ class UserRoleManager extends Component
             $user->save();
             session()->flash('message', 'Rol actualizado correctamente.');
         }
+    }
+
+    public function openUserCreating()
+    {
+        $this->creatingUser = true;
+    }
+
+    public function createUser()
+    {
+
+        $user = User::create([
+            'name' => $this->name,
+            'username' => $this->username,
+            'email' => $this->email,
+            'password' => Hash::make($this->password),
+            'role_id' => 1,
+            'terms_accepted_at' => now(),
+            'pdf_terms_accepted_at' => now(),
+        ]);
+        session()->flash('message', 'Usuario creado correctamente.');
+        $this->creatingUser = false;
+        $this->users = User::all();
     }
 
     public function editUser($userId)
