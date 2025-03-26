@@ -70,6 +70,11 @@ class Post extends Model
         return $query->whereNull('parent_id')->orderByDesc('created_at');
     }
 
+    public function scopeRecentChilds(Builder $query, string $parent_id): Builder
+    {
+        return $query->where('parent_id', $parent_id)->orderBy('created_at', 'desc');
+    }
+
     public function scopeByUser(Builder $query, int $userId): Builder
     {
         return $query->where('user_id', $userId);

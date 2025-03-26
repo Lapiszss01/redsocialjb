@@ -11,10 +11,8 @@ class PDFController extends Controller
 {
     public function generateUserPostsPDF($userId)
     {
-        //dd($userId);
         $user = User::findOrFail($userId);
         $posts = Post::where('user_id', $userId)->get();
-        //dd($posts);
 
         if ($posts->isEmpty()) {
             return back()->with('error', 'Este usuario no tiene posts.');

@@ -24,9 +24,9 @@ class PostIndex extends Component
     public function refreshPosts()
     {
         if($this->childPosts){
-            $this->posts = Post::where('parent_id', $this->post_id)->orderBy('created_at', 'desc')->get();
+            $this->posts = Post::recentChilds($this->post_id)->get();
         }else {
-            $this->posts = Post::where('parent_id', null)->orderBy('created_at', 'desc')->get();
+            $this->posts =  Post::recent()->get();
         }
     }
 
