@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Post extends Model
 {
@@ -34,7 +35,6 @@ class Post extends Model
                 ]
             );
         }
-
     }
 
     public function isLiked($user = null)
@@ -46,23 +46,9 @@ class Post extends Model
         return $user->likes->where('post_id', $this->id)->where('liked', true)->count() > 0;
     }
 
-    public function user(): BelongsTo
-    {
-        return $this->belongsTo(User::class);
-    }
-
     public function likes()
     {
         return $this->hasMany(Like::class);
-    }
-
-    public function parent()
-    {
-        return $this->belongsTo(Post::class, 'parent_id');
-    }
-    public function children()
-    {
-        return $this->hasMany(Post::class, 'parent_id');
     }
 
     public function scopeRecent(Builder $query): Builder
@@ -79,4 +65,22 @@ class Post extends Model
     {
         return $query->where('user_id', $userId);
     }
+
+    public function parent()
+    {
+        return $this->belongsTo(Post::class, 'parent_id');
+    }
+    public function children()
+    {
+        return $this->hasMany(Post::class, 'parent_id');
+    }
+
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class);
+    }
+    public function topics(): BelongsToMany {
+        return $this->belongsToMany(Topic::class, 'post_topic');
+    }
+
 }
