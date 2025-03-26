@@ -3,6 +3,7 @@
 namespace App\Livewire\Posts;
 
 use App\Models\Post;
+use App\Models\Topic;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 
@@ -23,24 +24,35 @@ class PostForm extends Component
 
     public function save()
     {
-
         $this->validate();
 
         $imagePath = $this->image ? $this->image->store('uploads', 'public') : null;
 
-        if($this->parentpost){
+        if ($this->parentpost) {
             $this->parent_id = $this->parentpost->id;
         }
 
-        Post::updateOrCreate(
+        $post = Post::updateOrCreate(
             ['id' => $this->post_id],
-            ['body' => $this->body,
+            [
+                'body' => $this->body,
                 'image_url' => $imagePath,
                 'user_id' => auth()->id(),
-                'parent_id' => $this->parent_id]
-
+                'parent_id' => $this->parent_id,
+            ]
         );
 
+        preg_match_all('/#(\w+)/', $this->body, $matches);
+        $topicIds = [];
+
+        foreach ($matches[1] as $hashtag) {
+            $topic = Topic::firstOrCreate([
+                'name' => strtolower($hashtag),
+            ]);
+            $topicIds[] = $topic->id;
+        }
+
+        $post->topics()->sync($topicIds);
         $this->reset(['body', 'image', 'post_id']);
         $this->dispatch('postUpdated');
     }
