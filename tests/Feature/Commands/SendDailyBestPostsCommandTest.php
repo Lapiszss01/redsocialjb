@@ -24,3 +24,5 @@ it('shows a warning if there are no posts created today', function () {
         ->expectsOutput('No hay posts populares para mostrar hoy.');
 });
 
+
+

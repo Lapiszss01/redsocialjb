@@ -12,7 +12,6 @@ class SendPostDeletedNotification
 {
     public function handle(PostDeletedByAdmin $event)
     {
-        Log::info("SOCORRO");
         $post = $event->post;
         $user = $post->user;
 
