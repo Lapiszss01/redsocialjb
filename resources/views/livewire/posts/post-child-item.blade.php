@@ -1,11 +1,10 @@
-<div>
-@foreach ($childPosts as $post)
+
     <article class="flex flex-col overflow-hidden rounded bg-white shadow dark:bg-slate-900 mt-3">
         <div class="bg-white flex flex-col justify-between p-6">
             <div class="text-xl leading-tight text-slate-800 dark:text-slate-200 flex justify-between">
                 <p class="text-sm pb-3">
                     <a href="{{ route('profile', $post->user->username) }}" class="font-semibold hover:text-gray-800">
-                        {{ $post->user->name }}
+                        {{ $post->user->username }}
                     </a>, {{ __('Published at') }} {{ $post->created_at }}
                 </p>
                 @auth
@@ -30,9 +29,11 @@
             </div>
 
             @if ($post->children->isNotEmpty())
-                <livewire:posts.post-item :childPosts="$post->children" :level="($level ?? 0) + 1" />
+                @foreach($post->children as $post)
+                    <livewire:posts.post-item :childPosts="$post->children" :level="($level ?? 0) + 1" :post="$post" />
+                @endforeach
+
             @endif
         </div>
     </article>
-@endforeach
-</div>
+

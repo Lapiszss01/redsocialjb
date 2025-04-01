@@ -14,7 +14,7 @@ class PostForm extends Component
     public $body;
     public $image;
     public $parentpost;
-    public $parent_id;
+    public $parent_id ;
     public $post_id;
 
     protected $rules = [
@@ -24,7 +24,6 @@ class PostForm extends Component
 
     public function save()
     {
-        $this->validate();
 
         $imagePath = $this->image ? $this->image->store('uploads', 'public') : null;
 

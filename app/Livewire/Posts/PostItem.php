@@ -27,7 +27,7 @@ class PostItem extends Component
     public function toggleLike()
     {
         if (!Auth::check()) {
-            return redirect()->route('login'); // Redirige al login si no está autenticado
+            return redirect()->route('login');
         }
 
         $user = Auth::user();
@@ -48,16 +48,15 @@ class PostItem extends Component
         }
     }
 
-    public function redirectToPost()
+    public function redirectToPost($postId)
     {
-        return redirect()->route('post.show', $this->post);
+        return redirect()->route('post.show', ['post' => $postId]);
     }
 
     public function delete()
     {
         if (auth()->user()->role_id == 1) {
             event(new PostDeletedByAdmin($this->post));
-            //$this->post->delete();
             session()->flash('message', 'Post eliminado y usuario notificado.');
         }
         $this->dispatch('postUpdated');
@@ -67,7 +66,9 @@ class PostItem extends Component
     {
         if($this->childPosts) {
             return view('livewire.posts.post-child-item');
+        } else{
+            return view('livewire.posts.post-item');
         }
-        return view('livewire.posts.post-item');
+
     }
 }

@@ -22,7 +22,9 @@
         @endif
 
         <div class="text-xl leading-tight text-slate-800 dark:text-slate-200 flex justify-between mt-3">
-            <a href="#" wire:click.prevent="redirectToPost" class="text-gray-800 hover:text-black">{{ __('Reply') }} <i class="fas fa-arrow-right"></i></a>
+            <a href="#" wire:click.prevent="redirectToPost({{ $post->id }})" class="text-gray-800 hover:text-black">
+                {{ __('Reply') }} <i class="fas fa-arrow-right"></i>
+            </a>
             <button wire:click="toggleLike" class="text-xl flex items-center {{ $isLiked ? 'text-red-500' : 'text-gray-500' }}">
                 {{ $likeCount }} Likes
             </button>
