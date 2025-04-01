@@ -1,13 +1,14 @@
 <?php
 
 use App\Models\User;
+use Illuminate\Support\Facades\Notification;
 use function Pest\Laravel\actingAs;
 use function Pest\Laravel\get;
 
 it('renders the admin users index page', function () {
-    $admin = User::factory()->create(); // Crea un usuario
+    $admin = User::factory()->create();
 
-    actingAs($admin); // Autentica al usuario
+    actingAs($admin);
 
     $response = get(route('admin.users'));
 
@@ -15,3 +16,4 @@ it('renders the admin users index page', function () {
         ->assertViewIs('admin.users.index')
         ->assertViewHas('users');
 });
+

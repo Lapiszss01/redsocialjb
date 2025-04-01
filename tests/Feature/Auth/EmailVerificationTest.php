@@ -5,6 +5,10 @@ use Illuminate\Auth\Events\Verified;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\URL;
+use Illuminate\Support\Facades\Notification;
+use function Pest\Laravel\actingAs;
+use function Pest\Laravel\post;
+
 
 uses(RefreshDatabase::class);
 
@@ -46,4 +50,28 @@ test('email is not verified with invalid hash', function () {
     $this->actingAs($user)->get($verificationUrl);
 
     expect($user->fresh()->hasVerifiedEmail())->toBeFalse();
+});
+
+it('redirects if email is already verified', function () {
+    $user = User::factory()->create(['email_verified_at' => now()]);
+
+    actingAs($user);
+
+    $response = post(route('verification.send'));
+
+    $response->assertRedirect(route('dashboard'));
+});
+
+it('sends a verification email if not verified', function () {
+    Notification::fake();
+
+    $user = User::factory()->create(['email_verified_at' => null]);
+
+    actingAs($user);
+
+    $response = post(route('verification.send'));
+
+    Notification::assertSentTo($user, \Illuminate\Auth\Notifications\VerifyEmail::class);
+    $response->assertRedirect();
+    $response->assertSessionHas('status', 'verification-link-sent');
 });
