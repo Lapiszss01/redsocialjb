@@ -14,29 +14,6 @@ class Post extends Model
 
     protected $fillable = [ 'user_id', 'body', 'image_url','parent_id'];
 
-    public function like($user = null)
-    {
-        if(!$this->isLiked($user)){
-            $this->likes()->updateOrCreate(
-                [
-                    'user_id' => $user ? $user->id : auth()->user()->id,
-                ],
-                [
-                    'liked' => true,
-                ]
-            );
-        }else{
-            $this->likes()->updateOrCreate(
-                [
-                    'user_id' => $user ? $user->id : auth()->user()->id,
-                ],
-                [
-                    'liked' => false,
-                ]
-            );
-        }
-    }
-
     public function isLiked($user = null)
     {
         if (!$user) {

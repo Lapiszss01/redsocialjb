@@ -74,16 +74,3 @@ it('a post belongs to a user', function () {
         ->and($post->user->id)->toBe($user->id);
 });
 
-it('can be unliked by a user', function () {
-    // Arrange
-    $user = User::factory()->create();
-    $post = Post::factory()->create(['user_id' => $user->id]);
-
-    // Act
-    $post->like($user); // Like
-    $post->like($user); // Unlike
-
-    // Assert
-    expect($post->likes)->toHaveCount(1);
-    expect($post->isLiked($user))->toBeFalse();
-});

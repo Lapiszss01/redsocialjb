@@ -18,12 +18,14 @@ class PostForm extends Component
     public $post_id;
 
     protected $rules = [
-        'body' => 'required|min:3',
-        'image' => 'nullable|image|max:2048',
+        'body' => 'required|min:1',
+        'image' => 'nullable|max:2048',
     ];
 
     public function save()
     {
+        $this->validateOnly('*');
+        $this->validate();
 
         $imagePath = $this->image ? $this->image->store('uploads', 'public') : null;
 

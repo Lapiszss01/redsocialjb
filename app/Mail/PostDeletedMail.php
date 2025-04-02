@@ -21,7 +21,6 @@ class PostDeletedMail extends Mailable
 
     public function build()
     {
-
         return $this->subject('Tu post ha sido eliminado')
             ->view('emails.post-deleted')
             ->with(['post' => $this->post]);

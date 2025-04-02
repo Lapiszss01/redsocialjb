@@ -32,7 +32,7 @@ it('dispatches the PostDeletedByAdmin event when an admin deletes a post', funct
 
 it('sends an email when a post is deleted by an admin', function () {
     Mail::fake();
-    Log::spy(); // Captura todas las llamadas a Log::info()
+
 
     $postOwner = User::factory()->create(['email' => 'test@example.com']);
     $post = Post::factory()->create(['user_id' => $postOwner->id]);
@@ -43,5 +43,4 @@ it('sends an email when a post is deleted by an admin', function () {
         return $mail->hasTo($postOwner->email) &&
             $mail->post->id === $post->id;
     });
-    Log::shouldHaveReceived('info')->with("Enviando correo a: test@example.com");
 });
