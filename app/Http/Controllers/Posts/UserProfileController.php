@@ -25,8 +25,6 @@ class UserProfileController extends Controller
 
     public function update(UpdateUserprofileRequest $request, User $user)
     {
-        //dd($request->validated());
-
         $user->update($request->validated());
         $user->save();
 

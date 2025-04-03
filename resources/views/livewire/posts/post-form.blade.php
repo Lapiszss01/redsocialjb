@@ -14,6 +14,8 @@
             <img src="{{ $image->temporaryUrl() }}" class="p-1 w-full max-w-lg h-auto object-cover rounded-lg mx-auto">
         @endif
 
+        <livewire:components.publish-date-picker wire:model.defer="published_at"/>
+
         <div>
             <button type="submit" class="py-2 w-full border-gray-300 border-b-0 border-t-2 border-l-0 border-r-0">
                 {{ __('Post') }}

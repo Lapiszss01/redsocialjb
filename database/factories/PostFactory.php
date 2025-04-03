@@ -20,6 +20,7 @@ class PostFactory extends Factory
             'body' => fake()->paragraph(),
             'parent_id' => null,
             'image_url' => null,
+            'published_at' => $this->faker->date(),
         ];
     }
 }

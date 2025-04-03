@@ -17,7 +17,9 @@ return new class extends Migration
             $table->foreignId('user_id');
             $table->text('body');
             $table->string('image_url')->nullable();
+            $table->datetime('published_at')->nullable();
             $table->timestamps();
+
         });
     }
 
