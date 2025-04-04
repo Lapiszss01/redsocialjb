@@ -25,13 +25,7 @@
                 <td class="py-2 px-4">{{ $user->name }}</td>
                 <td class="py-2 px-4">{{ $user->email }}</td>
                 <td class="py-2 px-4">
-                    <select wire:model="userRole.{{ $user->id }}" wire:change="updateRole({{ $user->id }}, $event.target.value)">
-                        @foreach ($roles as $role)
-                            <option value="{{ $role->id }}" @if($role->id === $user->role_id) selected @endif>
-                                {{ $role->name }}
-                            </option>
-                        @endforeach
-                    </select>
+                    <livewire:components.selectcomponent :userId="$user->id" :roleId="$user->role_id" :key="$user->id" />
                 </td>
                 <td class="py-2 px-4">
                     <button wire:click="editUser({{ $user->id }})" class="bg-blue-500 text-white px-2 py-1 rounded">Editar</button>
