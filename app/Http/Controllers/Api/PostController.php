@@ -22,7 +22,13 @@ class PostController extends Controller
      */
     public function getByUser($userId)
     {
-        $posts = Post::where('user_id', $userId)->get();
+        abort_if(! auth()->user()->tokenCan('Admin'), 403);
+
+        $posts = Post::where('user_id', $userId)
+            ->where('published_at', '<=', now())
+            ->whereNull('parent_id')
+            ->orderBy('created_at', 'desc')
+            ->get();
         if ($posts->isEmpty()) {
             return response()->json(['message' => 'No posts found for this user'], 404);
         }

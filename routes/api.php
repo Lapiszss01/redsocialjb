@@ -75,7 +75,8 @@ Route::middleware('api')->group(function () {
      *   "message": "No posts found for this user"
      * }
      */
-    Route::get('/posts/user/{userId}', [PostController::class, 'getByUser'])->name('api.posts.getByUser');
+    //Route::get('/posts/user/{userId}', [PostController::class, 'getByUser'])->name('api.posts.getByUser');
+    Route::middleware('auth:sanctum')->get('/posts/user/{userId}', [PostController::class, 'getByUser'])->name('api.posts.getByUser');
 
     /**
      * @group Posts
