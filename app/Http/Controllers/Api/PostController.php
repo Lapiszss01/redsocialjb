@@ -11,16 +11,6 @@ class PostController extends Controller
 {
     /**
      * Get all posts
-     *
-     * @response 200 {
-     *   "data": [
-     *     {
-     *       "id": 1,
-     *       "title": "Post title",
-     *       "content": "Post content"
-     *     }
-     *   ]
-     * }
      */
     public function index()
     {
@@ -29,20 +19,6 @@ class PostController extends Controller
 
     /**
      * Get posts by user
-     *
-     * @urlParam userId int required The ID of the user. Example: 1
-     * @response 200 {
-     *   "data": [
-     *     {
-     *       "id": 1,
-     *       "title": "User's Post",
-     *       "content": "Content of the post"
-     *     }
-     *   ]
-     * }
-     * @response 404 {
-     *   "message": "No posts found for this user"
-     * }
      */
     public function getByUser($userId)
     {
@@ -51,5 +27,57 @@ class PostController extends Controller
             return response()->json(['message' => 'No posts found for this user'], 404);
         }
         return PostResource::collection($posts);
+    }
+
+    /**
+     * Store a new post
+     */
+    public function store(Request $request)
+    {
+        $validated = $request->validate([
+            'user_id' => 'required|exists:users,id',
+            'body' => 'required|string',
+            'image_url' => 'nullable|url',
+            'parent_id' => 'nullable|exists:posts,id',
+            'published_at' => 'nullable|date',
+        ]);
+
+        $post = Post::create($validated);
+
+        return new PostResource($post);
+    }
+
+    /**
+     * Show a single post
+     */
+    public function show(Post $post)
+    {
+        return new PostResource($post);
+    }
+
+    /**
+     * Update an existing post
+     */
+    public function update(Request $request, Post $post)
+    {
+        $validated = $request->validate([
+            'body' => 'sometimes|required|string',
+            'image_url' => 'nullable|url',
+            'parent_id' => 'nullable|exists:posts,id',
+            'published_at' => 'nullable|date',
+        ]);
+
+        $post->update($validated);
+
+        return new PostResource($post);
+    }
+
+    /**
+     * Delete a post
+     */
+    public function destroy(Post $post)
+    {
+        $post->delete();
+        return response()->json(['message' => 'Post deleted successfully.']);
     }
 }

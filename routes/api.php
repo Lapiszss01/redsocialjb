@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\PostController;
@@ -19,7 +20,22 @@ use App\Http\Controllers\Api\PostController;
  * }
  */
 Route::middleware('api')->group(function () {
-    Route::get('/users', [\App\Http\Controllers\Api\UserController::class, 'index'])->name('api.users.index');
+
+    /**
+     * @group Users
+     * Get all users
+     *
+     * @response 200 {
+     *   "data": [
+     *     {
+     *       "id": 1,
+     *       "name": "User Name",
+     *       "email": "user@example.com"
+     *     }
+     *   ]
+     * }
+     */
+    Route::apiResource('users', UserController::class);
 
     /**
      * @group Posts
@@ -35,6 +51,10 @@ Route::middleware('api')->group(function () {
      *   ]
      * }
      */
+
+    Route::apiResource('topics', \App\Http\Controllers\Api\TopicController::class);
+
+
     Route::get('/posts', [PostController::class, 'index'])->name('api.posts.index');
 
     /**
@@ -56,4 +76,10 @@ Route::middleware('api')->group(function () {
      * }
      */
     Route::get('/posts/user/{userId}', [PostController::class, 'getByUser'])->name('api.posts.getByUser');
+
+    /**
+     * @group Posts
+     * Full CRUD for posts
+     */
+    Route::apiResource('posts', PostController::class)->except(['index']);
 });
