@@ -112,6 +112,11 @@ class UserRoleManager extends Component
         $this->message = "Borrados posts inactivos.";
     }
 
+    public function analysisPDF()
+    {
+        return redirect()->route('pdf.analisis-general');
+    }
+
     public function render()
     {
         return view('livewire.userprofile.user-role-manager');

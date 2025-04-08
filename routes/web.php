@@ -37,7 +37,7 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::middleware(['auth', 'admin'])->get('/admin/users', [AdminUserController::class, 'index'])->name('admin.users');
-
+Route::get('/pdf/analisis-general', [PdfController::class, 'generatePageAnalysisPDF'])->name('pdf.analisis-general');
 
 
 

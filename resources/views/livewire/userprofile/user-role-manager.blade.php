@@ -5,6 +5,9 @@
 
         <button wire:click="deleteInactivePosts" class="btn btn-danger bg-red-500 text-white px-2 py-1 rounded">Eliminar posts inactivos</button>
 
+        <button wire:click="analysisPDF" class="btn btn-danger bg-red-500 text-white px-2 py-1 rounded">Estadisticas de la web</button>
+
+
         @if($message)
             <p style="color: green;">{{ $message }}</p>
         @endif
