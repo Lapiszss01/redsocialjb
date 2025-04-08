@@ -6,6 +6,7 @@ use function Pest\Laravel\actingAs;
 use function Pest\Laravel\get;
 
 it('renders the admin users index page', function () {
+    $rol = \App\Models\Role::factory()->create();
     $admin = User::factory()->create();
 
     actingAs($admin);

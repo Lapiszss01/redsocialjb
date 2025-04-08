@@ -1,43 +1,105 @@
 <?php
 
+use App\Models\Post;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Support\Facades\Route;
+use Laravel\Sanctum\Sanctum;
 use function Pest\Laravel\getJson;
 use function Pest\Laravel\postJson;
+use function Pest\Laravel\putJson;
+use function Pest\Laravel\deleteJson;
 
 uses(RefreshDatabase::class);
 
-it('returns all users when index is accessed', function () {
-    User::factory(3)->create();
+it('gets all posts', function () {
+    $user = User::factory()->create();
+    Post::factory()->count(3)->create(['user_id' => $user->id]);
 
-    getJson(route('api.users.index'))
-        ->assertStatus(200)
-        ->assertJsonCount(3, 'data')
-        ->assertJsonStructure([
-            'data' => [
-                '*' => [
-                    'id',
-                    'username',
-                    'biography',
-                ]
-            ]
-        ]);
+    $response = getJson(route('api.posts.index'));
+
+    $response->assertOk()
+        ->assertJsonCount(3, 'data');
 });
 
-it('returns users in the correct format', function () {
+it('gets posts by user with Admin token', function () {
+    $admin = User::factory()->create();
+    Sanctum::actingAs($admin, ['Admin']);
+
+    $posts = Post::factory()->count(2)->create([
+        'user_id' => $admin->id,
+        'published_at' => now(),
+    ]);
+
+    $response = getJson(route('api.posts.getByUser', $admin->id));
+
+    $response->assertOk()
+        ->assertJsonCount(2, 'data');
+});
+
+it('forbids getting posts by user without Admin token', function () {
+    $user = User::factory()->create();
+    Sanctum::actingAs($user); // No token scope
+
+    $response = getJson(route('api.posts.getByUser', $user->id));
+
+    $response->assertForbidden();
+});
+
+it('returns 404 if user has no posts', function () {
+    $admin = User::factory()->create();
+    Sanctum::actingAs($admin, ['Admin']);
+
+    $response = getJson(route('api.posts.getByUser', 999));
+
+    $response->assertStatus(404);
+});
+
+it('stores a new post', function () {
+    $user = User::factory()->create();
+    Sanctum::actingAs($user);
+
+    $data = [
+        'user_id' => $user->id,
+        'body' => 'This is a test post.',
+        'image_url' => 'https://example.com/image.jpg',
+        'published_at' => now()->toDateTimeString(),
+    ];
+
+    $response = postJson(route('posts.store'), $data);
+
+    $response->assertCreated();
+    expect($response['data']['body'])->toBe('This is a test post.');
+});
+
+it('shows a single post', function () {
+    $user = User::factory()->create();
+    $post = Post::factory()->create(['user_id' => $user->id]);
+
+    $response = getJson(route('posts.show', $post));
+
+    $response->assertOk()
+        ->assertJsonPath('data.id', $post->id);
+});
+
+it('updates an existing post', function () {
+    $user = User::factory()->create();
+    $post = Post::factory()->create(['body' => 'Original', 'user_id' => $user->id]);
+
+    $response = putJson(route('posts.update', $post), [
+        'body' => 'Updated content',
+    ]);
+
+    $response->assertOk()
+        ->assertJsonPath('data.body', 'Updated content');
+});
+
+it('deletes a post', function () {
     $user = User::factory()->create();
 
-    getJson(route('api.users.index'))
-        ->assertStatus(200)
-        ->assertJsonFragment(['id' => $user->id])
-        ->assertJsonStructure([
-            'data' => [
-                '*' => [
-                    'id',
-                    'username',
-                    'biography',
-                ]
-            ]
-        ]);
+    $post = Post::factory()->create(['user_id' => $user->id]);
+
+    $response = deleteJson(route('posts.destroy', $post));
+
+    $response->assertOk()
+        ->assertJson(['message' => 'Post deleted successfully.']);
 });
