@@ -14,7 +14,7 @@
 
     @if(Auth::user()->role_id == 1)
         <x-dropdown-link :href="route('admin.users')">
-            {{ __('Administrar Usuarios') }}
+            {{ __('User Administration') }}
         </x-dropdown-link>
     @endif
 

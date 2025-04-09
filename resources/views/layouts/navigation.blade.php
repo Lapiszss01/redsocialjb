@@ -16,18 +16,17 @@
                         Dashboard
                     </x-nav-link>
                 </div>-->
-
             </div>
 
             <!-- Settings Dropdown -->
             <x-dropdown align="right" width="48">
-                @auth
-                    @include('layouts._dropdown-auth-profile')
-                @endauth
+                    @auth
+                        @include('layouts._dropdown-auth-profile')
+                    @endauth
 
-                @guest
-                        @include('layouts._dropdown-guest-profile')
-                @endguest
+                    @guest
+                            @include('layouts._dropdown-guest-profile')
+                    @endguest
             </x-dropdown>
 
             <!-- Hamburger -->
@@ -75,4 +74,5 @@
             </div>
         </div>
     </div>
+
 </nav>

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\AdminUserController;
+use App\Http\Controllers\LanguageController;
 use App\Http\Controllers\PDFController;
 use App\Http\Controllers\Posts\PostController;
 use App\Http\Controllers\Posts\UserProfileController;
@@ -13,6 +14,8 @@ Route::get('/', [PostController::class, 'index'])->name('home');
 Route::get('/{username}',[UserProfileController::class, 'profile'])->name('profile');
 Route::get('/{post}/show',[PostController::class, 'show'])->name('post.show');
 Route::get('/user/{id}/posts/pdf', [PDFController::class, 'generateUserPostsPDF'])->name('user.posts.pdf');
+
+Route::get('lang/{lang}', ['as' => 'lang.switch', 'uses' => 'App\Http\Controllers\LanguageController@switchLang']);
 
 Route::get('/dashboard', function () {
     return view('dashboard');

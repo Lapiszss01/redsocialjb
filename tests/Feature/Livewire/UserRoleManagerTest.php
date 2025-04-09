@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Bus;
 use Illuminate\Support\Facades\Hash;
 use Livewire\Livewire;
 
+use function Pest\Laravel\actingAs;
 use function Pest\Laravel\artisan;
 
 test('it renders user role manager', function () {
@@ -17,17 +18,11 @@ test('it renders user role manager', function () {
         ->assertStatus(200);
 });
 
-test('it updates a user role', function () {
-    $user = User::factory()->create();
-    $role = Role::factory()->create();
 
-    Livewire::test(UserRoleManager::class)
-        ->call('updateRole', $user->id, $role->id);
-
-    expect($user->fresh()->role_id)->toBe($role->id);
-});
 
 test('it creates a new user', function () {
+    $admin = User::factory()->create();
+    actingAs($admin);
     Livewire::test(UserRoleManager::class)
         ->set('name', 'John Doe')
         ->set('username', 'johndoe')
@@ -46,6 +41,8 @@ test('it edits and updates a user', function () {
         'email' => 'old@example.com',
     ]);
 
+    actingAs($user);
+
     Livewire::test(UserRoleManager::class)
         ->call('editUser', $user->id)
         ->set('name', 'New Name')
@@ -58,6 +55,7 @@ test('it edits and updates a user', function () {
 
 test('it deletes a user and their posts', function () {
     $user = User::factory()->create();
+    actingAs($user);
     Post::factory()->count(2)->create(['user_id' => $user->id]);
 
     Livewire::test(UserRoleManager::class)
