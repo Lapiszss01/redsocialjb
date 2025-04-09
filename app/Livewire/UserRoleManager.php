@@ -3,6 +3,7 @@
 namespace App\Livewire;
 
 use App\Jobs\DeleteInactiveUsers;
+use App\Models\Post;
 use App\Models\Role;
 use App\Models\User;
 use Illuminate\Support\Facades\Artisan;
@@ -32,16 +33,6 @@ class UserRoleManager extends Component
         }
     }
 
-    public function updateRole($userId, $roleId)
-    {
-        $user = User::find($userId);
-        if ($user) {
-            $user->role_id = $roleId;
-            $user->save();
-            session()->flash('message', 'Rol actualizado correctamente.');
-        }
-    }
-
     public function openUserCreating()
     {
         $this->creatingUser = true;
@@ -49,6 +40,8 @@ class UserRoleManager extends Component
 
     public function createUser()
     {
+
+        $this->authorize('create', User::class);
 
         $user = User::create([
             'name' => $this->name,
@@ -77,6 +70,8 @@ class UserRoleManager extends Component
 
     public function updateUser()
     {
+        $this->authorize('create', User::class);
+
         $user = User::find($this->userId);
         if ($user) {
             $user->name = $this->name;

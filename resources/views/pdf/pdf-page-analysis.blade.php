@@ -40,7 +40,7 @@
         <thead><tr><th>Tema</th><th>Posts</th></tr></thead>
         <tbody>
         @foreach($topTopics as $topic)
-            <tr><td>{{ $topic->name }}</td><td>{{ $topic->posts_count }}</td></tr>
+            <tr><td>{{ $topic->name }}</td><td>{{ $topic->posts->count() }}</td></tr>
         @endforeach
         </tbody>
     </table>

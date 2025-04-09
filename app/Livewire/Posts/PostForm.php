@@ -20,8 +20,6 @@ class PostForm extends Component
     public $published_at;
     protected $listeners = ['updatePublishedAt' => 'setPublishedAt'];
 
-
-
     protected $rules = [
         'body' => 'required|min:1',
         'image' => 'nullable|max:2048',
@@ -30,6 +28,9 @@ class PostForm extends Component
 
     public function save()
     {
+
+        $this->authorize('create', Post::class);
+
         $this->validateOnly('*');
         $this->validate();
 

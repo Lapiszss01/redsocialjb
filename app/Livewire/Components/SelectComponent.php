@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Components;
 
+use App\Models\Post;
 use App\Models\Role;
 use App\Models\User;
 use Livewire\Component;
@@ -26,6 +27,10 @@ class SelectComponent extends Component
 
     public function updateRole($value)
     {
+
+        $this->authorize('assignRole', User::class);
+
+
         $user = User::find($this->userId);
         if ($user) {
             $user->role_id = $value;
