@@ -5,8 +5,14 @@ namespace App\Livewire\Posts;
 use App\Models\Post;
 use App\Models\Topic;
 use Carbon\Carbon;
+use Illuminate\Http\Request;
 use Livewire\Component;
+use Livewire\Features\SupportFileUploads\TemporaryUploadedFile;
 use Livewire\WithFileUploads;
+
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\File;
 
 class PostForm extends Component
 {
@@ -18,8 +24,8 @@ class PostForm extends Component
     public $parent_id ;
     public $post_id;
     public $published_at;
-    protected $listeners = ['updatePublishedAt' => 'setPublishedAt'];
-
+    protected $listeners = ['updatePublishedAt' => 'setPublishedAt', 'imageUploaded' => 'setImage'];
+    public $imageBase64;
     protected $rules = [
         'body' => 'required|min:1',
         'image' => 'nullable|max:2048',
@@ -81,6 +87,11 @@ class PostForm extends Component
     public function setPublishedAt($date)
     {
         $this->published_at = $date;
+    }
+
+    public function setImage($data)
+    {
+        $this->image = TemporaryUploadedFile::find($data['id']);
     }
 
     public function render()

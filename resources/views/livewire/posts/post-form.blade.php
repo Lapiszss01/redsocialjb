@@ -4,7 +4,6 @@
 
         <div class="dropzone relative flex items-center justify-center overflow-hidden max-w-full max-h-60 border-0" id="dropzone">
             <input type="file" wire:model="image" class="hidden" id="imageInput">
-            <input type="hidden" name="image_url" id="image_url">
             <div class="cursor-pointer" onclick="document.getElementById('imageInput').click()">
                 {{ __('Click to upload an image') }}
             </div>
@@ -22,4 +21,5 @@
             </button>
         </div>
     </form>
+
 </div>

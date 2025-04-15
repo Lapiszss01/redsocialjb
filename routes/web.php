@@ -34,8 +34,8 @@ Route::middleware('auth')->group(function () {
     Route::post('/{post}/show.store',[PostController::class, 'storeResponse'])->name('post.show.store');
     Route::post('/{post}/like', [PostController::class, 'like'])->name('post.like');
     Route::delete('/{post}/destroy', [PostController::class, 'destroy'])->name('post.destroy');
-    Route::post('/posts/upload', [PostController::class, 'upload'])->name('posts.upload');
 
+    Route::post('/upload', [\App\Livewire\Posts\PostForm::class, 'upload'])->name('posts.upload');
 
 });
 

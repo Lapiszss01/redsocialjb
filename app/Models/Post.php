@@ -60,4 +60,6 @@ class Post extends Model
         return $this->belongsToMany(Topic::class, 'post_topic');
     }
 
+
+
 }
