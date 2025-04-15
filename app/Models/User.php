@@ -69,5 +69,11 @@ class User extends Authenticatable
         return $this->belongsTo(Role::class);
     }
 
+    public function notifications()
+    {
+        return $this->belongsToMany(Notification::class)
+            ->withPivot('relation_type', 'is_read')
+            ->withTimestamps();
+    }
 
 }
