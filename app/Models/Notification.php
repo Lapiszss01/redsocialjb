@@ -20,13 +20,13 @@ class Notification extends Model
         return $this->belongsTo(Post::class);
     }
 
-    function notifyPostLike(User $actor, Post $post)
+    static function notifyPostLike(User $actor, Post $post)
     {
         if ($actor->id === $post->user_id) return;
 
         $notification = Notification::create([
             'message' => "{$actor->name} le dio like a tu post",
-            'post_id' => $post->id,
+            'post_id' => $post->id
         ]);
 
         $notification->users()->attach($post->user_id, [
@@ -35,8 +35,9 @@ class Notification extends Model
         ]);
     }
 
-    function notifyPostComment(User $actor, Post $post)
+    static function notifyPostComment(User $actor, Post $post)
     {
+
         if ($actor->id === $post->user_id) return;
 
         $notification = Notification::create([

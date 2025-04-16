@@ -4,6 +4,7 @@ namespace App\Livewire\Posts;
 
 use App\Events\PostDeletedByAdmin;
 use App\Events\PostLiked;
+use App\Models\Notification;
 use App\Models\Post;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
@@ -43,9 +44,13 @@ class PostItem extends Component
             );
             $this->isLiked = true;
             $this->likeCount++;
+            Notification::notifyPostLike($user, $this->post);
             event(new PostLiked($this->post, $user));
 
         }
+
+
+
     }
 
     public function redirectToPost($postId)

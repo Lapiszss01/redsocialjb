@@ -5,7 +5,7 @@
         <div class="md:col-span-2 flex flex-col space-y-4 w-full">
             @auth
             <div class="bg-white p-4 shadow-md rounded-lg w-full">
-                <livewire:posts.post-form />
+                <livewire:posts.post-form :user="Auth::user()" />
             </div>
             @endauth
             <div class="bg-white p-4 shadow-md rounded-lg w-full">

@@ -2,10 +2,12 @@
 
 namespace App\Livewire\Posts;
 
+use App\Models\Notification;
 use App\Models\Post;
 use App\Models\Topic;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 use Livewire\Features\SupportFileUploads\TemporaryUploadedFile;
 use Livewire\WithFileUploads;
@@ -20,12 +22,17 @@ class PostForm extends Component
 
     public $body;
     public $image;
+    public $user;
     public $parentpost;
     public $parent_id ;
     public $post_id;
     public $published_at;
     protected $listeners = ['updatePublishedAt' => 'setPublishedAt', 'imageUploaded' => 'setImage'];
     public $imageBase64;
+    public function mount($user = null)
+    {
+        $this->user = $user ?? Auth::user();
+    }
     protected $rules = [
         'body' => 'required|min:1',
         'image' => 'nullable|max:2048',
@@ -76,6 +83,11 @@ class PostForm extends Component
         $post->topics()->sync($topicIds);
         $this->reset(['body', 'image', 'post_id']);
         $this->dispatch('postUpdated');
+
+        if ($this->parentpost) {
+            Notification::notifyPostComment($this->user, $this->parentpost);
+        }
+
     }
 
     public function edit(Post $post)
