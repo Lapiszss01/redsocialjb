@@ -46,11 +46,7 @@ class PostItem extends Component
             $this->likeCount++;
             Notification::notifyPostLike($user, $this->post);
             event(new PostLiked($this->post, $user));
-
         }
-
-
-
     }
 
     public function redirectToPost($postId)
