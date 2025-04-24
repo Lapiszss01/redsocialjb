@@ -22,6 +22,7 @@ class Notification extends Model
 
     static function notifyPostLike(User $actor, Post $post)
     {
+
         if ($actor->id === $post->user_id) return;
 
         $notification = Notification::create([

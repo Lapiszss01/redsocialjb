@@ -16,6 +16,7 @@ class PostItem extends Component
     public $likeCount;
     public $childPosts;
 
+
     public function mount(Post $post)
     {
         $this->post = $post;
@@ -27,11 +28,13 @@ class PostItem extends Component
 
     public function toggleLike()
     {
+
         if (!Auth::check()) {
             return redirect()->route('login');
         }
 
         $user = Auth::user();
+
 
         if ($this->isLiked) {
             $this->post->likes()->where('user_id', $user->id)->update(['liked' => false]);
@@ -44,7 +47,9 @@ class PostItem extends Component
             );
             $this->isLiked = true;
             $this->likeCount++;
+
             Notification::notifyPostLike($user, $this->post);
+
             event(new PostLiked($this->post, $user));
         }
     }

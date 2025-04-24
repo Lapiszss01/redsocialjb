@@ -36,7 +36,7 @@ Route::middleware('auth')->group(function () {
 
     Route::post('/upload', [\App\Livewire\Posts\PostForm::class, 'upload'])->name('posts.upload');
 
-    Route::get('/{user}/not]', [NotificationController::class, 'index'])->name('notifications.index');
+    Route::get('/{user}/notifications]', [NotificationController::class, 'index'])->name('notifications.index');
 
 });
 
