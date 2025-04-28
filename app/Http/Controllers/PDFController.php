@@ -28,15 +28,12 @@ class PDFController extends Controller
     public function generatePageAnalysisPDF()
     {
 
-        // Top usuarios por cantidad de posts principales (no comentarios)
         $topUsers = User::withCount(['posts as main_posts_count' => function ($query) {
             $query->whereNull('parent_id');
         }])->orderByDesc('main_posts_count')->take(10)->get();
 
-        // Topics más usados
         $topTopics = Topic::withCount('posts')->orderByDesc('posts_count')->take(10)->get();
 
-        // Posts más likeados (solo principales)
         $topLikedPosts = Post::whereNull('parent_id')
             ->with('user')
             ->withCount('likes')
@@ -44,7 +41,6 @@ class PDFController extends Controller
             ->take(10)
             ->get();
 
-        // Posts con más comentarios (otros posts donde parent_id = id de este post)
         $mostCommentedPosts = Post::whereNull('parent_id')
             ->with('user')
             ->withCount(['children as comments_count'])
@@ -52,7 +48,6 @@ class PDFController extends Controller
             ->take(10)
             ->get();
 
-        // Estadísticas generales
         $totalUsers = User::count();
         $totalPosts = Post::count();
         $totalTopics = Topic::count();

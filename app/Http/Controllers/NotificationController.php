@@ -10,9 +10,6 @@ class NotificationController extends Controller
 {
     public function index(User $user)
     {
-
-
-
         $notifications = $user->notifications()->get();
 
         return view('notifications.index', compact('notifications'));

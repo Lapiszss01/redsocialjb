@@ -1,8 +1,10 @@
 <?php
 
+use App\Http\Resources\UserResource;
 use App\Models\Post;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Http\Request;
 use Laravel\Sanctum\Sanctum;
 use function Pest\Laravel\getJson;
 use function Pest\Laravel\postJson;
@@ -102,4 +104,21 @@ it('deletes a post', function () {
 
     $response->assertOk()
         ->assertJson(['message' => 'Post deleted successfully.']);
+});
+
+it('returns the correct data with UserResource', function () {
+
+    $user = User::factory()->create([
+        'username' => 'testuser',
+        'biography' => 'This is a biography.'
+    ]);
+
+    $request = Request::create('/dummy-url', 'GET');
+
+    $resource = new UserResource($user);
+    $data = $resource->toArray($request);
+
+    expect($data['id'])->toBe($user->id);
+    expect($data['username'])->toBe($user->username);
+    expect($data['biography'])->toBe($user->biography);
 });
