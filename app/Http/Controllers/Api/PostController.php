@@ -24,11 +24,8 @@ class PostController extends Controller
     {
         abort_if(! auth()->user()->tokenCan('Admin'), 403);
 
-        $posts = Post::where('user_id', $userId)
-            ->where('published_at', '<=', now())
-            ->whereNull('parent_id')
-            ->orderBy('created_at', 'desc')
-            ->get();
+        $posts = Post::publishedMainPostsByUser($userId)->get();
+
         if ($posts->isEmpty()) {
             return response()->json(['message' => 'No posts found for this user'], 404);
         }

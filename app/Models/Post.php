@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -38,9 +39,25 @@ class Post extends Model
         return $query->where('parent_id', $parent_id)->orderBy('created_at', 'desc')->where('published_at', '<=', now());
     }
 
-    public function scopeByUser(Builder $query, int $userId): Builder
+    /*public function scopeByUser(Builder $query, int $userId): Builder
     {
         return $query->where('user_id', $userId);
+    }*/
+
+    public function scopePublishedMainPostsByUser($query, $userId)
+    {
+        return $query->where('user_id', $userId)
+            ->where('published_at', '<=', now())
+            ->whereNull('parent_id')
+            ->orderBy('created_at', 'desc');
+    }
+
+    public function scopeTopLikedLastDay($query, $limit = 5)
+    {
+        return $query->where('created_at', '>=', Carbon::now()->subDay())
+            ->withCount('likes')
+            ->orderByDesc('likes_count')
+            ->take($limit);
     }
 
     public function parent()

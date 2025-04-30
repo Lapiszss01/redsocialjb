@@ -34,12 +34,7 @@ class PDFController extends Controller
 
         $topTopics = Topic::withCount('posts')->orderByDesc('posts_count')->take(10)->get();
 
-        $topLikedPosts = Post::whereNull('parent_id')
-            ->with('user')
-            ->withCount('likes')
-            ->orderByDesc('likes_count')
-            ->take(10)
-            ->get();
+        $topPosts = Post::topLikedLastDay(10)->get();
 
         $mostCommentedPosts = Post::whereNull('parent_id')
             ->with('user')

@@ -13,7 +13,7 @@ class UserProfileController extends Controller
     public function profile($username)
     {
         $user = User::where('username', $username)->firstOrFail();
-        $posts = Post::byUser($user->id)->get();
+        $posts = Post::publishedMainPostsByUser($user->id)->get();
         return view('userprofile/user-profile', compact('user', 'posts'));
     }
 

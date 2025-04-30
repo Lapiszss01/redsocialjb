@@ -14,11 +14,7 @@ class SendDailyBestPostsCommand extends Command
 
     public function handle()
     {
-        $topPosts = Post::where('created_at', '>=', Carbon::now()->subDay())
-            ->withCount('likes')
-            ->orderByDesc('likes_count')
-            ->take(5)
-            ->get();
+        $topPosts = Post::topLikedLastDay(5)->get();
 
         if ($topPosts->isEmpty()) {
             $this->warn('No hay posts populares para mostrar hoy.');
