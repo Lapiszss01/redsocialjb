@@ -4,9 +4,9 @@
             <div>
                 {{$notification->actor->username}} -
                 @if($notification->pivot->relation_type == 'like')
-                ha dado like a tu post:
+                {{__('Like')}}
                 @else
-                ha comentado en tu post:
+                    {{__('Comment')}}
                 @endif
             </div>
             <div class="font-medium">
