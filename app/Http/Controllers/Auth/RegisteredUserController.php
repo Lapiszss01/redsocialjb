@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreUserRequest;
 use App\Models\User;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\RedirectResponse;
@@ -27,19 +28,8 @@ class RegisteredUserController extends Controller
      *
      * @throws \Illuminate\Validation\ValidationException
      */
-    public function store(Request $request): RedirectResponse
+    public function store(StoreUserRequest $request): RedirectResponse
     {
-
-
-
-        $request->validate([
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
-            'password' => ['required', 'confirmed', Rules\Password::defaults()],
-            'username' => 'required|string|unique:users|max:255',
-            'terms' => ['required','accepted'],
-            'pdfTerms' => ['nullable'],
-        ]);
 
         $user = User::create([
             'name' => $request->name,
@@ -50,8 +40,6 @@ class RegisteredUserController extends Controller
             'terms_accepted_at' => $request->has('terms') ? now() : null,
             'pdf_terms_accepted_at' => $request->has('pdfTerms') ? now() : null,
         ]);
-
-
 
         event(new Registered($user));
 
