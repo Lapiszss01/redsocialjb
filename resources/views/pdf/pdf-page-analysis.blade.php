@@ -49,7 +49,7 @@
     <table>
         <thead><tr><th>Post</th><th>Autor</th><th>Likes</th></tr></thead>
         <tbody>
-        @foreach($topLikedPosts as $post)
+        @foreach($topPosts as $post)
             <tr>
                 <td>{{ \Illuminate\Support\Str::limit($post->body, 50) }}</td>
                 <td>{{ $post->user->username }}</td>

@@ -53,7 +53,7 @@ class PDFController extends Controller
         $pdf = PDF::loadView('pdf.pdf-page-analysis', compact(
             'topUsers',
             'topTopics',
-            'topLikedPosts',
+            'topPosts',
             'mostCommentedPosts',
             'totalUsers',
             'totalPosts',

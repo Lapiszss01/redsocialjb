@@ -56,7 +56,7 @@ it('returns posts by a specific user', function () {
     Post::factory(3)->create(['user_id' => $user2->id]);
 
     // Act
-    $user1Posts = Post::byUser($user1->id)->get();
+    $user1Posts = Post::publishedMainPostsByUser($user1->id)->get();
 
     // Assert
     expect($user1Posts)

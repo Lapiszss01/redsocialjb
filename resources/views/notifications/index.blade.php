@@ -7,8 +7,5 @@
                 @include('notifications.notification-item', ['notification' => $notification])
             @endforeach
         </div>
-
-
-
     </div>
 </x-app-layout>

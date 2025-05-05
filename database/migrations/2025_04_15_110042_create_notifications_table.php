@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('notifications', function (Blueprint $table) {
             $table->id();
             $table->foreignId('post_id');
-            $table->string('message');
+            $table->foreignId('actor_id');
             $table->timestamps();
         });
     }

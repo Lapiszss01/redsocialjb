@@ -62,11 +62,23 @@ it('generates a PDF with page analysis', function () {
         'user_id' => $users->random()->id,
     ]);
 
+    $topUsers = User::withCount(['posts as main_posts_count' => function ($query) {
+        $query->whereNull('parent_id');
+    }])->orderByDesc('main_posts_count')->take(10)->get();
+    $topTopics = Topic::withCount('posts')->orderByDesc('posts_count')->take(10)->get();
+    $topPosts = Post::topLikedLastDay(10)->get();
+    $mostCommentedPosts = Post::whereNull('parent_id')
+        ->with('user')
+        ->withCount(['children as comments_count'])
+        ->orderByDesc('comments_count')
+        ->take(10)
+        ->get();
+
     Pdf::shouldReceive('loadView')
         ->once()
         ->with('pdf.pdf-page-analysis', \Mockery::on(function ($data) {
             return isset($data['topUsers']) && isset($data['topTopics']) &&
-                isset($data['topLikedPosts']) && isset($data['mostCommentedPosts']);
+                isset($data['topPosts']) && isset($data['mostCommentedPosts']);
         }))
         ->andReturnSelf();
 

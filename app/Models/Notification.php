@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Notification extends Model
 {
     use HasFactory;
-    protected $fillable = ['message', 'post_id'];
+    protected $fillable = ['message', 'post_id','actor_id'];
 
     public function users()
     {
@@ -22,14 +22,19 @@ class Notification extends Model
         return $this->belongsTo(Post::class);
     }
 
+    public function actor()
+    {
+        return $this->belongsTo(User::class, 'actor_id');
+    }
+
     static function notifyPostLike(User $actor, Post $post)
     {
 
         if ($actor->id === $post->user_id) return;
 
         $notification = Notification::create([
-            'message' => "{$actor->name} le dio like a tu post",
-            'post_id' => $post->id
+            'post_id' => $post->id,
+            'actor_id' => $actor->id,
         ]);
 
         $notification->users()->attach($post->user_id, [
@@ -44,8 +49,8 @@ class Notification extends Model
         if ($actor->id === $post->user_id) return;
 
         $notification = Notification::create([
-            'message' => "{$actor->name} comentó en tu post",
             'post_id' => $post->id,
+            'actor_id' => $actor->id,
         ]);
 
         $notification->users()->attach($post->user_id, [
