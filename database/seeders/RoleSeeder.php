@@ -15,6 +15,7 @@ class RoleSeeder extends Seeder
     {
         $roles = [
             ['name' => 'admin', 'display_name' => 'Administrador', 'description' => 'User is allowed to manage and edit other users'],
+            ['name' => 'deleter', 'display_name' => 'Borrador', 'description' => 'User is allowed delete all posts'],
             ['name' => 'user', 'display_name' => 'Usuario', 'description' => 'User is allowed to manage posts'],
         ];
 

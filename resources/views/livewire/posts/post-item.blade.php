@@ -8,7 +8,7 @@
                 </a>, {{ __('Published at') }} {{ $post->created_at }}
             </p>
             @auth
-                @if(auth()->id() === $post->user->id || auth()->user()->role_id === 1)
+                @if(auth()->id() === $post->user->id || auth()->user()->role_id === 1 || auth()->user()->role_id === 2)
                     <button wire:click="delete" class="hover:underline text-red-500">
                         <i class="fas fa-trash"></i>
                     </button>
