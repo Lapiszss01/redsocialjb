@@ -8,10 +8,11 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Laravel\Sanctum\HasApiTokens;
 
 class Post extends Model
 {
-    use HasFactory;
+    use HasFactory , HasApiTokens;
 
     protected $fillable = [ 'user_id', 'body', 'image_url','parent_id','published_at'];
 

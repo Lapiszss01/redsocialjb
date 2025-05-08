@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Models\Topic;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class TopicController extends Controller
 {
@@ -16,6 +17,26 @@ class TopicController extends Controller
     public function index()
     {
         $topics = Topic::all();
+        return response()->json([
+            'data' => $topics
+        ]);
+    }
+
+    public function mostUsedTopic()
+    {
+        abort_if(! auth()->user()->tokenCan('Admin'), 403);
+
+        $topics = DB::table('post_topic')
+            ->select('topic_id', DB::raw('COUNT(*) as usage_count'))
+            ->groupBy('topic_id')
+            ->orderByDesc('usage_count')
+            ->take(10)
+            ->get();
+
+        if ($topics->isEmpty()) {
+            return response()->json(['message' => 'No topics found'], 404);
+        }
+
         return response()->json([
             'data' => $topics
         ]);
