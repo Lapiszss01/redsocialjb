@@ -30,6 +30,11 @@ class Post extends Model
         return $this->hasMany(Like::class);
     }
 
+    public function scopeWithLikesCount($query)
+    {
+        return $query->withCount('likes');
+    }
+
     public function scopeRecent(Builder $query): Builder
     {
         return $query->whereNull('parent_id')->orderByDesc('created_at')->where('published_at', '<=', now());

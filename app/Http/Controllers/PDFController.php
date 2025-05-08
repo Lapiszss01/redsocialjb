@@ -20,6 +20,8 @@ class PDFController extends Controller
             return back()->with('error', 'Este usuario no tiene posts.');
         }
 
+        //dd(basename($posts[6]->image_url));
+
         $pdf = PDF::loadView('pdf.pdf-user-posts', compact('user', 'posts'));
 
         return $pdf->download('posts_usuario_'.$user->id.'.pdf');
