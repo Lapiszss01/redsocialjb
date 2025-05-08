@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Notificación de Like</title>
+    <title>{{__("Mail liked post title")}}</title>
 </head>
 <body>
-<h1>¡Hola, {{ $post->user->username }}!</h1>
-<p>El usuario <strong>{{ $user->username }}</strong> le ha dado like a tu post: <strong>{{ $post->body }}</strong>.</p>
-<p>¡Revisa tu post ahora!</p>
+<h1>{!! __('Mail liked post h1', ['username' => $post->user->username]) !!}</h1>
+<p>
+    {!! __('Mail liked post p1', ['username2' => $user->username, 'body'=>$post->body]) !!}
+</p>
+<p>{{__("Mail liked post p2")}}!</p>
 </body>
 </html>
