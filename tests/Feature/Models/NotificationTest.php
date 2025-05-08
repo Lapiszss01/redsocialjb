@@ -8,8 +8,8 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 uses(RefreshDatabase::class);
 
 it('creates a notification for a post like', function () {
-    $actor = User::factory()->create(); // El usuario que da el like
-    $postOwner = User::factory()->create(); // El dueño del post
+    $actor = User::factory()->create();
+    $postOwner = User::factory()->create();
     $post = Post::factory()->create(['user_id' => $postOwner->id]);
 
     Notification::notifyPostLike($actor, $post);
