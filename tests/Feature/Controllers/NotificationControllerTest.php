@@ -14,6 +14,7 @@ it('displays the notifications for a user', function () {
     $post = Post::factory()->create(['user_id' => $user->id]);
     $notifications = Notification::factory(3)->create([
         'post_id' => $post->id,
+        'actor_id' => $user->id,
     ]);
 
     $data = $notifications->pluck('id')->mapWithKeys(function ($id) {

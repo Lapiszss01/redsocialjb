@@ -18,7 +18,7 @@ class NotificationFactory extends Factory
     {
         return [
             'post_id' => null,
-            'message' => $this->faker->sentence(),
+            'actor_id' => null,
         ];
     }
 }

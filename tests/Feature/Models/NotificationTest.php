@@ -16,7 +16,6 @@ it('creates a notification for a post like', function () {
 
     $notification = Notification::first();
     expect($notification)->not()->toBeNull();
-    expect($notification->message)->toBe("{$actor->name} le dio like a tu post");
     expect($notification->post_id)->toBe($post->id);
 
     $this->assertDatabaseHas('notification_user', [
@@ -46,7 +45,6 @@ it('creates a notification for a post comment', function () {
 
     $notification = Notification::first();
     expect($notification)->not()->toBeNull();
-    expect($notification->message)->toBe("{$actor->name} comentó en tu post");
     expect($notification->post_id)->toBe($post->id);
 
     $this->assertDatabaseHas('notification_user', [
