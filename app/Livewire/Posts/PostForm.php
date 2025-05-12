@@ -2,12 +2,14 @@
 
 namespace App\Livewire\Posts;
 
+use App\Http\Requests\StoreOrUpdatePostRequest;
 use App\Models\Notification;
 use App\Models\Post;
 use App\Models\Topic;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
 use Livewire\Component;
 use Livewire\Features\SupportFileUploads\TemporaryUploadedFile;
 use Livewire\WithFileUploads;
@@ -43,34 +45,37 @@ class PostForm extends Component
     {
 
         $this->authorize('create', Post::class);
-
         $this->validateOnly('*');
-        $this->validate();
 
-        $imagePath = $this->image ? $this->image->store('uploads', 'public') : null;
+        $validated = Validator::make(
+            $this->only(['body', 'image', 'published_at']),
+            (new StoreOrUpdatePostRequest())->rules()
+        )->validate();
+
+        $imagePath = $validated["image"] ? $validated["image"]->store('uploads', 'public') : null;
 
         if ($this->parentpost) {
             $this->parent_id = $this->parentpost->id;
         }
 
-        if ($this->published_at) {
-            $this->published_at = Carbon::parse($this->published_at)->format('Y-m-d H:i:s');
+        if ($validated["published_at"]) {
+            $validated["published_at"] = Carbon::parse($validated["published_at"])->format('Y-m-d H:i:s');
         }else{
-            $this->published_at = now();
+            $validated["published_at"] = now();
         }
 
         $post = Post::updateOrCreate(
             ['id' => $this->post_id],
             [
-                'body' => $this->body,
+                'body' => $validated["body"],
                 'image_url' => $imagePath,
                 'user_id' => auth()->id(),
                 'parent_id' => $this->parent_id,
-                'published_at' => $this->published_at,
+                'published_at' => $validated["published_at"],
             ]
         );
 
-        preg_match_all('/#(\w+)/', $this->body, $matches);
+        preg_match_all('/#(\w+)/', $validated["body"], $matches);
         $topicIds = [];
 
         foreach ($matches[1] as $hashtag) {

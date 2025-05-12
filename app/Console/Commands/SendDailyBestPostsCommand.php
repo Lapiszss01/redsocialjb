@@ -21,10 +21,9 @@ class SendDailyBestPostsCommand extends Command
             return;
         }
 
-        // Mostrar en la consola
         $this->info("📌 TOP 5 POSTS DEL DÍA:");
         foreach ($topPosts as $index => $post) {
-            $this->info(($index + 1) . ". {$post->title} - {$post->likes_count} likes, {$post->comments_count} comentarios");
+            $this->info(($index + 1) . ". {$post->body} - {$post->likes_count} likes, {$post->children->count()} comentarios");
         }
 
         $this->info('Resumen de posts populares enviado.');
