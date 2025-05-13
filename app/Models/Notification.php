@@ -26,36 +26,4 @@ class Notification extends Model
     {
         return $this->belongsTo(User::class, 'actor_id');
     }
-
-    static function notifyPostLike(User $actor, Post $post)
-    {
-
-        if ($actor->id === $post->user_id) return;
-
-        $notification = Notification::create([
-            'post_id' => $post->id,
-            'actor_id' => $actor->id,
-        ]);
-
-        $notification->users()->attach($post->user_id, [
-            'relation_type' => 'like',
-            'is_read' => false,
-        ]);
-    }
-
-    static function notifyPostComment(User $actor, Post $post)
-    {
-
-        if ($actor->id === $post->user_id) return;
-
-        $notification = Notification::create([
-            'post_id' => $post->id,
-            'actor_id' => $actor->id,
-        ]);
-
-        $notification->users()->attach($post->user_id, [
-            'relation_type' => 'comment',
-            'is_read' => false,
-        ]);
-    }
 }
