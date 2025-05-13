@@ -35,7 +35,6 @@ class PostItem extends Component
 
         $user = Auth::user();
 
-
         if ($this->isLiked) {
             $this->post->likes()->where('user_id', $user->id)->update(['liked' => false]);
             $this->isLiked = false;
@@ -47,8 +46,6 @@ class PostItem extends Component
             );
             $this->isLiked = true;
             $this->likeCount++;
-
-            Notification::notifyPostLike($user, $this->post);
 
             event(new PostLiked($this->post, $user));
         }

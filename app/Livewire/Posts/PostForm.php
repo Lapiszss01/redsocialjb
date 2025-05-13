@@ -90,7 +90,7 @@ class PostForm extends Component
         $this->dispatch('postUpdated');
 
         if ($this->parentpost) {
-            Notification::notifyPostComment($this->user, $this->parentpost);
+            event(new \App\Events\PostCommented($this->parentpost, $this->user));
         }
 
     }
