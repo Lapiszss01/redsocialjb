@@ -33,6 +33,10 @@
                 <td class="py-2 px-4">
                     <button wire:click="editUser({{ $user->id }})" class="bg-blue-500 text-white px-2 py-1 rounded">{{__('edit profile')}}</button>
                     <button wire:click="confirmDelete({{ $user->id }})" class="bg-red-500 text-white px-2 py-1 rounded">{{__('Delete profile')}}</button>
+                    <button wire:click="generateToken({{ $user->id }})"
+                            class="bg-green-500 text-white px-2 py-1 rounded mt-1">
+                        {{ __('Generate token') }}
+                    </button>
                 </td>
             </tr>
         @endforeach

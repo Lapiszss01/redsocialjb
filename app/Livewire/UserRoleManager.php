@@ -23,6 +23,8 @@ class UserRoleManager extends Component
     public $email;
     public $username;
     public $password;
+    public $generatedToken = null;
+
 
     public function mount()
     {
@@ -110,6 +112,17 @@ class UserRoleManager extends Component
     public function analysisPDF()
     {
         return redirect()->route('pdf.analisis-general');
+    }
+
+    public function generateToken($userId)
+    {
+        $user = \App\Models\User::findOrFail($userId);
+
+        if (auth()->id() !== $user->id) {
+            abort(403, 'No puedes generar tokens para otros usuarios.');
+        }
+
+        $this->generatedToken = $user->createToken('Web Token', ['Admin', 'User'])->accessToken;
     }
 
     public function render()
