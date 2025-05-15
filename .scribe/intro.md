@@ -1,6 +1,6 @@
 # Introduction
 
-
+Esta es la documentación de tu API. Aquí puedes probar los endpoints.
 
 <aside>
     <strong>Base URL</strong>: <code>http://redsocialjb.test</code>
