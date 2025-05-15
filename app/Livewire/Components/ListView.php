@@ -25,21 +25,13 @@ class ListView extends Component
     {
         switch ($this->source) {
             case 'topics':
-                $this->items = Topic::select('topics.name', DB::raw('COUNT(post_topic.post_id) as post_count'))
-                                ->join('post_topic', 'topics.id', '=', 'post_topic.topic_id')
-                                ->groupBy('topics.name')
-                                ->orderByDesc('post_count')
-                                ->limit(5)
-                                ->pluck('name');
+                $this->items = Topic::topTopics()->pluck('name');
                 break;
+
             case 'users':
-                $this->items = User::select('users.username', DB::raw('COUNT(posts.id) as post_count'))
-                                ->leftJoin('posts', 'users.id', '=', 'posts.user_id')
-                                ->groupBy('users.id', 'users.name')
-                                ->orderByDesc('post_count')
-                                ->limit(5)
-                                ->pluck('username');
+                $this->items = User::topUsersByPosts()->pluck('username');
                 break;
+
             default:
                 $this->items = collect();
                 break;

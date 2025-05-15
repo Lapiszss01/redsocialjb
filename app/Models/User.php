@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\DB;
 use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
@@ -74,6 +75,15 @@ class User extends Authenticatable
         return $this->belongsToMany(Notification::class)
             ->withPivot('relation_type', 'is_read')
             ->withTimestamps();
+    }
+
+    public function scopeTopUsersByPosts($query, $limit = 5)
+    {
+        return $query->select('users.username', DB::raw('COUNT(posts.id) as post_count'))
+            ->leftJoin('posts', 'users.id', '=', 'posts.user_id')
+            ->groupBy('users.id', 'users.name')
+            ->orderByDesc('post_count')
+            ->limit($limit);
     }
 
 }
