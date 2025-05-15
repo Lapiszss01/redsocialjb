@@ -14,7 +14,7 @@ uses(RefreshDatabase::class);
 it('retrieves all topics', function () {
     Topic::factory()->count(3)->create();
 
-    $response = getJson(route('topics.index'));
+    $response = getJson(route('api.topics.index'));
 
     $response->assertStatus(200)
         ->assertJsonStructure(['data' => []])
@@ -35,8 +35,9 @@ it('creates a new topic', function () {
 });
 
 it('shows a specific topic', function () {
+    $user = User::factory()->create();
     $topic = Topic::factory()->create();
-
+    actingAs($user);
     $response = getJson(route('topics.show', $topic->id));
 
     $response->assertStatus(200)
@@ -44,10 +45,11 @@ it('shows a specific topic', function () {
 });
 
 it('updates a topic', function () {
+    $user = User::factory()->create();
     $topic = Topic::factory()->create();
 
     $data = ['name' => 'Updated Topic Name'];
-
+    actingAs($user);
     $response = putJson(route('topics.update', $topic->id), $data);
 
     $response->assertStatus(200)
@@ -56,8 +58,10 @@ it('updates a topic', function () {
 });
 
 it('deletes a topic', function () {
+    $user = User::factory()->create();
     $topic = Topic::factory()->create();
 
+    actingAs($user);
     $response = deleteJson(route('topics.destroy', $topic->id));
 
     $response->assertStatus(200)

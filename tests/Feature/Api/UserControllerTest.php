@@ -7,7 +7,7 @@ use function Pest\Laravel\getJson;
 use function Pest\Laravel\postJson;
 use function Pest\Laravel\putJson;
 use function Pest\Laravel\deleteJson;
-
+use function Pest\Laravel\actingAs;
 beforeEach(function () {
     $this->user = User::factory()->create();
     Sanctum::actingAs($this->user);
@@ -23,6 +23,9 @@ it('gets all users', function () {
 });
 
 it('creates a new user', function () {
+
+
+
     $data = [
         'username' => 'testuser',
         'name' => 'Test User',

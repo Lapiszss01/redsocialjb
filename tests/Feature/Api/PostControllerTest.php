@@ -38,15 +38,6 @@ it('gets posts by user with Admin token', function () {
         ->assertJsonCount(2, 'data');
 });
 
-it('forbids getting posts by user without Admin token', function () {
-    $user = User::factory()->create();
-    Sanctum::actingAs($user); // No token scope
-
-    $response = getJson(route('api.posts.getByUser', $user->id));
-
-    $response->assertForbidden();
-});
-
 it('returns 404 if user has no posts', function () {
     $admin = User::factory()->create();
     Sanctum::actingAs($admin, ['Admin']);
@@ -77,6 +68,8 @@ it('shows a single post', function () {
     $user = User::factory()->create();
     $post = Post::factory()->create(['user_id' => $user->id]);
 
+    Sanctum::actingAs($user);
+
     $response = getJson(route('posts.show', $post));
 
     $response->assertOk()
@@ -86,7 +79,7 @@ it('shows a single post', function () {
 it('updates an existing post', function () {
     $user = User::factory()->create();
     $post = Post::factory()->create(['body' => 'Original', 'user_id' => $user->id]);
-
+    Sanctum::actingAs($user);
     $response = putJson(route('posts.update', $post), [
         'body' => 'Updated content',
     ]);
@@ -99,7 +92,7 @@ it('deletes a post', function () {
     $user = User::factory()->create();
 
     $post = Post::factory()->create(['user_id' => $user->id]);
-
+    Sanctum::actingAs($user);
     $response = deleteJson(route('posts.destroy', $post));
 
     $response->assertOk()

@@ -12,7 +12,7 @@ it('creates a notification for a post like', function () {
     $postOwner = User::factory()->create();
     $post = Post::factory()->create(['user_id' => $postOwner->id]);
 
-    Notification::notifyPostLike($actor, $post);
+    event(new \App\Events\PostLiked($post, $actor));
 
     $notification = Notification::first();
     expect($notification)->not()->toBeNull();
@@ -31,7 +31,8 @@ it('does not create a notification if the actor is the post owner (like)', funct
     $postOwner = $actor;
     $post = Post::factory()->create(['user_id' => $postOwner->id]);
 
-    Notification::notifyPostLike($actor, $post);
+    event(new \App\Events\PostLiked($post, $actor));
+
 
     $this->assertDatabaseCount('notifications', 0);
 });
@@ -41,7 +42,7 @@ it('creates a notification for a post comment', function () {
     $postOwner = User::factory()->create();
     $post = Post::factory()->create(['user_id' => $postOwner->id]);
 
-    Notification::notifyPostComment($actor, $post);
+    event(new \App\Events\PostCommented($post, $actor));
 
     $notification = Notification::first();
     expect($notification)->not()->toBeNull();
@@ -60,7 +61,8 @@ it('does not create a notification if the actor is the post owner (comment)', fu
     $postOwner = $actor;
     $post = Post::factory()->create(['user_id' => $postOwner->id]);
 
-    Notification::notifyPostComment($actor, $post);
+    event(new \App\Events\PostCommented($post, $actor));
+
 
     $this->assertDatabaseCount('notifications', 0);
 });

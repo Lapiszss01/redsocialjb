@@ -68,7 +68,7 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        abort_if(! auth()->user()->tokenCan('Admin'), 403);
+
 
         $validated = $request->validate([
             'username' => 'required|string|unique:users,username',
@@ -156,7 +156,6 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        abort_if(! auth()->user()->tokenCan('Admin'), 403);
 
         $user = User::find($id);
 
@@ -204,7 +203,6 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        abort_if(! auth()->user()->tokenCan('Admin'), 403);
 
         $user = User::find($id);
 
