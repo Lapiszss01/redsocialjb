@@ -47,7 +47,14 @@
         </tr>
         </tbody>
     </table>
-
+    @if($generatedToken)
+        <div class="mt-4 bg-gray-100 border border-gray-300 rounded p-4">
+            <strong>Token:</strong>
+            <p class="mt-2 break-words text-sm font-mono text-gray-800">
+                {{ $generatedToken }}
+            </p>
+        </div>
+    @endif
     @if ($editingUser)
         <div class="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-50">
             <div class="bg-white p-6 rounded shadow-lg">

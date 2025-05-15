@@ -122,7 +122,9 @@ class UserRoleManager extends Component
             abort(403, 'No puedes generar tokens para otros usuarios.');
         }
 
-        $this->generatedToken = $user->createToken('Web Token', ['Admin', 'User'])->accessToken;
+        $user->tokens()->where('name', 'Web Token')->delete();
+
+        $this->generatedToken = $user->createToken('Web Token', ['Admin', 'User'])->plainTextToken;
     }
 
     public function render()
