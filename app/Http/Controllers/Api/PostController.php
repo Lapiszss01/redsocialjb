@@ -22,8 +22,6 @@ class PostController extends Controller
      */
     public function getByUser($userId)
     {
-        abort_if(! auth()->user()->tokenCan('Admin'), 403);
-
         $posts = Post::publishedMainPostsByUser($userId)->get();
 
         if ($posts->isEmpty()) {
@@ -37,6 +35,7 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
+
         $validated = $request->validate([
             'user_id' => 'required|exists:users,id',
             'body' => 'required|string',

@@ -3,29 +3,21 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\TopicResource;
 use App\Models\Topic;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 class TopicController extends Controller
 {
-    /**
-     * Mostrar todos los topics.
-     *
-     * @return \Illuminate\Http\JsonResponse
-     */
     public function index()
     {
         $topics = Topic::all();
-        return response()->json([
-            'data' => $topics
-        ]);
+        return TopicResource::collection($topics);
     }
 
     public function mostUsedTopic()
     {
-        abort_if(! auth()->user()->tokenCan('Admin'), 403);
-
         $topics = DB::table('post_topic')
             ->select('topic_id', DB::raw('COUNT(*) as usage_count'))
             ->groupBy('topic_id')
@@ -37,17 +29,16 @@ class TopicController extends Controller
             return response()->json(['message' => 'No topics found'], 404);
         }
 
-        return response()->json([
-            'data' => $topics
-        ]);
+        // Para cada topic_id, obtenemos el modelo Topic con su uso
+        $fullTopics = $topics->map(function ($row) {
+            $topic = Topic::find($row->topic_id);
+            $topic->usage_count = $row->usage_count;
+            return $topic;
+        });
+
+        return TopicResource::collection($fullTopics);
     }
 
-    /**
-     * Crear un nuevo topic.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\JsonResponse
-     */
     public function store(Request $request)
     {
         $request->validate([
@@ -58,34 +49,18 @@ class TopicController extends Controller
             'name' => $request->name,
         ]);
 
-        return response()->json([
-            'message' => 'Topic created successfully',
-            'data' => $topic
-        ], 201);
+        return (new TopicResource($topic))
+            ->additional(['message' => 'Topic created successfully'])
+            ->response()
+            ->setStatusCode(201);
     }
 
-    /**
-     * Mostrar un topic específico.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\JsonResponse
-     */
     public function show($id)
     {
         $topic = Topic::findOrFail($id);
-
-        return response()->json([
-            'data' => $topic
-        ]);
+        return new TopicResource($topic);
     }
 
-    /**
-     * Actualizar un topic.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\JsonResponse
-     */
     public function update(Request $request, $id)
     {
         $request->validate([
@@ -97,18 +72,10 @@ class TopicController extends Controller
             'name' => $request->name,
         ]);
 
-        return response()->json([
-            'message' => 'Topic updated successfully',
-            'data' => $topic
-        ]);
+        return (new TopicResource($topic))
+            ->additional(['message' => 'Topic updated successfully']);
     }
 
-    /**
-     * Eliminar un topic.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\JsonResponse
-     */
     public function destroy($id)
     {
         $topic = Topic::findOrFail($id);
@@ -119,16 +86,10 @@ class TopicController extends Controller
         ]);
     }
 
-    /**
-     * Obtener los posts asociados a un topic.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\JsonResponse
-     */
     public function posts($id)
     {
         $topic = Topic::findOrFail($id);
-        $posts = $topic->posts;
+        $posts = $topic->posts; // Si quieres, puedes hacer también un PostResource aquí
 
         return response()->json([
             'data' => $posts
