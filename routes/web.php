@@ -4,7 +4,7 @@ use App\Http\Controllers\Admin\AdminUserController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\PDFController;
 use App\Http\Controllers\Posts\PostController;
-use App\Http\Controllers\Posts\UserProfileController;
+use App\Http\Controllers\UserProfileController;
 use App\Livewire\Posts\PostForm;
 use Illuminate\Support\Facades\Route;
 
@@ -23,11 +23,14 @@ Route::middleware(['auth', 'admin'])->get('/admin/users', [AdminUserController::
 Route::middleware('auth')->group(function () {
     Route::get('/{user}/edit', [UserProfileController::class, 'edit'])->name('userprofile.edit');
     Route::patch('/{user}/update', [UserProfileController::class, 'update'])->name('userprofile.update');
+    Route::post('/profile/upload-photo', [UserProfileController::class, 'uploadPhoto'])->name('profile.upload-photo');
 
     Route::post('/post.store',[PostController::class, 'store'])->name('post.store');
     Route::post('/{post}/show.store',[PostController::class, 'storeResponse'])->name('post.show.store');
     Route::post('/{post}/like', [PostController::class, 'like'])->name('post.like');
     Route::delete('/{post}/destroy', [PostController::class, 'destroy'])->name('post.destroy');
+
+
 
     Route::post('/upload', [PostForm::class, 'upload'])->name('posts.upload');
 

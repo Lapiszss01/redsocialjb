@@ -15,8 +15,9 @@
         {{__('Download Posts as PDF')}}
     </x-dropdown-link>
 
-    <x-dropdown-link :href="route('userprofile.edit', ['user' => $user])">
-        {{__('edit profile')}}
-    </x-dropdown-link>
-
+    @if(auth()->id() == $user->id)
+        <x-dropdown-link :href="route('userprofile.edit', ['user' => $user])">
+            {{__('edit profile')}}
+        </x-dropdown-link>
+    @endif
 </x-slot>

@@ -5,6 +5,20 @@
         </h2>
     </header>
 
+    {{-- DROPZONE FUERA del <form> principal --}}
+    <div>
+        <x-input-label for="profile_photo" :value="__('Profile Photo')" />
+
+        <form action="{{ route('profile.upload-photo') }}"
+              class="dropzone mt-2 border border-dashed border-gray-400 rounded-md p-4"
+              id="profilePhotoDropzone"
+              enctype="multipart/form-data">
+            @csrf
+        </form>
+
+
+    </div>
+
     <form method="post" action="{{ route('userprofile.update', $user) }}" class="mt-6 space-y-6">
         @csrf
         @method('patch')
@@ -38,3 +52,65 @@
         </div>
     </form>
 </section>
+
+<!-- Dropzone -->
+<link rel="stylesheet" href="https://unpkg.com/dropzone@5/dist/min/dropzone.min.css" />
+<script src="https://unpkg.com/dropzone@5/dist/min/dropzone.min.js"></script>
+
+<script>
+    Dropzone.options.profilePhotoDropzone = {
+        url: "{{ route('profile.upload-photo') }}",
+        paramName: 'file',
+        maxFilesize: 2, // MB
+        acceptedFiles: 'image/*',
+        maxFiles: 1,
+        addRemoveLinks: true,
+        headers: {
+            'X-CSRF-TOKEN': "{{ csrf_token() }}"
+        },
+        init: function () {
+            var dropzone = this;
+
+            // Aquí cargamos la imagen existente (si la hay)
+            @if ($user->profile_photo)
+            // Simulamos un archivo "mock"
+            var mockFile = {
+                name: "Current Profile Photo",
+                size: 12345, // puedes poner un tamaño arbitrario
+                type: 'image/jpeg',
+                accepted: true
+            };
+
+            // Agregamos el mock file a Dropzone
+            dropzone.emit("addedfile", mockFile);
+            dropzone.emit("thumbnail", mockFile, "{{ Storage::url($user->profile_photo) }}");
+            dropzone.emit("complete", mockFile);
+
+            // Evitamos que el mock file se pueda subir o eliminar mal
+            dropzone.files.push(mockFile);
+            @endif
+
+            // Limitar a un archivo
+            this.on("maxfilesexceeded", function(file) {
+                dropzone.removeAllFiles();
+                dropzone.addFile(file);
+            });
+
+            this.on("success", function(file, response) {
+                console.log('Foto subida:', response.path);
+
+                // Actualizamos la imagen en preview (eliminamos la anterior)
+                dropzone.removeAllFiles();
+                dropzone.emit("addedfile", file);
+                dropzone.emit("thumbnail", file, response.path);
+                dropzone.emit("complete", file);
+                dropzone.files.push(file);
+            });
+
+            this.on("removedfile", function(file) {
+                // Aquí podrías manejar la eliminación en backend si quieres
+                console.log("Archivo eliminado");
+            });
+        }
+    };
+</script>
