@@ -52,7 +52,6 @@ class UserRoleManager extends Component
             'password' => Hash::make($this->password),
             'role_id' => 1,
             'terms_accepted_at' => now(),
-            'pdf_terms_accepted_at' => now(),
         ]);
         session()->flash('message', 'Usuario creado correctamente.');
         $this->creatingUser = false;

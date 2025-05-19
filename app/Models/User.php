@@ -28,7 +28,7 @@ class User extends Authenticatable
         'biography',
         'role_id',
         'terms_accepted_at',
-        'pdf_terms_accepted_at'
+
 
     ];
 

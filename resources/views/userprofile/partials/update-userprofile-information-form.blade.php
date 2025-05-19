@@ -71,26 +71,22 @@
         init: function () {
             var dropzone = this;
 
-            // Aquí cargamos la imagen existente (si la hay)
             @if ($user->profile_photo)
-            // Simulamos un archivo "mock"
+
             var mockFile = {
                 name: "Current Profile Photo",
-                size: 12345, // puedes poner un tamaño arbitrario
+                size: 12345,
                 type: 'image/jpeg',
                 accepted: true
             };
 
-            // Agregamos el mock file a Dropzone
             dropzone.emit("addedfile", mockFile);
             dropzone.emit("thumbnail", mockFile, "{{ Storage::url($user->profile_photo) }}");
             dropzone.emit("complete", mockFile);
 
-            // Evitamos que el mock file se pueda subir o eliminar mal
             dropzone.files.push(mockFile);
             @endif
 
-            // Limitar a un archivo
             this.on("maxfilesexceeded", function(file) {
                 dropzone.removeAllFiles();
                 dropzone.addFile(file);
@@ -99,7 +95,6 @@
             this.on("success", function(file, response) {
                 console.log('Foto subida:', response.path);
 
-                // Actualizamos la imagen en preview (eliminamos la anterior)
                 dropzone.removeAllFiles();
                 dropzone.emit("addedfile", file);
                 dropzone.emit("thumbnail", file, response.path);
@@ -108,7 +103,6 @@
             });
 
             this.on("removedfile", function(file) {
-                // Aquí podrías manejar la eliminación en backend si quieres
                 console.log("Archivo eliminado");
             });
         }

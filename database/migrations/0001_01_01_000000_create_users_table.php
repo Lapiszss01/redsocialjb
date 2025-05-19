@@ -21,7 +21,6 @@ return new class extends Migration
             $table->string('profile_photo')->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->timestamp('terms_accepted_at')->nullable();
-            $table->timestamp('pdf_terms_accepted_at')->nullable();
             $table->string('password');
             $table->rememberToken();
             $table->timestamps();

@@ -49,29 +49,7 @@ it('requires valid email and unique username', function () {
     $response->assertSessionHasErrors(['email', 'username']);
 });
 
-it('can accept pdf terms optionally', function () {
-    $response = post(route('register'), [
-        'name' => 'Jane Doe',
-        'username' => 'janedoe',
-        'email' => 'jane@example.com',
-        'password' => 'password123',
-        'password_confirmation' => 'password123',
-        'terms' => 'on',
-        'pdfTerms' => 'on',
-    ]);
 
-    $response->assertRedirect(route('home'));
-
-    $this->assertDatabaseHas('users', [
-        'name' => 'Jane Doe',
-        'username' => 'janedoe',
-        'email' => 'jane@example.com',
-    ]);
-
-    $user = User::where('email', 'jane@example.com')->first();
-    expect($user->terms_accepted_at)->not->toBeNull();
-    expect($user->pdf_terms_accepted_at)->not->toBeNull();
-});
 
 
 

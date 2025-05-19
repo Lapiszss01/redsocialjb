@@ -41,7 +41,6 @@ class RegisteredUserController extends Controller
             'password' => Hash::make($request->password),
             'role_id' => 3,
             'terms_accepted_at' => $request->has('terms') ? now() : null,
-            'pdf_terms_accepted_at' => $request->has('pdfTerms') ? now() : null,
         ]);
 
         event(new Registered($user));
