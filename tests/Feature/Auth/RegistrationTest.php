@@ -7,11 +7,13 @@ test('registration screen can be rendered', function () {
     $response->assertStatus(200);
 });
 
+use App\Mail\UserNewMail;
 use App\Models\Role;
 
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 use function Pest\Laravel\get;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Support\Facades\Event;
@@ -50,6 +52,30 @@ it('requires valid email and unique username', function () {
 });
 
 
+it('sends an email when a user is registered successfully', function () {
+    Mail::fake();
+
+    $response = post(route('register'), [
+        'name' => 'Jane Doe',
+        'username' => 'janedoe',
+        'email' => 'jane@example.com',
+        'password' => 'password123',
+        'password_confirmation' => 'password123',
+        'terms' => 'on',
+    ]);
+
+    $response->assertRedirect(route('home'));
+
+    Mail::assertSent(UserNewMail::class, function ($mail) {
+        return $mail->hasTo('jane@example.com') &&
+            $mail->user->username === 'janedoe';
+    });
+
+    $this->assertDatabaseHas('users', [
+        'email' => 'jane@example.com',
+        'username' => 'janedoe',
+    ]);
+});
 
 
 

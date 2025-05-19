@@ -14,33 +14,32 @@ use function Pest\Laravel\actingAs;
 
 uses(RefreshDatabase::class);
 
-it('dispatches the PostDeletedByAdmin event when an admin deletes a post', function () {
-    Event::fake();
+it('sends an email when a post with user is deleted', function () {
+    Mail::fake();
+    Log::shouldReceive('info')->once();
 
-    $admin = User::factory()->create(['role_id' => 1]);
-    $postOwner = User::factory()->create();
-    $post = Post::factory()->create(['user_id' => $postOwner->id]);
+    $user = User::factory()->create();
+    $post = Post::factory()->for($user)->create();
 
-    actingAs($admin);
+    $event = new PostDeletedByAdmin($post);
 
-    event(new PostDeletedByAdmin($post));
+    (new SendPostDeletedNotification)->handle($event);
 
-    Event::assertDispatched(PostDeletedByAdmin::class, function ($event) use ($post) {
-        return $event->post->id === $post->id;
+    Mail::assertSent(PostDeletedMail::class, function ($mail) use ($user) {
+        return $mail->hasTo($user->email);
     });
 });
 
-it('sends an email when a post is deleted by an admin', function () {
+it('does not send an email when post has no user', function () {
     Mail::fake();
+    Log::shouldReceive('info')->never();
 
+    $post = Post::factory()->make(['user_id' => null]);
+    $post->setRelation('user', null);
 
-    $postOwner = User::factory()->create(['email' => 'test@example.com']);
-    $post = Post::factory()->create(['user_id' => $postOwner->id]);
+    $event = new PostDeletedByAdmin($post);
 
-    event(new PostDeletedByAdmin($post));
+    (new SendPostDeletedNotification)->handle($event);
 
-    Mail::assertSent(PostDeletedMail::class, function ($mail) use ($postOwner, $post) {
-        return $mail->hasTo($postOwner->email) &&
-            $mail->post->id === $post->id;
-    });
+    Mail::assertNothingSent();
 });

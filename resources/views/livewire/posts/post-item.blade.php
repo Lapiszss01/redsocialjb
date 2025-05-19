@@ -3,6 +3,7 @@
     <div class="bg-white flex flex-col justify-between p-6">
         <div class="text-xl leading-tight text-slate-800 dark:text-slate-200 flex justify-between">
             <div class="flex items-center space-x-2">
+                @if($post->user->profile_photo)
                 <div class="w-8 h-8 rounded-full overflow-hidden border border-gray-300 dark:border-gray-600">
                     <img
                         src="{{ $post->user->profile_photo ? Storage::url($post->user->profile_photo) : asset('images/default-profile.png') }}"
@@ -10,7 +11,7 @@
                         class="object-cover w-full h-full"
                     >
                 </div>
-
+                @endif
                 <p class="text-sm text-gray-700 dark:text-gray-300">
                     <a href="{{ route('profile', $post->user->username) }}" class="font-semibold hover:text-gray-800">
                         {{ $post->user->name }}

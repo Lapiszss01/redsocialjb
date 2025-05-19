@@ -6,6 +6,7 @@
     <div class="mx-auto mt-4 max-w-6xl bg-white p-4 rounded">
         <div>
             <div class="text-3xl leading-tight text-slate-800 dark:text-slate-200 flex justify-between">
+                @if($user->profile_photo)
                 <div class="w-40 h-40 rounded-full overflow-hidden border border-gray-300 dark:border-gray-600">
                     <img
                         src="{{ $user->profile_photo ? Storage::url($user->profile_photo) : asset('images/default-profile.png') }}"
@@ -13,6 +14,7 @@
                         class="object-cover w-full h-full"
                     >
                 </div>
+                @endif
                 <div>
                     {{$user->name}}
                     <span class="text-2xl text-gray-700">
