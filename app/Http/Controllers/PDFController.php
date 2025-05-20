@@ -65,6 +65,7 @@ class PDFController extends Controller
             'avgCommentsPerPost'
         ));
 
-        return $pdf->download('pdf.pdf-page-analysis');
+
+        return $pdf->download('pdf.pdf-page-analysis.pdf');
     }
 }

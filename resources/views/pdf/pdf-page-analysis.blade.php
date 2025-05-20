@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Análisis General del Blog</title>
+    <title>{{ __('Blog General Analysis') }}</title>
     <style>
         body { font-family: DejaVu Sans, sans-serif; }
         .container { width: 100%; padding: 20px; }
@@ -14,20 +14,20 @@
 </head>
 <body>
 <div class="container">
-    <h1>Análisis General del Blog</h1>
+    <h1>{{ __('Blog General Analysis') }}</h1>
 
     <div class="stats">
-        <p><strong>Total de usuarios:</strong> {{ $totalUsers }}</p>
-        <p><strong>Total de posts (incluyendo comentarios):</strong> {{ $totalPosts }}</p>
-        <p><strong>Total de posts principales:</strong> {{ $totalMainPosts }}</p>
-        <p><strong>Total de comentarios:</strong> {{ $totalComments }}</p>
-        <p><strong>Promedio de comentarios por post:</strong> {{ $avgCommentsPerPost }}</p>
-        <p><strong>Total de temas:</strong> {{ $totalTopics }}</p>
+        <p><strong>{{ __('Total users') }}:</strong> {{ $totalUsers }}</p>
+        <p><strong>{{ __('Total posts (including comments)') }}:</strong> {{ $totalPosts }}</p>
+        <p><strong>{{ __('Total main posts') }}:</strong> {{ $totalMainPosts }}</p>
+        <p><strong>{{ __('Total comments') }}:</strong> {{ $totalComments }}</p>
+        <p><strong>{{ __('Average comments per post') }}:</strong> {{ $avgCommentsPerPost }}</p>
+        <p><strong>{{ __('Total topics') }}:</strong> {{ $totalTopics }}</p>
     </div>
 
-    <h2>Top Usuarios por Cantidad de Posts</h2>
+    <h2>{{ __('Top users by post count') }}</h2>
     <table>
-        <thead><tr><th>Usuario</th><th>Posts</th></tr></thead>
+        <thead><tr><th>{{ __('User') }}</th><th>{{ __('Posts') }}</th></tr></thead>
         <tbody>
         @foreach($topUsers as $user)
             <tr><td>{{ $user->username }}</td><td>{{ $user->posts->count() }}</td></tr>
@@ -35,9 +35,9 @@
         </tbody>
     </table>
 
-    <h2>Topics Más Usados</h2>
+    <h2>{{ __('Most used topics') }}</h2>
     <table>
-        <thead><tr><th>Tema</th><th>Posts</th></tr></thead>
+        <thead><tr><th>{{ __('Topic') }}</th><th>{{ __('Posts') }}</th></tr></thead>
         <tbody>
         @foreach($topTopics as $topic)
             <tr><td>{{ $topic->name }}</td><td>{{ $topic->posts->count() }}</td></tr>
@@ -45,9 +45,9 @@
         </tbody>
     </table>
 
-    <h2>Posts Más Likeados</h2>
+    <h2>{{ __('Most liked posts') }}</h2>
     <table>
-        <thead><tr><th>Post</th><th>Autor</th><th>Likes</th></tr></thead>
+        <thead><tr><th>{{ __('Post') }}</th><th>{{ __('Author') }}</th><th>{{ __('Likes') }}</th></tr></thead>
         <tbody>
         @foreach($topPosts as $post)
             <tr>
@@ -59,9 +59,9 @@
         </tbody>
     </table>
 
-    <h2>Posts con Más Comentarios</h2>
+    <h2>{{ __('Posts with most comments') }}</h2>
     <table>
-        <thead><tr><th>Post</th><th>Autor</th><th>Comentarios</th></tr></thead>
+        <thead><tr><th>{{ __('Post') }}</th><th>{{ __('Author') }}</th><th>{{ __('Comments') }}</th></tr></thead>
         <tbody>
         @foreach($mostCommentedPosts as $post)
             <tr>

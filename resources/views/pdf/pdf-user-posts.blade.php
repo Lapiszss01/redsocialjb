@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Posts de {{ $user->username }}</title>
+    <title>Posts {{ $user->username }}</title>
     <style>
         body { font-family: DejaVu Sans, sans-serif; }
         .container { width: 100%; padding: 20px; }
@@ -19,14 +19,14 @@
 </head>
 <body>
 <div class="container">
-    <h1>Posts de {{ $user->username }}</h1>
+    <h1>Posts {{ $user->username }}</h1>
 
     @foreach ($posts as $post)
         <div class="post">
             <p>{{ $post->body }}</p>
-            <p><strong>Fecha:</strong> {{ $post->created_at->format('d/m/Y') }}</p>
-            <p><strong>Likes:</strong> {{ $post->likes->count() }}</p>
-            <p><strong>Comentarios:</strong> {{ $post->children->count() }}</p>
+            <p><strong>{{__('Publish date')}}:</strong> {{ $post->created_at->format('d/m/Y') }}</p>
+            <p><strong>{{__('Likes')}}:</strong> {{ $post->likes->count() }}</p>
+            <p><strong>{{__('Comments')}}:</strong> {{ $post->children->count() }}</p>
 
             @if ($post->image_url)
                 <img src="{{ public_path('storage/' . $post->image_url) }}" alt="Imagen del post">
