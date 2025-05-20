@@ -26,9 +26,10 @@ class PostSeeder extends Seeder
                     $topics->random(rand(1, 3))->pluck('id')->toArray()
                 );
 
-                Post::factory(2)->create([
+                Post::factory(rand(1, 2))->create([
                     'parent_id' => $post->id,
                     'user_id' => $post->user_id,
+                    'image_url' => null,
                 ]);
             });
         });

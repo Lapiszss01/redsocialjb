@@ -1,5 +1,6 @@
 <?php
 
+use App\Events\PostCommented;
 use App\Events\PostDeletedByAdmin;
 use App\Listeners\SendPostDeletedNotification;
 use App\Mail\PostDeletedMail;
@@ -13,6 +14,24 @@ use function Pest\Laravel\actingAs;
 
 
 uses(RefreshDatabase::class);
+
+
+it('dispatches the PostLiked event when a post is commented', function () {
+    Event::fake();
+
+    $actor = User::factory()->create();
+    $postOwner = User::factory()->create();
+    $post = Post::factory()->create(['user_id' => $postOwner->id]);
+
+    actingAs($actor);
+
+    event(new PostCommented($post, $actor));
+
+    Event::assertDispatched(PostCommented::class, function ($event) use ($post, $actor) {
+        return $event->post->id === $post->id && $event->actor->id === $actor->id;
+    });
+});
+
 
 it('sends an email when a post with user is deleted', function () {
     Mail::fake();
