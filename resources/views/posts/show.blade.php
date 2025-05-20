@@ -1,5 +1,5 @@
 <x-app-layout :meta-title="$post->title" :meta-description="$post->body">
-    <div class="mx-auto mt-4 max-w-6xl">
+    <div class="mx-auto mt-4 max-w-6xl bg-white">
         <livewire:posts.post-item :post="$post" :key="$post->id" />
         <livewire:posts.post-form :parentpost="$post"/>
     </div>

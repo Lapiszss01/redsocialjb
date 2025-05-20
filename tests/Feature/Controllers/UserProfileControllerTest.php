@@ -4,6 +4,7 @@ use App\Models\Post;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Storage;
 use Inertia\Testing\AssertableInertia as Assert;
 use function Pest\Laravel\actingAs;
 
@@ -86,4 +87,50 @@ it('updates user profile data', function () {
     $response->assertRedirect(route('profile', 'newuser'));
     $response->assertSessionHas('status', 'Post updated successfully');
     $this->assertDatabaseHas('users', ['id' => $user->id, 'username' => 'newuser', 'email' => 'newemail@example.com']);
+});
+
+it('uploads a profile photo and replaces the old one if exists', function () {
+    // Arrange
+    Storage::fake('public');
+
+    $user = User::factory()->create([
+        'profile_photo' => 'profile-photos/oldphoto.jpg'
+    ]);
+
+    Storage::disk('public')->put('profile-photos/oldphoto.jpg', 'fake content');
+
+    $this->actingAs($user);
+
+    $file = \Illuminate\Http\UploadedFile::fake()->image('newphoto.jpg');
+
+    // Act
+    $response = $this->post(route('profile.upload-photo'), [
+        'file' => $file,
+    ]);
+
+    // Assert
+    $response->assertStatus(200);
+    $response->assertJsonStructure(['path']);
+
+    Storage::disk('public')->assertMissing('profile-photos/oldphoto.jpg');
+    Storage::disk('public')->assertExists("profile-photos/{$file->hashName()}");
+
+    $user->refresh();
+    expect($user->profile_photo)->toBe("profile-photos/{$file->hashName()}");
+});
+
+it('fails to upload if file is not an image', function () {
+    // Arrange
+    $user = User::factory()->create();
+    $this->actingAs($user);
+
+    $invalidFile = \Illuminate\Http\UploadedFile::fake()->create('document.pdf', 100, 'application/pdf');
+
+    // Act
+    $response = $this->post(route('profile.upload-photo'), [
+        'file' => $invalidFile,
+    ]);
+
+    // Assert
+    $response->assertSessionHasErrors('file');
 });
