@@ -20,6 +20,8 @@ class DatabaseSeeder extends Seeder
         $this->call(TopicSeeder::class);
         $this->call(PostSeeder::class);
         $this->call(LikeSeeder::class);
+        $this->call(NotificationSeeder::class);
+
 
 
     }

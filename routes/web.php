@@ -29,9 +29,6 @@ Route::middleware('auth')->group(function () {
     Route::post('/{post}/show.store',[PostController::class, 'storeResponse'])->name('post.show.store');
     Route::post('/{post}/like', [PostController::class, 'like'])->name('post.like');
     Route::delete('/{post}/destroy', [PostController::class, 'destroy'])->name('post.destroy');
-
-
-
     Route::post('/upload', [PostForm::class, 'upload'])->name('posts.upload');
 
     Route::get('/{user}/notifications]', [NotificationController::class, 'index'])->name('notifications.index');
