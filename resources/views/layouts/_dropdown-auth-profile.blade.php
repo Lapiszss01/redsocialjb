@@ -4,7 +4,7 @@
         @if(Auth::user()->profile_photo)
             <div class="w-8 h-8 rounded-full overflow-hidden border border-gray-300 dark:border-gray-600">
                 <img
-                    src="{{ Auth::user()->profile_photo ? Storage::url(Auth::user()->profile_photo) : asset('images/default-profile.png') }}"
+                    src="{{ Auth::user()->profile_photo ? asset(Auth::user()->profile_photo) : asset('images/default-profile.png') }}"
                     alt="Profile photo"
                     class="object-cover w-full h-full"
                 >

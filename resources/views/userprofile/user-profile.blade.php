@@ -9,7 +9,7 @@
                 @if($user->profile_photo)
                 <div class="w-40 h-40 rounded-full overflow-hidden border border-gray-300 dark:border-gray-600">
                     <img
-                        src="{{ $user->profile_photo ? Storage::url($user->profile_photo) : asset('images/default-profile.png') }}"
+                        src="{{ $user->profile_photo ? asset($user->profile_photo) : asset('images/default-profile.png') }}"
                         alt="Profile photo"
                         class="object-cover w-full h-full"
                     >
@@ -29,6 +29,19 @@
             <p>
                 {{$user->biography}}
             </p>
+
+            @if(Auth::user() && Auth::user()->id === $user->id)
+                <div class="flex">
+                    <form action="{{ route('posts.import') }}" method="POST" enctype="multipart/form-data">
+                        @csrf
+                        <input type="file" name="file" required>
+                        <button type="submit">Importar Posts</button>
+                    </form>
+
+
+                </div>
+            @endif
+
             <div
                 class="mx-auto px-4 mt-8 grid max-w-4xl gap-4 md:grid-cols-1 lg:grid-cols-1"
             >

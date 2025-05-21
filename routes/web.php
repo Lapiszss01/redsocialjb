@@ -30,6 +30,8 @@ Route::middleware('auth')->group(function () {
     Route::post('/{post}/like', [PostController::class, 'like'])->name('post.like');
     Route::delete('/{post}/destroy', [PostController::class, 'destroy'])->name('post.destroy');
 
+    Route::post('/import-posts', [PostController::class, 'importPosts'])->name('posts.import');
+
     Route::get('/{user}/notifications]', [NotificationController::class, 'index'])->name('notifications.index');
 });
 
