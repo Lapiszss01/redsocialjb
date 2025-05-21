@@ -16,7 +16,7 @@
                     <a href="{{ route('profile', $post->user->username) }}" class="font-semibold hover:text-gray-800">
                         {{ $post->user->name }}
                     </a>,
-                    {{ __('Published at') }} {{ $post->created_at }}
+                    {{ __('Published at') }} {{ $post->published_at }}
                 </p>
             </div>
             @auth

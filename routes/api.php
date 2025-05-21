@@ -10,9 +10,8 @@ use function Pest\Laravel\get;
 
 Route::middleware(['api'])->group(function () {
     // Users
-    Route::get('/users', [UserController::class, 'index'])->name('api.users.index');
-    Route::middleware('auth:sanctum')->group(function () {
-        Route::apiResource('users', UserController::class)->except(['index']);
+    Route::middleware(['auth:sanctum'])->group(function () {
+        Route::apiResource('users', UserController::class);
     });
 
     // Topics
@@ -21,7 +20,6 @@ Route::middleware(['api'])->group(function () {
         Route::get('/topics/most-used', [TopicController::class, 'mostUsedTopic']);
         Route::apiResource('topics', TopicController::class)->except(['index']);
     });
-
 
     // Posts
     Route::get('/posts', [PostController::class, 'index'])->name('api.posts.index');

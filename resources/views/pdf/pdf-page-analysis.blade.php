@@ -30,7 +30,15 @@
         <thead><tr><th>{{ __('User') }}</th><th>{{ __('Posts') }}</th></tr></thead>
         <tbody>
         @foreach($topUsers as $user)
-            <tr><td>{{ $user->username }}</td><td>{{ $user->posts->count() }}</td></tr>
+            <tr>
+                <td>
+                    <div class="w-8 h-8 rounded-full overflow-hidden border border-gray-300 dark:border-gray-600">
+                        <img src="{{ $user->profile_photo ? public_path('storage/' . $user->profile_photo) : public_path('images/default-profile.png') }}" alt="Profile photo">
+                    </div>
+                    {{ $user->username }}
+                </td>
+                <td>{{ $user->posts->count() }}</td>
+            </tr>
         @endforeach
         </tbody>
     </table>

@@ -33,7 +33,9 @@
                 class="mx-auto px-4 mt-8 grid max-w-4xl gap-4 md:grid-cols-1 lg:grid-cols-1"
             >
                 @foreach($posts as $post)
-                    <livewire:posts.post-item :post="$post" :key="$post->id" />
+                    @if($post->published_at <= now() || Auth::id() === $user->id)
+                        <livewire:posts.post-item :post="$post" :key="$post->id" />
+                    @endif
                 @endforeach
             </div>
 

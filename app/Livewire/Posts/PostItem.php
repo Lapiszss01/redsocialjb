@@ -59,6 +59,7 @@ class PostItem extends Component
     public function delete()
     {
         $this->authorize('delete', $this->post);
+
         if (auth()->user()->role_id==1) {
             event(new PostDeletedByAdmin($this->post));
             session()->flash('message', 'Post eliminado y usuario notificado.');

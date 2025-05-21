@@ -17,7 +17,6 @@ class Topic extends Model
         return $this->belongsToMany(Post::class, 'post_topic');
     }
 
-    // En el modelo Topic.php
     public function scopeTopTopics($query, $limit = 5)
     {
         return $query->select('topics.name', DB::raw('COUNT(post_topic.post_id) as post_count'))

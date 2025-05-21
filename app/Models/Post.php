@@ -45,15 +45,9 @@ class Post extends Model
         return $query->where('parent_id', $parent_id)->orderBy('created_at', 'desc')->where('published_at', '<=', now());
     }
 
-    /*public function scopeByUser(Builder $query, int $userId): Builder
-    {
-        return $query->where('user_id', $userId);
-    }*/
-
     public function scopePublishedMainPostsByUser($query, $userId)
     {
         return $query->where('user_id', $userId)
-            ->where('published_at', '<=', now())
             ->whereNull('parent_id')
             ->orderBy('created_at', 'desc');
     }
