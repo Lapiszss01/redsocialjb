@@ -11,10 +11,11 @@ class PostsTemplateExport implements FromArray, WithHeadings
     public function headings(): array
     {
         return [
-            'Cuerpo del post',
-            'Fecha de publicación',
+            __('Post body'),
+            __('Publication date'),
             '',
-            'Deberás colocar debajo de los campos la informacion de los posts que quieras crear, con el mismo formato en la fecha.'
+            __('Below the fields, you must place the information of the posts you want to create, with the same date format.'),
+
         ];
     }
 

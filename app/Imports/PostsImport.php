@@ -34,10 +34,8 @@ class PostsImport implements ToModel, WithStartRow, WithValidation, SkipsOnFailu
 
         if ($dateValue) {
             if (is_numeric($dateValue)) {
-                // Convierte número serial Excel a DateTime y luego a Carbon
                 $publishedAt = Carbon::instance(Date::excelToDateTimeObject($dateValue));
             } else {
-                // Aquí manejar si es string fecha (p.ej. "22/05/2025 10:23:52")
                 try {
                     $publishedAt = Carbon::createFromFormat('d/m/Y H:i:s', trim($dateValue));
                 } catch (\Exception $e) {
@@ -80,9 +78,9 @@ class PostsImport implements ToModel, WithStartRow, WithValidation, SkipsOnFailu
     public function customValidationMessages()
     {
         return [
-            '0.required' => 'El cuerpo es obligatorio.',
-            '1.required' => 'El fecha de publicación es obligatoria.',
-            '2.date'     => 'La fecha de publicación debe tener un formato válido.',
+            '0.required' => __('The body is required.'),
+            '1.required' => __('The publication date is required.'),
+            '2.date'     => __('The publication date must have a valid format.'),
         ];
     }
 }

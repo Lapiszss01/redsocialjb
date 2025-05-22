@@ -140,5 +140,28 @@
     "name": "nom",
     "password": "Le mot de passe est incorrect.",
     "of": "de",
-    "to": "à"
+    "to": "à",
+
+    "profile photo": "Photo de profil",
+    "download excel template": "Télécharger le modèle Excel",
+    "select file": "Sélectionner un fichier",
+    "import posts": "Importer des posts",
+    "file required": "Fichier requis",
+    "upload file": "Téléverser un fichier",
+    "select file label": "Sélectionner un fichier",
+    "error": "⚠️ :message",
+    "warning": "Avertissement",
+    "biography": "Biographie",
+    "posts": "Posts",
+    "published": "Publié",
+    "no posts": "Aucun post à afficher",
+
+    "The body is required.": "Le contenu est obligatoire.",
+    "The publication date is required.": "La date de publication est obligatoire.",
+    "The publication date must have a valid format.": "La date de publication doit avoir un format valide.",
+
+    "Post body": "Contenu du post",
+    "Publication date": "Date de publication",
+    "": "",
+    "Below the fields, you must place the information of the posts you want to create, with the same date format.": "Sous les champs, vous devez placer les informations des posts que vous souhaitez créer, avec le même format de date."
 }

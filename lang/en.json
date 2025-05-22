@@ -140,5 +140,28 @@
     "name": "name",
     "password": "The password is incorrect.",
     "of": "of",
-    "to": "to"
+    "to": "to",
+
+    "profile photo": "Profile photo",
+    "download excel template": "Download Excel Template",
+    "select file": "Select file",
+    "import posts": "Import Posts",
+    "file required": "File required",
+    "upload file": "Upload file",
+    "select file label": "Select file",
+    "error": "⚠️ :message",
+    "warning": "Warning",
+    "biography": "Biography",
+    "posts": "Posts",
+    "published": "Published",
+    "no posts": "No posts to display",
+
+    "The body is required.": "The body is required.",
+    "The publication date is required.": "The publication date is required.",
+    "The publication date must have a valid format.": "The publication date must have a valid format.",
+
+    "Post body": "Post body",
+    "Publication date": "Publication date",
+    "": "",
+    "Below the fields, you must place the information of the posts you want to create, with the same date format.": "Below the fields, you must place the information of the posts you want to create, with the same date format."
 }
