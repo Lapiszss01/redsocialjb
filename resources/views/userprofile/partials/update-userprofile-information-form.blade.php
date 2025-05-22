@@ -81,7 +81,7 @@
             };
 
             dropzone.emit("addedfile", mockFile);
-            dropzone.emit("thumbnail", mockFile, "{{ Storage::url($user->profile_photo) }}");
+            dropzone.emit("thumbnail", mockFile, "{{ asset($user->profile_photo)}}");
             dropzone.emit("complete", mockFile);
 
             dropzone.files.push(mockFile);

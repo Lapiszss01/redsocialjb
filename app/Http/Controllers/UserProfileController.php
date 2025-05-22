@@ -2,11 +2,17 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\PostsTemplateExport;
+use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UpdateUserprofileRequest;
+use App\Imports\PostsImport;
 use App\Models\Post;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
+use Maatwebsite\Excel\Facades\Excel;
+use Maatwebsite\Excel\Validators\ValidationException;
 
 class UserProfileController extends Controller
 {
@@ -50,5 +56,43 @@ class UserProfileController extends Controller
             ->with('status', 'Post updated successfully');
     }
 
+    public function importPosts(Request $request)
+    {
+        $request->validate([
+            'file' => 'required|file|mimes:xlsx,csv,xls',
+        ]);
+
+        $import = new PostsImport();
+
+        try {
+            Excel::import($import, $request->file('file'));
+
+            if ($import->failures()->isNotEmpty()) {
+                $errores = [];
+
+                foreach ($import->failures() as $failure) {
+                    $errores[] = 'Fila ' . $failure->row() . ': ' . implode(', ', $failure->errors());
+                }
+
+                return back()
+                    ->withErrors($errores)
+                    ->with('warning', 'Algunas filas tienen errores de validación.');
+            }
+
+            return back()->with('success', '¡Posts importados correctamente!');
+        } catch (ValidationException $e) {
+            Log::error('Error en la importación del Excel: ' . $e->getMessage());
+
+            return back()
+                ->withErrors(['file' => 'Hubo un error al procesar el archivo Excel. Revisa el formato.'])
+                ->with('error', 'Error en la importación.');
+        } catch (\Exception $e) {
+            Log::error('Error general en importación: ' . $e->getMessage());
+
+            return back()
+                ->withErrors(['file' => 'Algo salió mal al procesar el archivo.'])
+                ->with('error', 'Error inesperado.');
+        }
+    }
 }
 

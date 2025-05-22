@@ -1,7 +1,5 @@
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
 
-
-
 <x-app-layout meta-title="Inicio" meta-description="Descripción de la página de Inicio">
     <div class="mx-auto mt-4 max-w-6xl bg-white p-4 rounded">
         <div>
@@ -31,15 +29,50 @@
             </p>
 
             @if(Auth::user() && Auth::user()->id === $user->id)
-                <div class="flex">
-                    <form action="{{ route('posts.import') }}" method="POST" enctype="multipart/form-data">
+                <div class="gap-x-4 items-center">
+
+                    <div class="h-10 flex items-center my-2">
+                        <a href="{{ route('posts.template.download') }}"
+                           class="inline-flex items-center justify-center bg-blue-500 hover:bg-blue-600 text-white px-4 my-2 rounded text-sm leading-none h-full">
+                            Descargar Plantilla Excel
+                        </a>
+                    </div>
+
+                    <form action="{{ route('posts.import') }}" method="POST" enctype="multipart/form-data" class="flex items-center gap-2 y-10 py-2 ">
                         @csrf
-                        <input type="file" name="file" required>
-                        <button type="submit">Importar Posts</button>
+
+                        <!-- Input oculto -->
+                        <input type="file" name="file" id="file-upload" class="hidden" required onchange="document.getElementById('import-btn').disabled = false">
+
+                        <!-- Label estilizado -->
+                        <label for="file-upload"
+                               class="inline-flex items-center justify-center bg-gray-200 hover:bg-gray-300 text-gray-800 px-4 py-2 rounded text-sm leading-none h-full cursor-pointer">
+                            Seleccionar archivo
+                        </label>
+
+                        <!-- Botón enviar -->
+                        <button type="submit" id="import-btn" disabled
+                                class="inline-flex items-center justify-center bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded text-sm leading-none h-full">
+                            Importar Posts
+                        </button>
                     </form>
 
-
                 </div>
+                @if ($errors->any())
+                    <div class="bg-red-100 text-red-800 p-4 rounded mb-4">
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                                <li>⚠️ {{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
+
+                @if (session('warning'))
+                    <div class="bg-yellow-100 text-yellow-800 p-4 rounded mb-4">
+                        {{ session('warning') }}
+                    </div>
+                @endif
             @endif
 
             <div
