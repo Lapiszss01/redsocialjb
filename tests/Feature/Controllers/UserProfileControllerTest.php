@@ -6,7 +6,11 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Storage;
 use Inertia\Testing\AssertableInertia as Assert;
+use Maatwebsite\Excel\Validators\Failure;
 use function Pest\Laravel\actingAs;
+use Illuminate\Http\UploadedFile;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Imports\PostsImport;
 
 uses(RefreshDatabase::class);
 
@@ -133,4 +137,40 @@ it('fails to upload if file is not an image', function () {
 
     // Assert
     $response->assertSessionHasErrors('file');
+});
+
+it('imports posts successfully with no validation errors', function () {
+    Storage::fake('local');
+    Excel::fake();
+
+    $user = User::factory()->create();
+    actingAs($user);
+
+    $file = UploadedFile::fake()->create('posts.xlsx');
+
+    $response = $this->post(route('posts.import'), [
+        'file' => $file,
+    ]);
+
+    $response->assertRedirect();
+    $response->assertSessionHas('success', '¡Posts importados correctamente!');
+    Excel::assertImported('posts.xlsx', function ($import) {
+        return $import instanceof PostsImport;
+    });
+});
+
+it('handles unexpected exceptions during import', function () {
+    Excel::shouldReceive('import')->andThrow(new Exception('Explosión inesperada'));
+
+    $user = User::factory()->create();
+    actingAs($user);
+
+    $file = UploadedFile::fake()->create('posts.xlsx');
+
+    $response = $this->post(route('posts.import'), [
+        'file' => $file,
+    ]);
+
+    $response->assertSessionHasErrors(['file' => 'Algo salió mal al procesar el archivo.']);
+    $response->assertSessionHas('error', 'Error inesperado.');
 });
