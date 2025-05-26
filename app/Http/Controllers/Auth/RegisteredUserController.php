@@ -40,6 +40,7 @@ class RegisteredUserController extends Controller
             'email' => $request->email,
             'password' => Hash::make($request->password),
             'role_id' => 3,
+            'profile_photo' => 'images/default.jpg',
             'terms_accepted_at' => $request->has('terms') ? now() : null,
         ]);
 

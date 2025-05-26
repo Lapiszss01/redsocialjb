@@ -15,7 +15,7 @@
         </div>
 
         <div class="bg-white p-4 shadow-md rounded-lg w-full">
-            <livewire:components.listview :title="__('Most used topics')"  :source="'topics'" />
+            <livewire:components.listview :title="__('Most Used Topics')"  :source="'topics'" />
 
             <livewire:components.listview :title="__('Users with most posts')" :source="'users'" />
         </div>

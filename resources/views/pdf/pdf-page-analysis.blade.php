@@ -10,6 +10,7 @@
         th, td { border: 1px solid #ccc; padding: 8px; font-size: 12px; text-align: left; }
         th { background-color: #f2f2f2; }
         .stats { margin-bottom: 20px; font-size: 14px; }
+        img {width: 100px; height: 100px;}
     </style>
 </head>
 <body>
@@ -33,7 +34,7 @@
             <tr>
                 <td>
                     <div class="w-8 h-8 rounded-full overflow-hidden border border-gray-300 dark:border-gray-600">
-                        <img src="{{ $user->profile_photo ? public_path('storage/' . $user->profile_photo) : public_path('images/default-profile.png') }}" alt="Profile photo">
+                        <img src="{{ $user->profile_photo ? public_path('storage/profile-photos/' . basename($user->profile_photo)) : public_path($user->profile_photo) }}" alt="Profile photo">
                     </div>
                     {{ $user->username }}
                 </td>

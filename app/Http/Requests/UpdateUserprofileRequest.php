@@ -24,7 +24,7 @@ class UpdateUserprofileRequest extends FormRequest
         return [
             'name' => ['required', 'string', 'max:255'],
             'username' => ['required', 'string', 'max:255'],
-            'biography' => ['required', 'string', 'max:255'],
+            'biography' => ['nullable', 'string', 'max:255'],
             'email' => ['required', 'string', 'lowercase', 'email', 'max:255'],
         ];
     }

@@ -4,7 +4,7 @@
         <div class="text-xl leading-tight text-slate-800 dark:text-slate-200 flex justify-between">
             <div class="flex items-center space-x-2">
                 @if($post->user->profile_photo)
-                <div class="w-8 h-8 rounded-full overflow-hidden border border-gray-300 dark:border-gray-600">
+                <div class="w-10 h-10 rounded-full overflow-hidden border border-gray-300 dark:border-gray-600">
                     <img
                         src="{{ $post->user->profile_photo ?  asset($post->user->profile_photo) : asset('images/default.png') }}"
                         alt="Profile photo"
