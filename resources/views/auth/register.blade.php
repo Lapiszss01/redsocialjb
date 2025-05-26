@@ -48,7 +48,7 @@
 
         <div class="mt-4 flex">
             <livewire:components.checkbox :checked="false" name="terms" />
-            <x-input-label class="ml-4">¿Aceptas los terminos y condiciones?</x-input-label>
+            <x-input-label class="ml-4">{{__("Terms")}}</x-input-label>
             <x-input-error :messages="$errors->get('terms')" class="mt-2" />
         </div>
 

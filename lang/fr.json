@@ -165,5 +165,15 @@
     "Post body": "Contenu du post",
     "Publication date": "Date de publication",
     "": "",
-    "Below the fields, you must place the information of the posts you want to create, with the same date format.": "Sous les champs, vous devez placer les informations des posts que vous souhaitez créer, avec le même format de date."
+    "Below the fields, you must place the information of the posts you want to create, with the same date format.": "Sous les champs, vous devez placer les informations des posts que vous souhaitez créer, avec le même format de date.",
+    "Terms": "Acceptez-vous les termes et conditions?",
+
+    "Row :row: :errors": "Ligne :row: :errors",
+    "Some rows contain validation errors.": "Certaines lignes contiennent des erreurs de validation.",
+    "Posts imported successfully!": "Publications importées avec succès !",
+    "There was an error processing the Excel file. Check the format.": "Une erreur est survenue lors du traitement du fichier Excel. Vérifiez le format.",
+    "Import error.": "Erreur d'importation.",
+    "Something went wrong while processing the file.": "Une erreur s'est produite lors du traitement du fichier.",
+    "Unexpected error.": "Erreur inattendue."
+
 }

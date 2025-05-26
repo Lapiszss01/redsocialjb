@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Exports\PostsTemplateExport;
 use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UpdateUserprofileRequest;
+use App\Http\Requests\UploadPhotoRequest;
 use App\Imports\PostsImport;
 use App\Models\Post;
 use App\Models\User;
@@ -28,12 +29,8 @@ class UserProfileController extends Controller
 
         return view('userprofile/edit', compact('user'));
     }
-    public function uploadPhoto(Request $request)
+    public function uploadPhoto(UploadPhotoRequest $request)
     {
-        $request->validate([
-            'file' => 'required|image|max:2048',
-        ]);
-
         $user = auth()->user();
 
         if ($user->profile_photo) {
@@ -71,28 +68,37 @@ class UserProfileController extends Controller
                 $errores = [];
 
                 foreach ($import->failures() as $failure) {
-                    $errores[] = 'Fila ' . $failure->row() . ': ' . implode(', ', $failure->errors());
+                    $errores[] = __('Row :row: :errors', [
+                        'row' => $failure->row(),
+                        'errors' => implode(', ', $failure->errors()),
+                    ]);
                 }
 
                 return back()
                     ->withErrors($errores)
-                    ->with('warning', 'Algunas filas tienen errores de validación.');
+                    ->with('warning', __('Some rows contain validation errors.'));
             }
 
-            return back()->with('success', '¡Posts importados correctamente!');
+            return back()->with('success', __('Posts imported successfully!'));
         } catch (ValidationException $e) {
             Log::error('Error en la importación del Excel: ' . $e->getMessage());
 
             return back()
-                ->withErrors(['file' => 'Hubo un error al procesar el archivo Excel. Revisa el formato.'])
-                ->with('error', 'Error en la importación.');
+                ->withErrors(['file' => __('There was an error processing the Excel file. Check the format.')])
+                ->with('error', __('Import error.'));
         } catch (\Exception $e) {
             Log::error('Error general en importación: ' . $e->getMessage());
 
             return back()
-                ->withErrors(['file' => 'Algo salió mal al procesar el archivo.'])
-                ->with('error', 'Error inesperado.');
+                ->withErrors(['file' => __('Something went wrong while processing the file.')])
+                ->with('error', __('Unexpected error.'));
         }
+    }
+
+
+    public function downloadTemplate()
+    {
+        return Excel::download(new PostsTemplateExport, 'posts_template.xlsx');
     }
 }
 

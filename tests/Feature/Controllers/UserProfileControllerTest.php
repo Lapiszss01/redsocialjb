@@ -153,7 +153,7 @@ it('imports posts successfully with no validation errors', function () {
     ]);
 
     $response->assertRedirect();
-    $response->assertSessionHas('success', '¡Posts importados correctamente!');
+    $response->assertSessionHas('success', __("Posts imported successfully!"));
     Excel::assertImported('posts.xlsx', function ($import) {
         return $import instanceof PostsImport;
     });
@@ -171,6 +171,6 @@ it('handles unexpected exceptions during import', function () {
         'file' => $file,
     ]);
 
-    $response->assertSessionHasErrors(['file' => 'Algo salió mal al procesar el archivo.']);
-    $response->assertSessionHas('error', 'Error inesperado.');
+    $response->assertSessionHasErrors(['file' => __("Something went wrong while processing the file.")]);
+    $response->assertSessionHas('error', __("Unexpected error."));
 });

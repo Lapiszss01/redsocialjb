@@ -165,5 +165,18 @@
     "Post body": "Post body",
     "Publication date": "Publication date",
     "": "",
-    "Below the fields, you must place the information of the posts you want to create, with the same date format.": "Below the fields, you must place the information of the posts you want to create, with the same date format."
+    "Below the fields, you must place the information of the posts you want to create, with the same date format.": "Below the fields, you must place the information of the posts you want to create, with the same date format.",
+
+    "failed" : "These credentials do not match our records.",
+    "passwordMail" : "The provided password is incorrect.",
+    "throttle" : "Too many login attempts. Please try again in :seconds seconds.",
+    "Terms": "¿Aceptas los terminos y condiciones?",
+
+    "Row :row: :errors": "Row :row: :errors",
+    "Some rows contain validation errors.": "Some rows contain validation errors.",
+    "Posts imported successfully!": "Posts imported successfully!",
+    "There was an error processing the Excel file. Check the format.": "There was an error processing the Excel file. Check the format.",
+    "Import error.": "Import error.",
+    "Something went wrong while processing the file.": "Something went wrong while processing the file.",
+    "Unexpected error.": "Unexpected error."
 }
