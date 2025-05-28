@@ -77,3 +77,31 @@ it('retrieves posts for a topic', function () {
 
     $response->assertStatus(200);
 });
+
+it('retrieves the 10 most used topics', function () {
+    $topics = Topic::factory()->count(3)->create();
+    $user = User::factory()->create();
+    actingAs($user);
+
+    foreach ($topics as $topic) {
+        $topic->posts()->createMany([
+            ['title' => 'Post 1', 'body' => 'Body', 'user_id' => $user->id],
+            ['title' => 'Post 2', 'body' => 'Body', 'user_id' => $user->id],
+        ]);
+    }
+
+    $response = getJson(route('topics.most-used'));
+
+    $response->assertStatus(200)
+        ->assertJsonStructure(['data' => [['id', 'name']]]);
+});
+
+it('returns 404 if no topics are found in mostUsedTopic', function () {
+    $user = User::factory()->create();
+    actingAs($user);
+
+    $response = getJson(route('topics.most-used'));
+
+    $response->assertStatus(404)
+        ->assertJson(['message' => 'No topics found']);
+});

@@ -17,7 +17,7 @@ Route::middleware(['api'])->group(function () {
     // Topics
     Route::get('/topics', [TopicController::class, 'index'])->name('api.topics.index');
     Route::middleware('auth:sanctum')->group(function () {
-        Route::get('/topics/most-used', [TopicController::class, 'mostUsedTopic']);
+        Route::get('/topics/most-used', [TopicController::class, 'mostUsedTopic'])->name('topics.most-used');
         Route::apiResource('topics', TopicController::class)->except(['index']);
     });
 

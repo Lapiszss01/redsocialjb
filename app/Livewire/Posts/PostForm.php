@@ -6,6 +6,7 @@ use App\Http\Requests\StoreOrUpdatePostRequest;
 use App\Models\Notification;
 use App\Models\Post;
 use App\Models\Topic;
+use App\Rules\ForbiddenWordsRule;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -47,9 +48,15 @@ class PostForm extends Component
         $this->authorize('create', Post::class);
         $this->validateOnly('*');
 
+        $rules = (new StoreOrUpdatePostRequest())->rules();
+        if (is_string($rules['body'])) {
+            $rules['body'] = explode('|', $rules['body']);
+        }
+        $rules['body'][] = new ForbiddenWordsRule();
+
         $validated = Validator::make(
             $this->only(['body', 'image', 'published_at']),
-            (new StoreOrUpdatePostRequest())->rules()
+            $rules
         )->validate();
 
         $imagePath = $validated["image"] ? $validated["image"]->store('uploads', 'public') : null;
@@ -91,7 +98,11 @@ class PostForm extends Component
 
         if ($this->parentpost) {
             event(new \App\Events\PostCommented($this->parentpost, $this->user));
+            return null;
+        } else{
+            return $this->redirectRoute('post.show', $post->id);
         }
+
 
     }
 

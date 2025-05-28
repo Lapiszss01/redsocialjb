@@ -37,7 +37,7 @@
 
         <div>
             <x-input-label for="biography" :value="__('Biography')" />
-            <x-textarea-input id="biography" name="biography" type="text" class="mt-1 block w-full" :biography="$user->biography" required autofocus autocomplete="biography" />
+            <x-textarea-input id="biography" name="biography" type="text" class="mt-1 block w-full" :biography="$user->biography" autofocus autocomplete="biography" />
             <x-input-error class="mt-2" :messages="$errors->get('biography')" />
         </div>
 

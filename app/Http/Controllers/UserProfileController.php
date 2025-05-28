@@ -49,6 +49,7 @@ class UserProfileController extends Controller
         $user->update($request->validated());
         $user->save();
 
+
         return to_route('profile', $user->username)
             ->with('status', 'Post updated successfully');
     }

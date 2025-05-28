@@ -37,12 +37,14 @@ class Post extends Model
 
     public function scopeRecent(Builder $query): Builder
     {
-        return $query->whereNull('parent_id')->orderByDesc('created_at')->where('published_at', '<=', now());
+        return $query->whereNull('parent_id')
+            ->orderByDesc('created_at')->where('published_at', '<=', now());
     }
 
     public function scopeRecentChilds(Builder $query, $parent_id): Builder
     {
-        return $query->where('parent_id', $parent_id)->orderBy('created_at', 'desc')->where('published_at', '<=', now());
+        return $query->where('parent_id', $parent_id)
+            ->orderBy('created_at', 'desc')->where('published_at', '<=', now());
     }
 
     public function scopePublishedMainPostsByUser($query, $userId)
