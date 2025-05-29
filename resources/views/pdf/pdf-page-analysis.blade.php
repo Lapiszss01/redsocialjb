@@ -84,7 +84,7 @@
     <table>
         <thead>
         <tr>
-            <th>{{ __('Excerpt') }}</th>
+            <th>{{ __('Body') }}</th>
             <th>{{ __('Author') }}</th>
             <th>{{ __('Likes') }}</th>
             <th>{{ __('Published At') }}</th>
