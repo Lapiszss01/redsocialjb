@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Like;
 use App\Models\Notification;
 use App\Models\Post;
 use App\Models\User;
@@ -12,24 +13,38 @@ class NotificationSeeder extends Seeder
 {
     public function run()
     {
-        $users = User::all();
-        $posts = Post::all();
-
-        $notificationsToCreate = 20;
-        $relationTypes = ['like', 'comment'];
-
-        for ($i = 0; $i < $notificationsToCreate; $i++) {
-            $post = $posts->random();
-            $actor = $users->where('id', '!=', $post->user_id)->random();
-            $relationType = $relationTypes[array_rand($relationTypes)];
+        $likes = Like::all();
+        foreach ($likes as $like) {
+            $post = Post::find($like->post_id);
+            if (!$post || $like->user_id === $post->user_id) {
+                continue;
+            }
 
             $notification = Notification::create([
                 'post_id' => $post->id,
-                'actor_id' => $actor->id,
+                'actor_id' => $like->user_id,
             ]);
 
             $notification->users()->attach($post->user_id, [
-                'relation_type' => $relationType,
+                'relation_type' => 'like',
+                'is_read' => false,
+            ]);
+        }
+
+        $comments = Post::where('parent_id', '!=', 0)->get();
+        foreach ($comments as $comment) {
+            $parentPost = Post::find($comment->parent_id);
+            if (!$parentPost || $comment->user_id === $parentPost->user_id) {
+                continue;
+            }
+
+            $notification = Notification::create([
+                'post_id' => $comment->id,
+                'actor_id' => $comment->user_id,
+            ]);
+
+            $notification->users()->attach($parentPost->user_id, [
+                'relation_type' => 'comment',
                 'is_read' => false,
             ]);
         }
