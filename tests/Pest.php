@@ -11,11 +11,13 @@
 |
 */
 
+use Illuminate\Foundation\Testing\LazilyRefreshDatabase;
+use Illuminate\Support\Facades\Artisan;
 use App\Models\User;
 use function Pest\Laravel\actingAs;
 
-pest()->extend(Tests\TestCase::class)
-    ->use(Illuminate\Foundation\Testing\RefreshDatabase::class)
+uses(Tests\TestCase::class)
+    ->use(LazilyRefreshDatabase::class)
     ->in('Feature');
 
 /*

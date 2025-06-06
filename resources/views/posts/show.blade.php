@@ -8,6 +8,9 @@
         <div class="bg-white p-4 shadow-md rounded-lg w-full">
             <livewire:posts.post-index :childPosts="$post->children" :post_id="$post->id" />
         </div>
+        <div class="mt-4">
+            {{ $posts->links() }}
+        </div>
     </div>
 
 </x-app-layout>

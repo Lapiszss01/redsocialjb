@@ -18,7 +18,7 @@ class PostController extends Controller
 
     public function show(Post $post)
     {
-        $posts = Post::where('parent_id',$post->id)->orderBy('created_at', 'desc')->get();
+        $posts = Post::where('parent_id',$post->id)->orderBy('created_at', 'desc')->paginate(5);
         return view('posts.show', compact('post','posts'));
     }
 

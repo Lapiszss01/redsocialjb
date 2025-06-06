@@ -9,10 +9,12 @@ use App\Models\User;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Hash;
 use Livewire\Component;
+use Livewire\WithPagination;
 
 class UserRoleManager extends Component
 {
-    public $users;
+    use WithPagination;
+
     public $message = '';
     public $roles;
     public $userRole = [];
@@ -28,11 +30,8 @@ class UserRoleManager extends Component
 
     public function mount()
     {
-        $this->users = User::all();
         $this->roles = \App\Models\Role::all();
-        foreach ($this->users as $user) {
-            $this->userRole[$user->id] = $user->role_id;
-        }
+
     }
 
     public function openUserCreating()
@@ -55,7 +54,7 @@ class UserRoleManager extends Component
         ]);
         session()->flash('message', 'Usuario creado correctamente.');
         $this->creatingUser = false;
-        $this->users = User::all();
+
     }
 
     public function editUser($userId)
@@ -79,7 +78,7 @@ class UserRoleManager extends Component
             $user->email = $this->email;
             $user->save();
             $this->editingUser = false;
-            $this->users = User::all();
+
             session()->flash('message', 'Usuario actualizado correctamente.');
 
         }
@@ -92,7 +91,7 @@ class UserRoleManager extends Component
             $user->posts()->delete();
             $user->delete();
             session()->flash('message', 'Usuario eliminado correctamente.');
-            $this->users = User::all();
+
         }
     }
 
@@ -128,6 +127,9 @@ class UserRoleManager extends Component
 
     public function render()
     {
-        return view('livewire.userprofile.user-role-manager');
+        $users = User::paginate(10);
+        return view('livewire.userprofile.user-role-manager', [
+            'users' => $users,
+        ]);
     }
 }

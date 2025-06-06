@@ -4,34 +4,26 @@ namespace App\Livewire\Posts;
 
 use App\Models\Post;
 use Livewire\Component;
+use Livewire\WithPagination;
 use Livewire\WithFileUploads;
 
 class PostIndex extends Component
 {
-    use WithFileUploads;
+    use WithFileUploads, WithPagination;
 
-    public $posts;
     public $post_id;
-    public $childPosts;
+    public $childPosts = false;
 
-    protected $listeners = ['postUpdated' => 'refreshPosts'];
+    protected $paginationTheme = 'tailwind';
 
-    public function mount()
-    {
-        $this->refreshPosts();
-    }
-
-    public function refreshPosts()
-    {
-        if($this->childPosts){
-            $this->posts = Post::recentChilds($this->post_id)->get();
-        }else {
-            $this->posts =  Post::recent()->get();
-        }
-    }
+    protected $listeners = ['postUpdated' => '$refresh'];
 
     public function render()
     {
-        return view('livewire.posts.post-list');
+        $posts = $this->childPosts
+            ? Post::recentChilds($this->post_id)->paginate(5)
+            : Post::recent()->paginate(5);
+
+        return view('livewire.posts.post-list', compact('posts'));
     }
 }
