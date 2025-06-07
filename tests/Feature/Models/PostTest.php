@@ -3,9 +3,7 @@
 use App\Models\Post;
 use App\Models\User;
 use App\Models\Like;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 
-uses(RefreshDatabase::class);
 
 it('only returns parent posts', function () {
     // Arrange

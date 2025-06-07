@@ -4,11 +4,8 @@ use App\Models\Like;
 use App\Models\Post;
 use App\Models\User;
 use Carbon\Carbon;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Artisan;
 use function Pest\Laravel\artisan;
-
-uses(RefreshDatabase::class);
 
 it('does not show any posts if no posts have been created today', function () {
     $user = User::factory()->create();

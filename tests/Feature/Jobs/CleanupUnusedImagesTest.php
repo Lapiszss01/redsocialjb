@@ -3,11 +3,8 @@
 use App\Jobs\CleanupUnusedImagesJob;
 use App\Models\Post;
 use App\Models\User;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Queue;
-
-uses(RefreshDatabase::class);
 
 it('deletes unused images from storage', function () {
     // Arrange

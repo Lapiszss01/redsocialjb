@@ -2,7 +2,6 @@
 
 use App\Models\Post;
 use App\Models\User;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Storage;
 use Inertia\Testing\AssertableInertia as Assert;
@@ -11,8 +10,6 @@ use function Pest\Laravel\actingAs;
 use Illuminate\Http\UploadedFile;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Imports\PostsImport;
-
-uses(RefreshDatabase::class);
 
 it('returns recent posts in index', function () {
     // Arrange

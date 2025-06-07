@@ -3,7 +3,6 @@
 use App\Http\Resources\UserResource;
 use App\Models\Post;
 use App\Models\User;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Http\Request;
 use Laravel\Sanctum\Sanctum;
 use function Pest\Laravel\getJson;
@@ -11,7 +10,6 @@ use function Pest\Laravel\postJson;
 use function Pest\Laravel\putJson;
 use function Pest\Laravel\deleteJson;
 
-uses(RefreshDatabase::class);
 
 it('gets all posts', function () {
     $user = User::factory()->create();

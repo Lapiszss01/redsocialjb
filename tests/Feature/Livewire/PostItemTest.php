@@ -7,10 +7,7 @@ use App\Models\Post;
 use App\Models\User;
 use App\Models\Like;
 use Illuminate\Console\Scheduling\Event;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Livewire\Livewire;
-
-uses(RefreshDatabase::class);
 
 it('renders post item component correctly', function () {
     $user = User::factory()->create();

@@ -5,9 +5,7 @@ use App\Models\Role;
 use App\Models\User;
 use Illuminate\Support\Facades\Gate;
 use Livewire\Livewire;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use function Pest\Laravel\actingAs;
-uses(RefreshDatabase::class);
 
 it('mounts with userId, roleId, and all roles', function () {
     $user = User::factory()->create();

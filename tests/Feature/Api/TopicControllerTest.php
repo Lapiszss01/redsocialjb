@@ -2,14 +2,11 @@
 
 use App\Models\Topic;
 use App\Models\User;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use function Pest\Laravel\getJson;
 use function Pest\Laravel\postJson;
 use function Pest\Laravel\putJson;
 use function Pest\Laravel\deleteJson;
 use function Pest\Laravel\actingAs;
-
-uses(RefreshDatabase::class);
 
 it('retrieves all topics', function () {
     Topic::factory()->count(3)->create();

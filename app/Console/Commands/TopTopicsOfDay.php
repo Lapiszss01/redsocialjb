@@ -15,14 +15,7 @@ class TopTopicsOfDay extends Command
     {
         $count = (int) $this->argument('count');
 
-        $topTopics = Topic::select('topics.id', 'topics.name', DB::raw('COUNT(*) as usage_count'))
-            ->join('post_topic', 'topics.id', '=', 'post_topic.topic_id')
-            ->join('posts', 'posts.id', '=', 'post_topic.post_id')
-            ->whereDate('posts.created_at', now()->toDateString())
-            ->groupBy('topics.id', 'topics.name')
-            ->orderByDesc('usage_count')
-            ->limit($count)
-            ->get();
+        $topTopics = Topic::topTopicsOfToday($count)->get();
 
         if ($topTopics->isEmpty()) {
             $this->warn('No hay topics utilizados hoy.');

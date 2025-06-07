@@ -6,15 +6,10 @@ use App\Listeners\SendPostDeletedNotification;
 use App\Mail\PostDeletedMail;
 use App\Models\Post;
 use App\Models\User;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Log;
 use function Pest\Laravel\actingAs;
-
-
-uses(RefreshDatabase::class);
-
 
 it('dispatches the PostLiked event when a post is commented', function () {
     Event::fake();

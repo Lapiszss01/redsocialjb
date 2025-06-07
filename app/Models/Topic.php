@@ -26,4 +26,16 @@ class Topic extends Model
             ->limit($limit);
     }
 
+    public function scopeTopTopicsOfToday($query, $limit = 5)
+    {
+        return $query->select('topics.id', 'topics.name', DB::raw('COUNT(*) as usage_count'))
+            ->join('post_topic', 'topics.id', '=', 'post_topic.topic_id')
+            ->join('posts', 'posts.id', '=', 'post_topic.post_id')
+            ->whereDate('posts.created_at', now()->toDateString())
+            ->groupBy('topics.id', 'topics.name')
+            ->orderByDesc('usage_count')
+            ->limit($limit)
+            ;
+    }
+
 }

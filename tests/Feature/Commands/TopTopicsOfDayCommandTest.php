@@ -3,11 +3,8 @@
 use App\Models\Post;
 use App\Models\Topic;
 use App\Models\User;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use function Pest\Laravel\artisan;
 
-
-uses(RefreshDatabase::class);
 
 it('shows the top topics used in posts created today', function () {
     $user = User::factory()->create();

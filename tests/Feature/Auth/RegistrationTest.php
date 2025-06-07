@@ -11,7 +11,6 @@ use App\Mail\UserNewMail;
 use App\Models\Role;
 
 use App\Models\User;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use function Pest\Laravel\get;
@@ -20,8 +19,6 @@ use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Hash;
 use function Pest\Laravel\post;
 
-
-uses(RefreshDatabase::class);
 
 it('renders the registration page', function () {
     $response = get(route('register'));

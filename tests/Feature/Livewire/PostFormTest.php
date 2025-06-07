@@ -4,12 +4,10 @@ use App\Livewire\Posts\PostForm;
 use App\Models\Post;
 use App\Models\Topic;
 use App\Models\User;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
 use Livewire\Livewire;
 
-uses(RefreshDatabase::class);
 
 test('can render post form component', function () {
     Livewire::test(PostForm::class)

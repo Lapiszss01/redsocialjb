@@ -3,9 +3,6 @@
 use App\Models\User;
 use App\Models\Post;
 use App\Models\Notification;
-use Illuminate\Foundation\Testing\RefreshDatabase;
-
-uses(RefreshDatabase::class);
 
 it('creates a notification for a post like', function () {
     $actor = User::factory()->create();

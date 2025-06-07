@@ -3,11 +3,9 @@
 use App\Models\Topic;
 use App\Models\User;
 use App\Models\Post;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Facades\View;
-
-uses(RefreshDatabase::class);
+use function Pest\Laravel\actingAs;
 
 beforeEach(function () {
     Pdf::shouldReceive('download')->andReturn(response('PDF generated', 200));
@@ -57,6 +55,8 @@ it('generates a PDF with page analysis', function () {
 
     $users = User::factory(5)->create();
     $topics = Topic::factory(5)->create();
+
+    actingAs($users[0]);
 
     Post::factory(10)->create([
         'user_id' => $users->random()->id,

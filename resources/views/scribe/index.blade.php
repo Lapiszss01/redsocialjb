@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <title>RedSocialJB API Documentation</title>
+    <title>examen API Documentation</title>
 
     <link href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap" rel="stylesheet">
 
@@ -26,7 +26,7 @@
             </style>
 
     <script>
-        var tryItOutBaseUrl = "http://redsocialjb.test";
+        var tryItOutBaseUrl = "http://examen.test";
         var useCsrf = Boolean();
         var csrfUrl = "/sanctum/csrf-cookie";
     </script>
@@ -133,7 +133,7 @@
     </ul>
 
     <ul class="toc-footer" id="last-updated">
-        <li>Last updated: May 27, 2025</li>
+        <li>Last updated: June 6, 2025</li>
     </ul>
 </div>
 
@@ -143,7 +143,7 @@
         <h1 id="introduction">Introduction</h1>
 <p>Esta es la documentación de tu API. Aquí puedes probar los endpoints.</p>
 <aside>
-    <strong>Base URL</strong>: <code>http://redsocialjb.test</code>
+    <strong>Base URL</strong>: <code>http://examen.test</code>
 </aside>
 <pre><code>This documentation aims to provide all the information you need to work with our API.
 
@@ -170,14 +170,14 @@ You can switch the language used with the tabs at the top right (or from the nav
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request GET \
-    --get "http://redsocialjb.test/api/users" \
+    --get "http://examen.test/api/users" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://redsocialjb.test/api/users"
+    "http://examen.test/api/users"
 );
 
 const headers = {
@@ -297,7 +297,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request POST \
-    "http://redsocialjb.test/api/users" \
+    "http://examen.test/api/users" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json" \
     --data "{
@@ -313,7 +313,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://redsocialjb.test/api/users"
+    "http://examen.test/api/users"
 );
 
 const headers = {
@@ -517,14 +517,14 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request GET \
-    --get "http://redsocialjb.test/api/users/1" \
+    --get "http://examen.test/api/users/1" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://redsocialjb.test/api/users/1"
+    "http://examen.test/api/users/1"
 );
 
 const headers = {
@@ -663,7 +663,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request PUT \
-    "http://redsocialjb.test/api/users/1" \
+    "http://examen.test/api/users/1" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json" \
     --data "{
@@ -679,7 +679,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://redsocialjb.test/api/users/1"
+    "http://examen.test/api/users/1"
 );
 
 const headers = {
@@ -908,14 +908,14 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request DELETE \
-    "http://redsocialjb.test/api/users/1" \
+    "http://examen.test/api/users/1" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://redsocialjb.test/api/users/1"
+    "http://examen.test/api/users/1"
 );
 
 const headers = {
@@ -1055,14 +1055,14 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request GET \
-    --get "http://redsocialjb.test/api/topics" \
+    --get "http://examen.test/api/topics" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://redsocialjb.test/api/topics"
+    "http://examen.test/api/topics"
 );
 
 const headers = {
@@ -1179,14 +1179,14 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request GET \
-    --get "http://redsocialjb.test/api/topics/most-used" \
+    --get "http://examen.test/api/topics/most-used" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://redsocialjb.test/api/topics/most-used"
+    "http://examen.test/api/topics/most-used"
 );
 
 const headers = {
@@ -1312,7 +1312,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request POST \
-    "http://redsocialjb.test/api/topics" \
+    "http://examen.test/api/topics" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json" \
     --data "{
@@ -1323,7 +1323,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://redsocialjb.test/api/topics"
+    "http://examen.test/api/topics"
 );
 
 const headers = {
@@ -1455,14 +1455,14 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request GET \
-    --get "http://redsocialjb.test/api/topics/1" \
+    --get "http://examen.test/api/topics/1" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://redsocialjb.test/api/topics/1"
+    "http://examen.test/api/topics/1"
 );
 
 const headers = {
@@ -1597,7 +1597,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request PUT \
-    "http://redsocialjb.test/api/topics/1" \
+    "http://examen.test/api/topics/1" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json" \
     --data "{
@@ -1608,7 +1608,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://redsocialjb.test/api/topics/1"
+    "http://examen.test/api/topics/1"
 );
 
 const headers = {
@@ -1756,14 +1756,14 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request DELETE \
-    "http://redsocialjb.test/api/topics/1" \
+    "http://examen.test/api/topics/1" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://redsocialjb.test/api/topics/1"
+    "http://examen.test/api/topics/1"
 );
 
 const headers = {
@@ -1885,14 +1885,14 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request GET \
-    --get "http://redsocialjb.test/api/posts" \
+    --get "http://examen.test/api/posts" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://redsocialjb.test/api/posts"
+    "http://examen.test/api/posts"
 );
 
 const headers = {
@@ -2011,14 +2011,14 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request GET \
-    --get "http://redsocialjb.test/api/posts/user/2" \
+    --get "http://examen.test/api/posts/user/2" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://redsocialjb.test/api/posts/user/2"
+    "http://examen.test/api/posts/user/2"
 );
 
 const headers = {
@@ -2156,7 +2156,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request POST \
-    "http://redsocialjb.test/api/posts" \
+    "http://examen.test/api/posts" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json" \
     --data "{
@@ -2171,7 +2171,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://redsocialjb.test/api/posts"
+    "http://examen.test/api/posts"
 );
 
 const headers = {
@@ -2351,14 +2351,14 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request GET \
-    --get "http://redsocialjb.test/api/posts/1" \
+    --get "http://examen.test/api/posts/1" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://redsocialjb.test/api/posts/1"
+    "http://examen.test/api/posts/1"
 );
 
 const headers = {
@@ -2496,7 +2496,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request PUT \
-    "http://redsocialjb.test/api/posts/1" \
+    "http://examen.test/api/posts/1" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json" \
     --data "{
@@ -2510,7 +2510,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://redsocialjb.test/api/posts/1"
+    "http://examen.test/api/posts/1"
 );
 
 const headers = {
@@ -2704,14 +2704,14 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request DELETE \
-    "http://redsocialjb.test/api/posts/1" \
+    "http://examen.test/api/posts/1" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://redsocialjb.test/api/posts/1"
+    "http://examen.test/api/posts/1"
 );
 
 const headers = {

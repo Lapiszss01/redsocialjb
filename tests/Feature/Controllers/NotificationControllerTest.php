@@ -3,10 +3,8 @@
 use App\Models\Post;
 use App\Models\User;
 use App\Models\Notification;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use function Pest\Laravel\actingAs;
 
-uses(RefreshDatabase::class);
 
 it('displays the notifications for a user', function () {
     // Arrange

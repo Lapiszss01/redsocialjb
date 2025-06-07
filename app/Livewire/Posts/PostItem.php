@@ -4,9 +4,11 @@ namespace App\Livewire\Posts;
 
 use App\Events\PostDeletedByAdmin;
 use App\Events\PostLiked;
+use App\Models\Like;
 use App\Models\Notification;
 use App\Models\Post;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 use Livewire\Component;
 
 class PostItem extends Component
@@ -29,7 +31,7 @@ class PostItem extends Component
     public function toggleLike()
     {
 
-        if (!Auth::check()) {
+        if (!Gate::allows('create', Like::class)) {
             return redirect()->route('login');
         }
 

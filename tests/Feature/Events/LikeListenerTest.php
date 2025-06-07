@@ -6,12 +6,9 @@ use App\Listeners\SendLikeNotification;
 use App\Mail\PostLikedMail;
 use App\Models\Post;
 use App\Models\User;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Mail;
 use function Pest\Laravel\actingAs;
-
-uses(RefreshDatabase::class);
 
 it('dispatches the PostLiked event when a post is liked', function () {
     Event::fake();

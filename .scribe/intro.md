@@ -3,7 +3,7 @@
 Esta es la documentación de tu API. Aquí puedes probar los endpoints.
 
 <aside>
-    <strong>Base URL</strong>: <code>http://redsocialjb.test</code>
+    <strong>Base URL</strong>: <code>http://examen.test</code>
 </aside>
 
     This documentation aims to provide all the information you need to work with our API.

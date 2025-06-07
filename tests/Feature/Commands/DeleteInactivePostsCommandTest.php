@@ -3,10 +3,8 @@
 use App\Models\Post;
 use App\Models\User;
 use Carbon\Carbon;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use function Pest\Laravel\artisan;
 
-uses(RefreshDatabase::class);
 
 it('does not delete posts if there are no inactive posts', function () {
     $postOwner = User::factory()->create();

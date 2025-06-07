@@ -2,11 +2,9 @@
 
 use App\Models\User;
 use App\Models\Post;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\Facades\Route;
 
-uses(RefreshDatabase::class);
 
 it('loads the user profile page with posts', function () {
     // Arrange

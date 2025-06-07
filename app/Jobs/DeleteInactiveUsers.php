@@ -18,7 +18,7 @@ class DeleteInactiveUsers
 
     public function handle(): void
     {
-        $months = 6;
+        $months = 12;
         $cutoffDate = Carbon::now()->subMonths($months);
 
         $usersToDelete = User::whereNotIn('id', function ($query) use ($cutoffDate) {

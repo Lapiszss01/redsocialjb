@@ -2,11 +2,9 @@
 
 use App\Models\Post;
 use App\Models\User;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Route;
 use Inertia\Testing\AssertableInertia as Assert;
 
-uses(RefreshDatabase::class);
 
 it('returns recent posts in index', function () {
     // Arrange

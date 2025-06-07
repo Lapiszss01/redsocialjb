@@ -3,9 +3,6 @@
 use App\Models\Post;
 use App\Models\Topic;
 use App\Models\User;
-use Illuminate\Foundation\Testing\RefreshDatabase;
-
-uses(RefreshDatabase::class);
 
 it('can have multiple posts', function () {
     // Arrange
